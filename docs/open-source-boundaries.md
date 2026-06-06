@@ -17,6 +17,12 @@ For the first public release, the concrete demonstration is the Director role. T
 The right story is role-driven execution with hard governance boundaries.
 对外口径强调的是“职位驱动执行 + 硬治理边界”。
 
+Director Angel should be described as an operator of creative tools, not as a replacement for every creative tool.
+It can learn production experience and operate connected external surfaces when authorization, adapters/browser access/Host API tools, policy, and evidence boundaries are present.
+
+Director Angel 应该被描述为创作工具的操作者，而不是所有创作工具的替代品。
+当用户授权、adapter/浏览器访问/Host API 工具、策略和证据边界具备时，它可以学习生产经验并操作已连接的外部创作面。
+
 ## In Scope Today / 当前明确在边界内
 
 Changes are in scope if they preserve all of the following:
@@ -57,6 +63,8 @@ The following must not be described as "Director Angel OS already supports this"
 - a public plugin marketplace or arbitrary runtime plugin download/execution
 - claiming ComfyUI is zero-config or guaranteed to run without a reachable local/cloud service
 - claiming ComfyUI import/export is always lossless, executable, or safe without validation
+- claiming this repository ships official native adapters for every named web platform such as Doubao, Jimeng, or Kling
+- claiming Director Angel replaces external creative tools instead of operating them
 - claiming `moyin-creator` / 魔因漫创 mutation or submit operations run without operator confirmation
 - a heavy UI or full web console
 
@@ -81,7 +89,9 @@ The most accurate public wording today is:
 - Director Angel OS positions the role as the runtime unit: responsibilities, tools, memory, task routing, and evolution rules should move with the role.
 - The current public repository demonstrates those ideas with a Director responsibility set; Director is the first demonstration role, not the product ceiling.
 - Director Angel OS has a governed external tool control plane and adapter registry.
+- Director Angel is the operator of creative tools: it can learn experience, choose tools, operate connected external surfaces, and record evidence under governance.
 - `moyin-creator` / 魔因漫创 and ComfyUI are represented as bounded external providers/adapters with import/export, health, policy, approval, artifact, and degrade boundaries.
+- Platforms such as Doubao, Jimeng, and Kling should be framed as external creative surfaces that require authorized integration, not as bundled official adapters in this release.
 - Plugin support currently means controlled in-repo plugins and governed plugin contracts, not a stable public marketplace.
 - New skill visibility is still bounded by reload.
 - Rollback v1 restores the whole approved snapshot, not individual skills.

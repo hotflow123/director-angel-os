@@ -24,6 +24,62 @@ The important part is: each external capability is represented by a manifest, po
 重点不是“Agent 什么都能调用”。
 重点是：每个外部能力都要有 manifest、策略、健康检查、审批边界、运行状态和证据链。
 
+## Operator, Not Tool Factory / 操作者，不是工具工厂
+
+Director Angel is not trying to rebuild every creative tool.
+It is the operator layer above creative tools.
+
+Director Angel 不是要重造每一个创作工具。
+它是创作工具上方的操作者层。
+
+The system can learn production experience:
+
+- which prompt patterns work on a platform
+- which workflow shape produces usable assets
+- which failures are common
+- which review notes should change the next run
+- which tool should be used for a specific responsibility
+
+系统可以学习生产经验：
+
+- 哪些提示词模式在某个平台有效
+- 哪种工作流更容易产出可用素材
+- 哪些失败会反复出现
+- 哪些审查意见应该影响下一轮
+- 某个职责场景下应该选哪个工具
+
+Then it operates external tools through a governed boundary:
+
+```text
+experience
+  -> bounded operating memory
+  -> role decision
+  -> approved adapter / browser / Host API / handoff
+  -> external creative tool
+  -> evidence
+  -> review
+```
+
+然后它通过受治理边界操作外部工具：
+
+```text
+经验
+  -> 有边界的岗位记忆
+  -> 职位判断
+  -> 受批准的 adapter / 浏览器 / Host API / handoff
+  -> 外部创作工具
+  -> 证据
+  -> 复查
+```
+
+Named examples of external creative surfaces can include `moyin-creator` / 魔因漫创, ComfyUI, Doubao, Jimeng, Kling, and similar web or desktop creation platforms.
+Naming a surface here does not mean this repository ships an official native adapter for that platform today.
+It means the OS model is designed for operating external tools when the user has authorization, an available integration surface, and a reviewable execution path.
+
+外部创作面可以包括 `moyin-creator` / 魔因漫创、ComfyUI、豆包、即梦、可灵，以及类似网页或桌面创作平台。
+这里点名某个平台，不等于当前仓库已经内置该平台的官方原生 adapter。
+它表达的是：当用户具备授权、可用接入面和可复查执行链路时，Director Angel OS 的模型就是为了操作这些外部工具而设计。
+
 ## Included Integration Surfaces / 当前已经包含的集成面
 
 ### Host API External Tool Control Plane / Host API 外部工具控制面
@@ -167,12 +223,16 @@ Boundary:
 Strong and accurate:
 
 - Director Angel OS already has a governed external tool control plane.
+- Director Angel is the operator of creative tools, not a replacement for every creative tool.
 - Director Angel OS can represent external systems such as `moyin-creator` / 魔因漫创 and ComfyUI as bounded providers/adapters, including ComfyUI import/export and workflow interop.
+- Web or software platforms such as Doubao, Jimeng, and Kling belong in the external creative-surface category when connected through authorized adapters, browser automation, Host API tools, or handoff workflows.
 - Roles can be connected to tools, model adapters, media adapters, and plugins through policy, health, evidence, and approval boundaries.
 - The plugin direction exists, but current public support is controlled contracts and in-repo plugins, not an open marketplace.
 
 Do not overstate:
 
+- Do not say Director Angel replaces Doubao, Jimeng, Kling, ComfyUI, or `moyin-creator` / 魔因漫创.
+- Do not say this repository already ships official native adapters for every named third-party web platform.
 - Do not say every third-party plugin can be installed and hot-loaded safely today.
 - Do not say ComfyUI always works without local/cloud setup.
 - Do not say ComfyUI import/export makes every workflow lossless or executable without validation.

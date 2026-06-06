@@ -8,7 +8,7 @@
 [![pnpm](https://img.shields.io/badge/pnpm-%3E%3D10-orange.svg)](./package.json)
 
 > Director Angel OS is a role-driven Agent OS: define a position, set its responsibility boundaries, and let the runtime bind sessions, tools, memory, evidence, review, and evolution to that job.
-> This repository currently demonstrates the Director role. The larger product direction is user-defined roles: researcher, operator, reviewer, worker, domain expert, or any custom position with explicit responsibility boundaries.
+> Director Angel is not another creative tool. It is the governed operator of creative tools: it learns production experience, turns that experience into operating memory, then drives external software and web platforms through approved adapters, browser/Host API surfaces, and evidence-backed workflows.
 
 [Past, Present, Future](#past-present-future) · [Why Director Angel OS](#why-director-angel-os) · [Role-Driven OS](#role-driven-agent-os) · [Capabilities](#included-today) · [Integrations](#external-tools-adapters-and-plugins) · [Quick Start](#quick-start) · [Golden Path](#30-minute-minimal-golden-path) · [Architecture](./docs/architecture.md) · [Docs](#read-more)
 
@@ -19,6 +19,8 @@ role -> responsibility -> session -> tools/models/policy -> task execution -> ev
 Director Angel OS is an MIT-licensed TypeScript Agent OS for building digital workers that know their job, keep their memory, execute through governed tools, leave evidence behind, and improve through a reviewable evolution loop.
 
 The current public content uses a Director responsibility set as the first concrete demonstration: turning intent into plans, scenes, tasks, evidence, and review loops. Director is the demonstration role, not the product ceiling. The OS direction is broader: users should be able to define any position, lock its responsibility boundary, and let the agent develop from that job over time.
+
+The sharpest product line is this: Director Angel does not replace tools like Doubao, Jimeng, Kling, ComfyUI, or moyin-creator / 魔因漫创. It learns how work gets done, chooses the right tool for the job, operates that tool under policy, records what happened, and uses the result to improve the next run.
 
 The big idea is simple: an agent should not be a prompt with a few plugins. It should have a position, a responsibility boundary, a memory model, an execution surface, an audit trail, and a disciplined way to upgrade itself after real work.
 
@@ -39,6 +41,7 @@ The pain is obvious once you run agents in real work:
 - Prompt-only agents do not understand job boundaries. They drift, overreach, or wait for humans to restate the same context.
 - Tool agents often execute without enough evidence. You get output, but not a reliable trail of what happened and why.
 - Memory turns dangerous when it is a dump. Useful experience must be scoped, recalled, reviewed, and cleaned.
+- Creative teams do not need another isolated generator. They need an operator that can learn platform-specific experience and run the right external tool with evidence and supervision.
 - Self-improvement is usually either fake branding or unsafe auto-mutation. Director Angel OS turns it into proposal -> review -> safe apply -> rollback.
 - Multi-agent work collapses when delegation, verification, queues, and status are not first-class runtime concepts.
 
@@ -62,9 +65,26 @@ Future customization: users define the position.
 
 The position can change. When it changes, responsibilities, tool permissions, memory access, task routing, verification expectations, escalation rules, and self-evolution rules can change with it. That is the point: the agent grows from a defined job, not from a vague universal prompt.
 
+## Operator Of Creative Tools
+
+Director Angel is the operator, not the generator.
+
+It can learn from production notes, workflows, failures, prompt patterns, platform quirks, and review results. That learning becomes bounded operating memory. From there, the role can decide which external surface to use, what evidence must be captured, what needs operator approval, and how the result should feed the next round.
+
+The target pattern is practical:
+
+```text
+experience -> operating memory -> tool choice -> approved execution -> evidence -> review -> better next run
+```
+
+Examples of external creative surfaces include `moyin-creator` / 魔因漫创, ComfyUI, and web/software platforms such as Doubao, Jimeng, and Kling when they are connected through an approved adapter, browser automation, Host API tool, or handoff workflow.
+
+Boundary: this repository should not be read as shipping official native adapters for every named platform today. The OS supplies the governed operator model and current integration surfaces; platform-specific operation still depends on user authorization, available adapters, browser/session access, and the platform's own terms.
+
 ## Who It Is For
 
 - Teams that want AI employees with operating discipline, not chatbots with extra buttons
+- Creative and product teams who want one operator to learn workflows and operate multiple tools without losing supervision
 - Product builders who need sessions, recovery, auditability, task routing, and evidence by default
 - Engineers designing role-specific agents that can learn from work without becoming ungoverned
 - Researchers exploring memory, delegation, verification, and self-evolution in a real TypeScript runtime
@@ -104,7 +124,7 @@ Read the full integration map: [docs/integrations.md](./docs/integrations.md).
 
 Director Angel OS is for the next phase of agents: not assistants that wait, not scripts that break, not demos that impress once and disappear.
 
-It is for agents that hold a job, work across sessions, produce evidence, accept supervision, remember what matters, and evolve only through a visible operating lane.
+It is for agents that hold a job, work across sessions, operate real creative tools, produce evidence, accept supervision, remember what matters, and evolve only through a visible operating lane.
 
 ## Quick Start
 

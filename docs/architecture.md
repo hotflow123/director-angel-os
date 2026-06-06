@@ -57,6 +57,12 @@ Changing the position should change the responsibility boundary, tool permission
 This is the difference between a chatbot and a digital operator: the operator has a job.
 这就是聊天助手和数字执行体的差别：数字执行体有岗位。
 
+For the Director demonstration, that job is not "be another creative generator."
+The job is to learn production experience, choose the right external creative surface, operate it through a governed tool boundary, capture evidence, and feed review results back into operating memory.
+
+对导演职责演示来说，这个岗位不是“再当一个创作生成器”。
+它的岗位是学习生产经验，选择合适的外部创作面，通过受治理工具边界去操作它，捕获证据，再把复查结果沉淀回岗位记忆。
+
 ### Session, Journal, Checkpoint / 会话、日志、检查点
 
 This is the persistence spine.
