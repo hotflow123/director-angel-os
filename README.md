@@ -11,22 +11,38 @@
 [![Node Version](https://img.shields.io/badge/node-%3E%3D22%20%3C25-blue.svg)](./package.json)
 [![pnpm](https://img.shields.io/badge/pnpm-%3E%3D10-orange.svg)](./package.json)
 
-> Director Angel OS is a role-driven Agent OS: define a position, set its responsibility boundaries, and let the runtime bind sessions, tools, memory, evidence, review, and evolution to that job.
-> Director Angel is not another creative tool. It is the governed operator of creative tools: it learns production experience, turns that experience into operating memory, then drives external software and web platforms through approved adapters, browser/Host API surfaces, and evidence-backed workflows.
+> **Role-driven Agent OS for governed digital workers.** Director Angel OS turns a job description into runtime structure: responsibilities, allowed tools, memory scope, task queues, evidence, review, and controlled evolution.
+> **Current demo role: Director.** Director Angel is the operating brain above creative tools, not another generator. It learns production experience, chooses approved surfaces such as `moyin-creator` / 魔因漫创, ComfyUI, browser/Host API workflows, and user-authorized web platforms, then executes with evidence and review.
 
-[Past, Present, Future](#past-present-future) · [Why Director Angel OS](#why-director-angel-os) · [Role-Driven OS](#role-driven-agent-os) · [Capabilities](#included-today) · [Integrations](#external-tools-adapters-and-plugins) · [Quick Start](#quick-start) · [Golden Path](#30-minute-minimal-golden-path) · [Architecture](./docs/architecture.md) · [Docs](#read-more)
+[At A Glance](#at-a-glance) · [Current Preview](#current-preview) · [Past, Present, Future](#past-present-future) · [Why Director Angel OS](#why-director-angel-os) · [Role-Driven OS](#role-driven-agent-os) · [Capabilities](#included-today) · [Integrations](#external-tools-adapters-and-plugins) · [Quick Start](#quick-start) · [Golden Path](#30-minute-minimal-golden-path) · [Architecture](./docs/architecture.md) · [Docs](#read-more)
 
 ```text
 role -> responsibility -> session -> tools/models/policy -> task execution -> evidence -> memory -> reviewed evolution
 ```
 
-Director Angel OS is an MIT-licensed TypeScript Agent OS for building digital workers that know their job, keep their memory, execute through governed tools, leave evidence behind, and improve through a reviewable evolution loop.
+**Try it now:** download the macOS arm64 developer preview from the [`v0.0.1` release](https://github.com/hotflow123/director-angel-os/releases/tag/v0.0.1), or run the CLI golden path below with the built-in `scripted` provider.
 
-The current public content uses a Director responsibility set as the first concrete demonstration: turning intent into plans, scenes, tasks, evidence, and review loops. Director is the demonstration role, not the product ceiling. The OS direction is broader: users should be able to define any position, lock its responsibility boundary, and let the agent develop from that job over time.
+## At A Glance
 
-The sharpest product line is this: Director Angel does not replace tools like Doubao, Jimeng, Kling, ComfyUI, or moyin-creator / 魔因漫创. It learns how work gets done, chooses the right tool for the job, operates that tool under policy, records what happened, and uses the result to improve the next run.
+- **Job description becomes runtime:** a role defines responsibilities, allowed tools, memory access, task routing, review rules, and escalation boundaries.
+- **Operator above creative tools:** Director Angel can learn how work gets done, choose the right approved surface, execute through it, and keep the evidence.
+- **Director today, any role by design:** the public demo focuses on Director responsibilities today; the OS direction is user-defined positions whose boundaries and growth paths can change with the job.
+- **Evidence by default:** sessions, journals, checkpoints, task state, tool calls, artifacts, and review results are treated as runtime material, not afterthoughts.
+- **Controlled learning:** experience becomes operating memory through a governed lane: experience -> skill proposal -> review -> safe apply -> reload visibility -> rollback.
+- **Open-source preview:** MIT-licensed TypeScript monorepo with a macOS arm64 desktop preview, CLI runtime, Host API surfaces, plugin contracts, and operator-facing docs.
 
-The big idea is simple: an agent should not be a prompt with a few plugins. It should have a position, a responsibility boundary, a memory model, an execution surface, an audit trail, and a disciplined way to upgrade itself after real work.
+Director Angel OS is an operating layer for agents that need a real job, not just a better prompt. It gives the agent a position, a responsibility boundary, an execution surface, a memory model, an audit trail, and a reviewable path to improve after real work.
+
+The sharpest product line is this: Director Angel is not the generator. It is the operator. It can learn production patterns, decide which approved tool should handle the next step, operate that tool under policy, record what happened, and use the result to improve the next run.
+
+## Current Preview
+
+- **Release:** [`v0.0.1`](https://github.com/hotflow123/director-angel-os/releases/tag/v0.0.1), also described as `v0.01`.
+- **Desktop:** macOS arm64 developer preview zip, currently unsigned and shipped as a zip target.
+- **Runtime:** TypeScript Agent OS with sessions, task plane, tool/model/policy boundaries, Host API tool catalog/invocation surfaces, worker jobs, and review lanes.
+- **Creative integrations today:** `moyin-creator` / 魔因漫创 control-plane boundary, ComfyUI workflow import/export and media adapter/provider bridge, in-repo plugin surfaces, and browser/Host API handoff paths.
+- **Commercial handoff:** desktop API settings include a fixed `memefast.top` recommendation link; payments, account creation, and API key management stay outside Director Angel under the user's control.
+- **First-run path:** the built-in `scripted` provider lets developers validate the loop before wiring real model APIs.
 
 Note: the repository still uses the historical package scope `hotflow` / `@hotflow/*` in code and commands today.
 
