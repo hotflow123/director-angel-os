@@ -1,0 +1,17 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "dist",
+    "tsBuildInfoFile": "dist/.tsbuildinfo"
+  },
+  "files": [
+    "index.ts",
+    "catalog.ts",
+    "manifests.ts",
+    "plugin-manifest.ts",
+    "providers/index.ts",
+    "tools/index.ts"
+  ],
+  "exclude": ["dist"]
+}

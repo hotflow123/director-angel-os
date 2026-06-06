@@ -1,0 +1,38 @@
+{
+  "suiteId": "wave13-proposal-reconcile-gate",
+  "cases": [
+    {
+      "id": "accepted_todo_write_proposal_applies_safely",
+      "prompt": "Read __README__, summarize the project briefly, and write 3 todo steps.",
+      "turnId": "turn_wave13",
+      "proposalId": "proposal_wave13",
+      "proposalPayload": {
+        "items": [
+          {
+            "id": "todo_wave13_1",
+            "content": "Reconcile accepted proposal",
+            "status": "todo"
+          },
+          {
+            "id": "todo_wave13_2",
+            "content": "Persist safe merge boundary",
+            "status": "doing"
+          }
+        ]
+      },
+      "provenance": "bench-wave13",
+      "expect": {
+        "proposalStatusBeforeApply": "accepted",
+        "proposalStatusAfterApply": "applied",
+        "initialTodoCount": 3,
+        "appliedTodoCount": 2,
+        "firstAppliedTodo": "Reconcile accepted proposal",
+        "proposalOutboxSize": 3,
+        "appliedOutboxFound": true,
+        "sourceSessionIdMatched": true,
+        "sourceTurnId": "turn_wave13",
+        "provenance": "bench-wave13"
+      }
+    }
+  ]
+}

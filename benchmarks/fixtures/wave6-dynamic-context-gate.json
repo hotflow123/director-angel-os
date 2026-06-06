@@ -1,0 +1,35 @@
+{
+  "suiteId": "wave6-dynamic-context-gate",
+  "iterations": 1,
+  "userInput": "Plan the rollout",
+  "tokenBudget": 256,
+  "lowBudget": 5,
+  "expectedSecondOrder": [
+    "user-input",
+    "tool-result-1",
+    "task-state",
+    "working-memory.degraded",
+    "working-memory.recall-1"
+  ],
+  "recallBlock": {
+    "blockId": "working-memory",
+    "items": [
+      {
+        "layer": "working-memory",
+        "content": "Milestone planning is stored"
+      }
+    ],
+    "summary": "Working memory snapshot",
+    "degraded": {
+      "reason": "memory-timeout",
+      "message": "Recall backend timed out"
+    }
+  },
+  "customSection": {
+    "id": "huge",
+    "cacheBucket": "dynamic",
+    "priority": 10,
+    "content": "CONTENT CONTENT CONTENT",
+    "tokenCost": 4000
+  }
+}

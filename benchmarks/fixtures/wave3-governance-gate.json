@@ -1,0 +1,11 @@
+{
+  "suiteId": "wave3-governance-gate",
+  "iterations": 1,
+  "caseIds": [
+    "wave3_policy_deny",
+    "wave3_approval_required",
+    "wave3_tool_failure",
+    "wave3_memory_degrade",
+    "wave3_provider_transient_failure"
+  ]
+}

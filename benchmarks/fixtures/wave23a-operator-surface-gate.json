@@ -1,0 +1,102 @@
+{
+  "suiteId": "wave23a-operator-surface-gate",
+  "iterations": 1,
+  "cases": [
+    {
+      "id": "doctor_fatal_provider_misconfiguration",
+      "mode": "doctor",
+      "command": ["doctor", "--json"],
+      "env": {
+        "HOTFLOW_DEFAULT_PROVIDER": "openai-compatible",
+        "HOTFLOW_DEFAULT_MODEL": "gpt-5-mini"
+      },
+      "expectStatus": 1,
+      "expectStructuredReport": true,
+      "expectReport": {
+        "status": "fail",
+        "checks": [
+          {
+            "id": "provider.default",
+            "status": "fail",
+            "includes": ["openai-compatible", "HOTFLOW_OPENAI_BASE_URL"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "doctor_optional_mempalace_unavailable_warn",
+      "mode": "doctor",
+      "command": ["doctor", "--json"],
+      "env": {
+        "HOTFLOW_DEFAULT_PROVIDER": "scripted",
+        "HOTFLOW_DEFAULT_MODEL": "hotflow-phase1",
+        "HOTFLOW_MEMPALACE_MODE": "optional"
+      },
+      "expectStatus": 0,
+      "expectStructuredReport": true,
+      "expectReport": {
+        "status": "warn",
+        "checks": [
+          {
+            "id": "memory.mempalace",
+            "status": "warn",
+            "includes": [
+              "optional but not fully configured",
+              "Missing HOTFLOW_MEMPALACE_COMMAND in optional mode.",
+              "Missing HOTFLOW_MEMPALACE_PALACE_PATH in optional mode."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "operator_surface_status_onboarding_doctor_route",
+      "mode": "probe",
+      "expectStatus": 0,
+      "expectJsonSubset": {
+        "statusResult": {
+          "ok": true,
+          "data": {
+            "firstTodo": "status snapshot todo",
+            "auditEvents": 0,
+            "streamEvents": 0
+          }
+        },
+        "onboardingResult": {
+          "ok": true,
+          "data": {
+            "sessionId": "operator_surface",
+            "status": "pass",
+            "readiness": "ready",
+            "recommendedCommand": "hotflow doctor",
+            "runtime": {
+              "defaultProviderAvailable": true
+            },
+            "surfaces": {
+              "doctor": {
+                "status": "pass"
+              },
+              "directorExecution": {
+                "status": "pass"
+              }
+            }
+          }
+        },
+        "doctorRoute": {
+          "dispatchCalls": [
+            {
+              "type": "doctor",
+              "sessionId": "operator_route"
+            }
+          ],
+          "report": {
+            "status": "pass",
+            "counts": {
+              "total": 0
+            }
+          }
+        }
+      }
+    }
+  ]
+}

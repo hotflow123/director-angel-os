@@ -1,0 +1,6 @@
+dist
+dist/**
+providers/**/dist
+providers/**/dist/**
+tools/**/dist
+tools/**/dist/**

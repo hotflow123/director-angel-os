@@ -1,0 +1,27 @@
+{
+  "1": {
+    "class_type": "EmptyImage",
+    "_meta": {
+      "title": "Director Angel Smoke Image"
+    },
+    "inputs": {
+      "width": 768,
+      "height": 432,
+      "batch_size": 1,
+      "color": 3447003
+    }
+  },
+  "2": {
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Director Smoke Image"
+    },
+    "inputs": {
+      "images": [
+        "1",
+        0
+      ],
+      "filename_prefix": "DirectorAngel_ComfyUI_Smoke"
+    }
+  }
+}

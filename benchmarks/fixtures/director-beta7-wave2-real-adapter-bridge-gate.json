@@ -1,0 +1,130 @@
+{
+  "suiteId": "director-beta7-wave2-real-adapter-bridge-gate",
+  "adapterManifest": {
+    "adapterId": "seedance-preview",
+    "adapterKind": "media",
+    "provider": "seedance",
+    "bindingId": "seedance-preview",
+    "healthStatus": "ready",
+    "dryRunSupported": true,
+    "mockOnly": false,
+    "riskLevel": "high",
+    "approvalMode": "operator_approve",
+    "permissionScopes": ["media.generate"],
+    "dataRetentionPolicy": "benchmark-local-bridge-retains-none",
+    "rateLimitPolicy": "benchmark-local-server-one-request-per-assignment",
+    "budgetPolicy": "benchmark-only-no-external-spend",
+    "supportedActionClasses": ["generate"],
+    "notes": ["Benchmark fixture for Beta-7 Wave 2 real adapter bridge."],
+    "mediaCapability": {
+      "adapterId": "seedance-preview",
+      "adapterKind": "media",
+      "provider": "seedance",
+      "supportedModes": ["text_to_video"],
+      "inputModalities": ["text"],
+      "outputArtifactTypes": ["video"],
+      "supportsAsync": false,
+      "healthStatus": "ready"
+    },
+    "bridge": {
+      "kind": "http-json",
+      "baseUrl": "http://127.0.0.1:0",
+      "submitPath": "/v1/jobs",
+      "timeoutMs": 500,
+      "authEnvVar": "SEEDANCE_API_KEY",
+      "headers": {
+        "x-bridge-id": "seedance-preview"
+      }
+    }
+  },
+  "reviewedBlueprint": {
+    "apiVersion": "director-host-api.v1",
+    "snapshotId": "snapshot-beta7-wave2-1",
+    "runtimeId": "runtime-beta7-wave2-1",
+    "blueprintId": "blueprint-beta7-wave2-1",
+    "review": {
+      "overallDecision": "warn",
+      "blockingReasons": [],
+      "requiredFixes": []
+    },
+    "capabilitySnapshot": {
+      "snapshotId": "capability-snapshot-beta7-wave2-1",
+      "runtimeId": "runtime-beta7-wave2-1",
+      "capturedAt": "2026-04-13T16:30:00.000Z",
+      "status": "ready",
+      "adapters": [],
+      "notes": []
+    },
+    "actionGraph": {
+      "graphId": "graph-beta7-wave2-1",
+      "blueprintId": "blueprint-beta7-wave2-1",
+      "goal": "submit a bounded real adapter bridge request",
+      "nodes": [
+        {
+          "nodeId": "node-beta7-wave2-1",
+          "assignmentId": "assignment-bridge-1",
+          "role": "asset-router",
+          "objective": "Submit a media generation request",
+          "inputs": ["prompt"],
+          "outputs": ["bridge job"],
+          "deliverable": "send a bounded adapter request",
+          "acceptanceCriteria": ["request is accepted"],
+          "constraints": [],
+          "dependsOn": [],
+          "allowedAdapters": ["seedance-preview"],
+          "actionClass": "generate",
+          "approvalMode": "operator_approve",
+          "escalationToDirector": false,
+          "status": "awaiting_approval",
+          "selectedAdapter": "seedance-preview"
+        }
+      ],
+      "edges": [],
+      "stopConditions": []
+    },
+    "preview": {
+      "previewId": "preview-beta7-wave2-1",
+      "summary": "bridge preview",
+      "warnings": [],
+      "blockedReasons": [],
+      "requiredApprovals": ["asset-router:assignment-bridge-1"]
+    },
+    "handoff": {
+      "handoffId": "handoff-beta7-wave2-1",
+      "blueprintId": "blueprint-beta7-wave2-1",
+      "createdAt": "2026-04-13T16:30:00.000Z",
+      "alignmentLockId": "lock-beta7-wave2-1",
+      "actionGraphId": "graph-beta7-wave2-1",
+      "previewSummary": "bridge preview",
+      "capabilityMatches": [],
+      "mediaRequests": [],
+      "expectedArtifacts": [],
+      "chosenAdapters": ["seedance-preview"],
+      "sideEffectsAllowed": true,
+      "notes": []
+    }
+  },
+  "cliNeedles": {
+    "register": ["Director adapter register:", "status: ok", "seedance-preview"],
+    "explainBefore": [
+      "Director adapter explain:",
+      "bridge capable: yes",
+      "real execution eligible: no"
+    ],
+    "explainAfter": [
+      "Director adapter explain:",
+      "bridge kind: http-json",
+      "real execution eligible: yes"
+    ],
+    "runCreate": ["Director run:", "status: created"],
+    "runStart": ["Director run:", "status: running"]
+  },
+  "expected": {
+    "adapterId": "seedance-preview",
+    "bridgeAuthMode": "env",
+    "bridgePath": "/v1/jobs",
+    "workerFlags": ["external-bridge-attempted", "external-bridge-succeeded"],
+    "reportFlags": ["external-bridge-attempted", "external-bridge-succeeded"],
+    "memoryIngestStatus": "ok"
+  }
+}

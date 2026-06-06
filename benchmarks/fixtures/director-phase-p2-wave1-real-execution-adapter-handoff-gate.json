@@ -1,0 +1,172 @@
+{
+  "suiteId": "director-phase-p2-wave1-real-execution-adapter-handoff-gate",
+  "adapterManifest": {
+    "adapterId": "script-execution-a",
+    "adapterKind": "execution",
+    "provider": "script-executor",
+    "enabled": true,
+    "healthStatus": "ready",
+    "dryRunSupported": true,
+    "mockOnly": false,
+    "riskLevel": "high",
+    "approvalMode": "operator_approve",
+    "permissionScopes": ["execution.generate"],
+    "dataRetentionPolicy": "benchmark-local-bridge-retains-none",
+    "rateLimitPolicy": "benchmark-local-server-one-request-per-assignment",
+    "budgetPolicy": "benchmark-only-no-external-spend",
+    "supportedActionClasses": ["generate"],
+    "notes": ["Benchmark fixture for Phase P2 Wave 1 real execution handoff."],
+    "bridge": {
+      "kind": "http-json",
+      "baseUrl": "http://127.0.0.1:0",
+      "submitPath": "/v1/script-jobs",
+      "timeoutMs": 500,
+      "authEnvVar": "SCRIPT_EXECUTION_API_KEY",
+      "headers": {
+        "x-bridge-id": "script-execution-a"
+      }
+    }
+  },
+  "cliNeedles": {
+    "register": ["Director adapter register:", "status: ok", "script-execution-a"],
+    "explain": [
+      "Director adapter explain:",
+      "bridge capable: yes",
+      "bridge kind: http-json",
+      "bridge auth: env",
+      "real execution eligible: yes"
+    ]
+  },
+  "cases": [
+    {
+      "id": "phase_p2_wave1_real_execution_success",
+      "snapshot": {
+        "apiVersion": "director-host-api.v1",
+        "schemaId": "director.host.snapshot.v1",
+        "snapshotId": "snapshot-p2-wave1-success-1",
+        "createdAt": "2026-04-14T11:00:00.000Z",
+        "host": {
+          "hostId": "host-p2-wave1",
+          "triggerSource": "cli"
+        },
+        "project": {
+          "projectId": "project-p2-wave1-success",
+          "title": "Phase P2 Wave 1 execution handoff",
+          "outline": "Create a director-ready script plan for a one-scene suspense short."
+        },
+        "group": {
+          "groupId": "group-p2-wave1-success",
+          "generationStyle": "immersive",
+          "generationType": "new",
+          "sceneCount": 1,
+          "anchorIds": ["anchor-p2-wave1-success"]
+        },
+        "runtime": {
+          "runtimeId": "runtime-p2-wave1-success",
+          "status": "ready",
+          "availableBindings": ["binding-a"],
+          "maxPromptChars": 4096,
+          "supportsVideo": true
+        },
+        "intent": {
+          "bindingPolicy": "prefer",
+          "preferredImageBinding": "binding-a"
+        }
+      },
+      "bridgeBehavior": {
+        "type": "success",
+        "statusCode": 202,
+        "accepted": true,
+        "requestId": "req-p2-wave1-success-1"
+      },
+      "expected": {
+        "adapterId": "script-execution-a",
+        "reviewDecision": "warn",
+        "runStatus": "completed",
+        "runSideEffectsAllowed": true,
+        "bridgeRequestCount": 1,
+        "reportFlags": ["external-bridge-attempted", "external-bridge-succeeded"],
+        "forbiddenReportFlags": ["preview-only", "external-bridge-failed"],
+        "bridgeMetrics": {
+          "attempts": 1,
+          "successes": 1,
+          "failures": 0
+        },
+        "runReportNeedles": [
+          "status: completed",
+          "adapter route: script-execution-a",
+          "bridge verdict: accepted",
+          "request accepted: yes",
+          "bridge status: 202",
+          "request id: req-p2-wave1-success-1",
+          "next action: track the remote request by request id and wait for the downstream result.",
+          "bridge attempts: 1 (successes: 1, failures: 0)"
+        ],
+        "memoryStatus": "ok",
+        "observationSources": ["evaluation"]
+      }
+    },
+    {
+      "id": "phase_p2_wave1_preview_fallback",
+      "snapshot": {
+        "apiVersion": "director-host-api.v1",
+        "schemaId": "director.host.snapshot.v1",
+        "snapshotId": "snapshot-p2-wave1-preview-1",
+        "createdAt": "2026-04-14T11:10:00.000Z",
+        "host": {
+          "hostId": "host-p2-wave1",
+          "triggerSource": "cli"
+        },
+        "project": {
+          "projectId": "project-p2-wave1-preview",
+          "title": "Phase P2 Wave 1 preview fallback",
+          "outline": "Create a director-ready script plan while keeping the run preview-only."
+        },
+        "group": {
+          "groupId": "group-p2-wave1-preview",
+          "generationStyle": "immersive",
+          "generationType": "new",
+          "sceneCount": 1,
+          "anchorIds": ["anchor-p2-wave1-preview"]
+        },
+        "runtime": {
+          "runtimeId": "runtime-p2-wave1-preview",
+          "status": "ready",
+          "availableBindings": ["binding-a"],
+          "maxPromptChars": 4096,
+          "supportsVideo": true
+        },
+        "intent": {
+          "bindingPolicy": "prefer",
+          "preferredImageBinding": "binding-a"
+        }
+      },
+      "runOverrides": {
+        "sideEffectsAllowed": false
+      },
+      "bridgeBehavior": {
+        "type": "success",
+        "statusCode": 202,
+        "accepted": true,
+        "requestId": "req-p2-wave1-preview-should-not-fire"
+      },
+      "expected": {
+        "adapterId": "script-execution-a",
+        "reviewDecision": "warn",
+        "runStatus": "completed",
+        "runSideEffectsAllowed": false,
+        "bridgeRequestCount": 0,
+        "reportFlags": ["preview-only"],
+        "forbiddenReportFlags": [
+          "external-bridge-attempted",
+          "external-bridge-succeeded",
+          "external-bridge-failed"
+        ],
+        "bridgeMetricsAbsent": true,
+        "runReportNeedles": ["status: completed", "adapter route: script-execution-a"],
+        "memoryStatus": "ok",
+        "observationSources": ["evaluation"]
+      }
+    }
+  ]
+}

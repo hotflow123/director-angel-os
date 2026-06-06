@@ -1,0 +1,29 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@hotflow/director-host-contracts": [
+        "../../packages/director-host-contracts/dist/index.d.ts"
+      ],
+      "@hotflow/conversation-runtime": [
+        "../../packages/conversation-runtime/dist/index.d.ts"
+      ],
+      "@hotflow/director-execution-contracts": [
+        "../../packages/director-execution-contracts/dist/index.d.ts"
+      ],
+      "@hotflow/director-knowledge": ["../../packages/director-knowledge/dist/index.d.ts"],
+      "@hotflow/director-service": ["../../packages/director-service/dist/index.d.ts"],
+      "@hotflow/director-workspace": ["../../packages/director-workspace/dist/index.d.ts"],
+      "@hotflow/memory-core": ["../../packages/memory-core/dist/index.d.ts"],
+      "@hotflow/sessions": ["../../packages/sessions/dist/index.d.ts"],
+      "@hotflow/skills": ["../../packages/skills/dist/index.d.ts"],
+      "@hotflow/tasks-core": ["../../packages/tasks-core/dist/index.d.ts"]
+    }
+  },
+  "include": ["src"],
+  "references": []
+}

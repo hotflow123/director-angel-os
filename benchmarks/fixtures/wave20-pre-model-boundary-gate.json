@@ -1,0 +1,65 @@
+{
+  "suiteId": "wave20-pre-model-boundary-gate",
+  "cases": [
+    {
+      "id": "provider_failure_preserves_pre_model_anchor",
+      "mode": "provider_failure_anchor",
+      "sessionId": "session-wave20-anchor",
+      "turnId": "turn-wave20-anchor",
+      "userText": "Persist the context anchor before the provider fails.",
+      "providerId": "openai-live",
+      "model": "gpt-test",
+      "providerCode": "HTTP_429",
+      "message": "rate limited",
+      "statusCode": 429,
+      "retryable": true,
+      "expect": {
+        "errorName": "EngineRunFailure",
+        "isEngineRunFailure": true,
+        "message": "rate limited",
+        "latestTurnId": "turn-wave20-anchor",
+        "resumeAction": "continue-current-step",
+        "nextStepIndex": 0,
+        "stepCheckpointEventType": "step.context_built",
+        "stepJournalTypes": ["step.context_built"],
+        "journalMustInclude": ["user.input", "step.context_built", "runtime.failed", "audit.event"],
+        "journalMustNotInclude": ["assistant.output"],
+        "evidenceMustInclude": ["stream.error", "stream.aborted", "runtime.failed"],
+        "contextBuilt": {
+          "dynamicSectionIds": ["user-input"],
+          "omittedSectionIds": []
+        },
+        "runtimeFailed": {
+          "stage": "model",
+          "kind": "provider-transient",
+          "action": "failover",
+          "providerId": "openai-live",
+          "providerStage": "generate",
+          "providerCode": "HTTP_429"
+        }
+      }
+    },
+    {
+      "id": "internal_checkpoint_failure_stays_internal",
+      "mode": "internal_checkpoint_failure",
+      "sessionId": "session-wave20-internal",
+      "turnId": "turn-wave20-internal",
+      "userText": "Trigger an internal checkpoint write failure before model execution.",
+      "providerId": "openai-live",
+      "model": "gpt-test",
+      "expect": {
+        "errorName": "Error",
+        "isEngineRunFailure": false,
+        "message": "step journal write failed",
+        "modelCalls": 0,
+        "latestTurnId": "turn-wave20-internal",
+        "resumeAction": "no-progress",
+        "nextStepIndex": 0,
+        "stepCheckpointEventType": null,
+        "stepJournalTypes": [],
+        "journalTypes": ["user.input"],
+        "evidenceKinds": []
+      }
+    }
+  ]
+}

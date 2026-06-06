@@ -1,0 +1,29 @@
+{
+  "suiteId": "wave12-delegation-flow-gate",
+  "cases": [
+    {
+      "id": "coordinator_worker_verifier_chain",
+      "prompt": "Read __README__, summarize the project briefly, and write 3 todo steps.",
+      "turnId": "turn_wave12",
+      "delegationId": "delegation_wave12",
+      "workerId": "worker-wave12",
+      "verifierId": "verifier-wave12",
+      "verificationId": "verification_wave12",
+      "instruction": "Implement the first bounded todo slice and mark it ready for verification.",
+      "requirement": "Verifier confirms the bounded todo slice is ready.",
+      "verificationStatus": "passed",
+      "verdictSummary": "Verification passed for bounded worker delegation flow.",
+      "expect": {
+        "delegationStatus": "completed",
+        "verificationStatus": "passed",
+        "mailboxBefore": 1,
+        "mailboxAfter": 0,
+        "verificationMailboxBefore": 1,
+        "verificationMailboxAfter": 0,
+        "taskIdMatched": true,
+        "runDelegationJournalDelta": 5,
+        "runVerificationJournalDelta": 2
+      }
+    }
+  ]
+}

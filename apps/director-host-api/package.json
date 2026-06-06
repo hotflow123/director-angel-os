@@ -1,0 +1,40 @@
+{
+  "name": "@hotflow/director-host-api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "scripts": {
+    "build": "tsc --build tsconfig.json",
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "dev": "tsx --tsconfig ./tsconfig.dev.json src/main.ts",
+    "lint": "biome check src tests",
+    "test": "vitest run --config vitest.config.ts",
+    "typecheck": "tsc --build tsconfig.json --pretty false"
+  },
+  "dependencies": {
+    "@hotflow/agent-os-kernel-contracts": "workspace:*",
+    "@hotflow/agent-os-runtime-mapping": "workspace:*",
+    "@hotflow/channels-core": "workspace:*",
+    "@hotflow/agent-os-sandbox": "workspace:*",
+    "@hotflow/conversation-runtime": "workspace:*",
+    "@hotflow/contracts": "workspace:*",
+    "@hotflow/director-entry-contracts": "workspace:*",
+    "@hotflow/director-execution": "workspace:*",
+    "@hotflow/director-execution-contracts": "workspace:*",
+    "@hotflow/director-host-contracts": "workspace:*",
+    "@hotflow/director-knowledge": "workspace:*",
+    "@hotflow/director-memory": "workspace:*",
+    "@hotflow/director-memory-contracts": "workspace:*",
+    "@hotflow/director-proposals": "workspace:*",
+    "@hotflow/director-runtime": "workspace:*",
+    "@hotflow/director-service": "workspace:*",
+    "@hotflow/director-workspace": "workspace:*",
+    "@hotflow/memory-core": "workspace:*",
+    "@hotflow/sessions": "workspace:*",
+    "@hotflow/skills": "workspace:*",
+    "@hotflow/tasks-core": "workspace:*",
+    "@hotflow/worker-jobs": "workspace:*"
+  }
+}

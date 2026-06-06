@@ -1,0 +1,102 @@
+{
+  "suiteId": "wave23c-preflight-gate",
+  "iterations": 1,
+  "cases": [
+    {
+      "id": "fresh_workspace_preflight_happy_path",
+      "mode": "preflight",
+      "freshWorkspace": true,
+      "command": ["preflight", "--json"],
+      "env": {
+        "HOTFLOW_DEFAULT_PROVIDER": "scripted",
+        "HOTFLOW_DEFAULT_MODEL": "hotflow-phase1"
+      },
+      "expectStatus": 0,
+      "expectJsonSubset": {
+        "status": "warn",
+        "readiness": "needs-attention",
+        "recommendedCommand": "hotflow doctor",
+        "surfaces": {
+          "environment": {
+            "status": "warn"
+          },
+          "doctor": {
+            "status": "pass"
+          },
+          "directorExecution": {
+            "status": "pass"
+          }
+        }
+      }
+    },
+    {
+      "id": "preflight_provider_misconfigured_blocks_start",
+      "mode": "preflight",
+      "command": ["preflight", "--json"],
+      "env": {
+        "HOTFLOW_DEFAULT_PROVIDER": "openai-compatible",
+        "HOTFLOW_DEFAULT_MODEL": "gpt-5-mini"
+      },
+      "expectStatus": 1,
+      "expectJsonSubset": {
+        "status": "fail",
+        "readiness": "blocked",
+        "recommendedCommand": "export HOTFLOW_OPENAI_BASE_URL=<https://your-endpoint/v1>",
+        "doctor": {
+          "status": "fail"
+        }
+      }
+    },
+    {
+      "id": "preflight_director_route_recovery_guidance",
+      "mode": "preflight",
+      "freshWorkspace": true,
+      "seedDirectorExecution": "reroutable_warn",
+      "command": ["preflight", "--json"],
+      "env": {
+        "HOTFLOW_DEFAULT_PROVIDER": "scripted",
+        "HOTFLOW_DEFAULT_MODEL": "hotflow-phase1"
+      },
+      "expectStatus": 0,
+      "expectJsonSubset": {
+        "status": "warn",
+        "readiness": "needs-attention",
+        "recommendedCommand": "hotflow director run reroute --run-id run-warn-1 --assignment-id assignment-failed-1 --adapter-id runway-preview",
+        "surfaces": {
+          "directorExecution": {
+            "status": "warn",
+            "routeCounts": {
+              "degraded": 1,
+              "reroutable": 1,
+              "total": 2
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "preflight_helper_routes_via_control_plane",
+      "mode": "probe",
+      "expectStatus": 0,
+      "expectJsonSubset": {
+        "dispatchCalls": [
+          {
+            "type": "onboarding-status",
+            "sessionId": "operator_preflight"
+          }
+        ],
+        "report": {
+          "status": "pass",
+          "readiness": "ready",
+          "sessionId": "operator_preflight",
+          "doctor": {
+            "status": "pass",
+            "counts": {
+              "total": 0
+            }
+          }
+        }
+      }
+    }
+  ]
+}

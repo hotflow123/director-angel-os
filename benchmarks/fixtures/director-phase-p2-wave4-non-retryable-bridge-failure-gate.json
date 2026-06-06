@@ -1,0 +1,285 @@
+{
+  "suiteId": "director-phase-p2-wave4-non-retryable-bridge-failure-gate",
+  "adapterManifest": {
+    "adapterId": "script-execution-a",
+    "adapterKind": "execution",
+    "provider": "script-executor",
+    "enabled": true,
+    "healthStatus": "ready",
+    "dryRunSupported": true,
+    "mockOnly": false,
+    "riskLevel": "high",
+    "approvalMode": "operator_approve",
+    "permissionScopes": ["execution.generate"],
+    "dataRetentionPolicy": "benchmark-local-bridge-retains-none",
+    "rateLimitPolicy": "benchmark-local-server-one-request-per-assignment",
+    "budgetPolicy": "benchmark-only-no-external-spend",
+    "supportedRoles": ["script-planner", "shot-planner"],
+    "supportedActionClasses": ["generate"],
+    "notes": ["Benchmark fixture for Phase P2 Wave 4 non-retryable bridge failure taxonomy."],
+    "bridge": {
+      "kind": "http-json",
+      "baseUrl": "http://127.0.0.1:0",
+      "submitPath": "/v1/script-jobs",
+      "timeoutMs": 500,
+      "authEnvVar": "SCRIPT_EXECUTION_API_KEY",
+      "headers": {
+        "x-bridge-id": "script-execution-a"
+      }
+    }
+  },
+  "cliNeedles": {
+    "register": ["Director adapter register:", "status: ok", "script-execution-a"],
+    "explain": [
+      "Director adapter explain:",
+      "bridge capable: yes",
+      "bridge kind: http-json",
+      "bridge auth: env",
+      "real execution eligible: yes"
+    ]
+  },
+  "cases": [
+    {
+      "id": "phase_p2_wave4_invalid_response_non_retryable",
+      "snapshot": {
+        "apiVersion": "director-host-api.v1",
+        "schemaId": "director.host.snapshot.v1",
+        "snapshotId": "snapshot-p2-wave4-invalid-response-1",
+        "createdAt": "2026-04-14T14:00:00.000Z",
+        "host": {
+          "hostId": "host-p2-wave4-invalid-response",
+          "triggerSource": "cli"
+        },
+        "project": {
+          "projectId": "project-p2-wave4-invalid-response",
+          "title": "Phase P2 Wave 4 invalid response",
+          "outline": "Create a director-ready script plan and shot plan, then stop retry when the shot bridge returns invalid JSON."
+        },
+        "group": {
+          "groupId": "group-p2-wave4-invalid-response",
+          "generationStyle": "immersive",
+          "generationType": "new",
+          "sceneCount": 1,
+          "anchorIds": ["anchor-p2-wave4-invalid-response"]
+        },
+        "runtime": {
+          "runtimeId": "runtime-p2-wave4-invalid-response",
+          "status": "ready",
+          "availableBindings": ["binding-a"],
+          "maxPromptChars": 4096,
+          "supportsVideo": true
+        },
+        "intent": {
+          "bindingPolicy": "prefer",
+          "preferredImageBinding": "binding-a"
+        }
+      },
+      "bridgeBehavior": {
+        "sequence": [
+          {
+            "type": "success",
+            "statusCode": 202,
+            "accepted": true,
+            "requestId": "req-p2-wave4-invalid-script-1"
+          },
+          {
+            "type": "invalid-json",
+            "statusCode": 202,
+            "requestId": "req-p2-wave4-invalid-shot-1",
+            "body": "not-json"
+          }
+        ]
+      },
+      "expected": {
+        "adapterId": "script-execution-a",
+        "reviewDecision": "warn",
+        "failureReason": "invalid_response",
+        "failureStatusCode": 202,
+        "retryable": false,
+        "nextAction": "inspect the bridge response contract before re-running the assignment.",
+        "failureRunReportNeedles": [
+          "status: failed",
+          "bridge verdict: failed (invalid_response)",
+          "retryable: no",
+          "bridge status: 202",
+          "next action: inspect the bridge response contract before re-running the assignment."
+        ],
+        "failureExplainNeedles": [
+          "Director run explain:",
+          "run status: failed",
+          "operator verdict: Run failed and the current bridge failure must be fixed before it can be retried.",
+          "bridge verdict: failed (invalid_response)",
+          "retry candidates: 1",
+          "next action: inspect the bridge response contract before re-running the assignment."
+        ],
+        "retryFailureNeedles": [
+          "Director run retry failed:",
+          "invalid_response and cannot be retried until the bridge response contract is fixed"
+        ]
+      }
+    },
+    {
+      "id": "phase_p2_wave4_http_422_non_retryable",
+      "snapshot": {
+        "apiVersion": "director-host-api.v1",
+        "schemaId": "director.host.snapshot.v1",
+        "snapshotId": "snapshot-p2-wave4-http-422-1",
+        "createdAt": "2026-04-14T14:10:00.000Z",
+        "host": {
+          "hostId": "host-p2-wave4-http-422",
+          "triggerSource": "cli"
+        },
+        "project": {
+          "projectId": "project-p2-wave4-http-422",
+          "title": "Phase P2 Wave 4 http 422",
+          "outline": "Create a director-ready script plan and shot plan, then stop retry when the shot bridge returns HTTP 422."
+        },
+        "group": {
+          "groupId": "group-p2-wave4-http-422",
+          "generationStyle": "immersive",
+          "generationType": "new",
+          "sceneCount": 1,
+          "anchorIds": ["anchor-p2-wave4-http-422"]
+        },
+        "runtime": {
+          "runtimeId": "runtime-p2-wave4-http-422",
+          "status": "ready",
+          "availableBindings": ["binding-a"],
+          "maxPromptChars": 4096,
+          "supportsVideo": true
+        },
+        "intent": {
+          "bindingPolicy": "prefer",
+          "preferredImageBinding": "binding-a"
+        }
+      },
+      "bridgeBehavior": {
+        "sequence": [
+          {
+            "type": "success",
+            "statusCode": 202,
+            "accepted": true,
+            "requestId": "req-p2-wave4-http-422-script-1"
+          },
+          {
+            "type": "http-error",
+            "statusCode": 422,
+            "accepted": false,
+            "requestId": "req-p2-wave4-http-422-shot-1"
+          }
+        ]
+      },
+      "expected": {
+        "adapterId": "script-execution-a",
+        "reviewDecision": "warn",
+        "failureReason": "http_error",
+        "failureStatusCode": 422,
+        "retryable": false,
+        "nextAction": "inspect the remote bridge request and payload before re-running the assignment.",
+        "failureRunReportNeedles": [
+          "status: failed",
+          "bridge verdict: failed (http_error)",
+          "retryable: no",
+          "bridge status: 422",
+          "next action: inspect the remote bridge request and payload before re-running the assignment."
+        ],
+        "failureExplainNeedles": [
+          "Director run explain:",
+          "run status: failed",
+          "operator verdict: Run failed and the current bridge failure must be fixed before it can be retried.",
+          "bridge verdict: failed (http_error)",
+          "retry candidates: 1",
+          "next action: inspect the remote bridge request and payload before re-running the assignment."
+        ],
+        "retryFailureNeedles": ["Director run retry failed:", "non-retryable http_error status 422"]
+      }
+    },
+    {
+      "id": "phase_p2_wave4_http_502_retryable_control",
+      "snapshot": {
+        "apiVersion": "director-host-api.v1",
+        "schemaId": "director.host.snapshot.v1",
+        "snapshotId": "snapshot-p2-wave4-http-502-1",
+        "createdAt": "2026-04-14T14:20:00.000Z",
+        "host": {
+          "hostId": "host-p2-wave4-http-502",
+          "triggerSource": "cli"
+        },
+        "project": {
+          "projectId": "project-p2-wave4-http-502",
+          "title": "Phase P2 Wave 4 http 502 control",
+          "outline": "Create a director-ready script plan and shot plan, then allow retry when the shot bridge returns HTTP 502 once."
+        },
+        "group": {
+          "groupId": "group-p2-wave4-http-502",
+          "generationStyle": "immersive",
+          "generationType": "new",
+          "sceneCount": 1,
+          "anchorIds": ["anchor-p2-wave4-http-502"]
+        },
+        "runtime": {
+          "runtimeId": "runtime-p2-wave4-http-502",
+          "status": "ready",
+          "availableBindings": ["binding-a"],
+          "maxPromptChars": 4096,
+          "supportsVideo": true
+        },
+        "intent": {
+          "bindingPolicy": "prefer",
+          "preferredImageBinding": "binding-a"
+        }
+      },
+      "bridgeBehavior": {
+        "sequence": [
+          {
+            "type": "success",
+            "statusCode": 202,
+            "accepted": true,
+            "requestId": "req-p2-wave4-http-502-script-1"
+          },
+          {
+            "type": "http-error",
+            "statusCode": 502,
+            "accepted": false,
+            "requestId": "req-p2-wave4-http-502-shot-fail-1"
+          },
+          {
+            "type": "success",
+            "statusCode": 202,
+            "accepted": true,
+            "requestId": "req-p2-wave4-http-502-shot-retry-1"
+          }
+        ]
+      },
+      "expected": {
+        "adapterId": "script-execution-a",
+        "reviewDecision": "warn",
+        "failureReason": "http_error",
+        "failureStatusCode": 502,
+        "retryable": true,
+        "nextAction": "review the failure and retry when the side-effect boundary is safe.",
+        "failureRunReportNeedles": [
+          "status: failed",
+          "bridge verdict: failed (http_error)",
+          "retryable: yes",
+          "bridge status: 502",
+          "next action: review the failure and retry when the side-effect boundary is safe."
+        ],
+        "failureExplainNeedles": [
+          "Director run explain:",
+          "run status: failed",
+          "operator verdict: Run failed, but at least one assignment has a safe retry path.",
+          "bridge verdict: failed (http_error)",
+          "retry candidates: 1",
+          "next action: review the failure and retry when the side-effect boundary is safe."
+        ],
+        "retryRunNeedles": ["status: running", "ready assignments: 1"],
+        "finalRunReportNeedles": [
+          "status: completed",
+          "bridge attempts: 2 (successes: 2, failures: 0)"
+        ],
+        "retryRequestId": "req-p2-wave4-http-502-shot-retry-1"
+      }
+    }
+  ]
+}

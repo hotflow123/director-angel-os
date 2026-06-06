@@ -1,0 +1,25 @@
+{
+  "name": "@hotflow/director-execution",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc --build tsconfig.json",
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "lint": "biome check src tests",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --build tsconfig.json --pretty false"
+  },
+  "dependencies": {
+    "@hotflow/director-execution-contracts": "workspace:*",
+    "@hotflow/director-host-contracts": "workspace:*"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "suiteId": "director-beta1-golden-path-gate",
+  "cases": [
+    {
+      "id": "director_beta1_preview_flow",
+      "providerIds": ["scripted"],
+      "clarifySnapshot": {
+        "apiVersion": "director-host-api.v1",
+        "schemaId": "director.host.snapshot.v1",
+        "snapshotId": "snapshot-clarify-1",
+        "createdAt": "2026-04-12T08:00:00.000Z",
+        "host": {
+          "hostId": "host-benchmark",
+          "triggerSource": "cli"
+        },
+        "project": {
+          "projectId": "project-beta1",
+          "title": "Director Angel Beta-1",
+          "outline": "做一支需要先澄清 continuity 的预告片。",
+          "continuityPriority": "high"
+        },
+        "group": {
+          "groupId": "group-beta1",
+          "generationType": "extend",
+          "generationStyle": "immersive",
+          "sceneCount": 3,
+          "anchorIds": []
+        },
+        "runtime": {
+          "runtimeId": "runtime-beta1",
+          "status": "ready",
+          "availableBindings": ["scripted"],
+          "maxPromptChars": 4096,
+          "supportsVideo": true,
+          "deterministicMode": "balanced"
+        },
+        "intent": {
+          "bindingPolicy": "prefer",
+          "preferredImageBinding": "scripted",
+          "preferredVideoBinding": "scripted",
+          "fallbackBindings": ["scripted"]
+        }
+      },
+      "readySnapshot": {
+        "apiVersion": "director-host-api.v1",
+        "schemaId": "director.host.snapshot.v1",
+        "snapshotId": "snapshot-ready-1",
+        "createdAt": "2026-04-12T08:05:00.000Z",
+        "host": {
+          "hostId": "host-benchmark",
+          "triggerSource": "cli"
+        },
+        "project": {
+          "projectId": "project-beta1",
+          "title": "Director Angel Beta-1",
+          "outline": "做一支 continuity 锁定好的预告片。",
+          "continuityPriority": "high"
+        },
+        "group": {
+          "groupId": "group-beta1",
+          "generationType": "extend",
+          "generationStyle": "immersive",
+          "sceneCount": 3,
+          "anchorIds": ["anchor-main-scene"]
+        },
+        "runtime": {
+          "runtimeId": "runtime-beta1",
+          "status": "ready",
+          "availableBindings": ["scripted"],
+          "maxPromptChars": 4096,
+          "supportsVideo": true,
+          "deterministicMode": "balanced"
+        },
+        "intent": {
+          "bindingPolicy": "prefer",
+          "preferredImageBinding": "scripted",
+          "preferredVideoBinding": "scripted",
+          "fallbackBindings": ["scripted"]
+        },
+        "locks": {
+          "lockedFields": [
+            {
+              "field": "project.title",
+              "level": "hard_lock",
+              "reason": "Keep the announced film title fixed."
+            }
+          ]
+        },
+        "knowledgeSignals": [
+          {
+            "id": "signal-continuity",
+            "description": "Keep the teaser cut aligned with the existing trailer tone.",
+            "confidence": 0.92,
+            "tags": ["continuity", "tone", "trailer"]
+          }
+        ]
+      },
+      "expectedClarify": {
+        "decision": "needs_clarification",
+        "alignmentState": "pending",
+        "missingQuestionCodes": ["missing-continuity-anchor", "continuity-needs-anchor"]
+      },
+      "expectedBlueprint": {
+        "review": "warn",
+        "requiredRoles": [
+          "researcher",
+          "script-planner",
+          "shot-planner",
+          "asset-router",
+          "qc-reviewer"
+        ],
+        "parallelDependency": {
+          "upstreamRole": "script-planner",
+          "downstreamRoles": ["shot-planner", "asset-router"]
+        },
+        "routerFallbackIncludes": "locked constraints",
+        "requiresEscalationRole": "asset-router"
+      },
+      "expectedObservationSources": ["evaluation", "outcome"]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "../..",
+    "noEmit": true,
+    "paths": {
+      "@hotflow/director-core": ["packages/director-core/src/index.ts"],
+      "@hotflow/director-execution": ["packages/director-execution/src/index.ts"],
+      "@hotflow/director-execution-contracts": [
+        "packages/director-execution-contracts/src/index.ts"
+      ],
+      "@hotflow/director-host-contracts": ["packages/director-host-contracts/src/index.ts"],
+      "@hotflow/director-memory": ["packages/director-memory/src/index.ts"],
+      "@hotflow/director-memory-contracts": ["packages/director-memory-contracts/src/index.ts"],
+      "@hotflow/director-proposals": ["packages/director-proposals/src/index.ts"],
+      "@hotflow/director-runtime": ["packages/director-runtime/src/index.ts"],
+      "@hotflow/director-workspace": ["packages/director-workspace/src/index.ts"],
+      "@hotflow/sessions": ["packages/sessions/src/index.ts"],
+      "@hotflow/tasks-core": ["packages/tasks-core/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts"]
+}

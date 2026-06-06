@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:; media-src 'self' data: https:; connect-src 'self' https:; object-src 'none'; base-uri 'self'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Director Angel Desktop</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="desktop-shell" aria-label="Director Angel Desktop">
+      <aside class="sidebar">
+        <div class="traffic" aria-hidden="true">
+          <span class="traffic-dot red"></span>
+          <span class="traffic-dot yellow"></span>
+          <span class="traffic-dot green"></span>
+        </div>
+
+        <section class="brand-block">
+          <p class="eyebrow">Director Angel</p>
+          <h1>Angel 工作台</h1>
+          <p class="workspace" id="workspace-path">连接本地工作区中</p>
+        </section>
+
+        <section class="sidebar-section">
+          <div class="section-heading">
+            <span>会话</span>
+            <button class="new-session-button" type="button" id="new-session" title="新建会话">+</button>
+          </div>
+          <div class="session-list" id="session-list"></div>
+        </section>
+
+        <section class="sidebar-section">
+          <div class="section-heading">
+            <span>能力板块</span>
+            <span class="count" id="group-count">0</span>
+          </div>
+          <nav class="mode-nav" id="command-groups" aria-label="能力板块"></nav>
+        </section>
+
+        <section class="sidebar-section">
+          <div class="section-heading">
+            <span>工作状态</span>
+            <span class="count" id="status-count">0</span>
+          </div>
+          <div class="list-stack compact" id="status-list"></div>
+        </section>
+      </aside>
+
+      <section class="workbench">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow" id="active-group-domain">Workbench</p>
+            <h2 id="active-group-title">Angel 工作台</h2>
+          </div>
+          <div class="topbar-actions">
+            <button class="icon-button" type="button" title="刷新状态" id="refresh-snapshot">↻</button>
+            <button class="icon-button" type="button" title="刷新命令" id="refresh-catalog">⌘</button>
+          </div>
+        </header>
+
+        <section class="command-board" aria-label="板块概览">
+          <div class="command-board-header">
+            <span id="command-board-title">下一步</span>
+            <span class="count" id="command-count">0</span>
+          </div>
+          <div class="command-grid" id="command-list"></div>
+        </section>
+
+        <section class="timeline" id="timeline" aria-label="执行流"></section>
+
+        <section class="composer" aria-label="输入">
+          <button class="composer-icon" type="button" title="选择目录" id="pick-directory">+</button>
+          <div class="composer-main">
+            <div class="composer-attachments" id="composer-attachments" aria-label="附件"></div>
+            <textarea
+              id="angel-input"
+              placeholder="输入目标、问题、链接、文件或目录"
+              autocomplete="off"
+              aria-label="输入命令参数"
+              rows="1"
+            ></textarea>
+            <div class="composer-tools">
+              <button class="composer-chip" type="button" id="run-image">@生成图片</button>
+              <button class="composer-chip" type="button" id="run-video">@生成视频</button>
+              <button class="composer-chip live-audio-button" type="button" id="live-audio-toggle">语音</button>
+              <span class="live-audio-status" id="live-audio-status">语音未运行</span>
+              <div class="composer-command-menu" id="quick-actions"></div>
+            </div>
+          </div>
+          <button class="send-button" type="button" id="run-command">发送</button>
+        </section>
+      </section>
+
+      <aside class="inspector">
+        <header class="inspector-header">
+          <div>
+            <p class="eyebrow">Inspector</p>
+            <h2>当前板块</h2>
+          </div>
+          <span class="status-pill warn" id="health-pill">connecting</span>
+        </header>
+
+        <section class="selected-command" id="selected-command"></section>
+        <form class="arg-form" id="arg-form"></form>
+
+        <section class="inspector-tabs" aria-label="Inspector tabs">
+          <button class="inspector-tab active" type="button" data-panel="state">状态</button>
+          <button class="inspector-tab" type="button" data-panel="result">结果</button>
+          <button class="inspector-tab" type="button" data-panel="recall">召回</button>
+          <button class="inspector-tab" type="button" data-panel="developer">开发者</button>
+        </section>
+
+        <section class="inspector-panel active" data-panel="state">
+          <section class="run-center inspector-run-center" id="run-center" aria-label="任务运行中心">
+            <div class="run-center-header">
+              <div>
+                <span class="eyebrow">Run Center</span>
+                <h3>任务运行中心</h3>
+              </div>
+              <div class="run-center-stats">
+                <span data-run-center-count="active">0 运行</span>
+                <span data-run-center-count="problem">0 异常</span>
+              </div>
+            </div>
+            <div class="run-center-tabs" role="tablist" aria-label="任务分组">
+              <button class="run-center-tab active" type="button" data-run-center-panel="active">运行中</button>
+              <button class="run-center-tab" type="button" data-run-center-panel="problem">异常</button>
+              <button class="run-center-tab" type="button" data-run-center-panel="history">历史</button>
+            </div>
+            <div class="run-center-list" id="run-center-list"></div>
+          </section>
+          <section
+            class="director-console inspector-director-console"
+            id="director-console"
+            aria-label="总导演控制台"
+          ></section>
+          <div class="metric-grid">
+            <div class="metric">
+              <span>经验候选</span>
+              <strong id="candidate-count">0</strong>
+            </div>
+            <div class="metric">
+              <span>知识</span>
+              <strong id="knowledge-count">0</strong>
+            </div>
+            <div class="metric">
+              <span>召回</span>
+              <strong id="recall-state">miss</strong>
+            </div>
+          </div>
+          <div class="panel-heading">
+            <span>后台学习队列</span>
+          </div>
+          <div class="list-stack" id="background-learning-list"></div>
+          <div class="panel-heading">
+            <span>经验候选</span>
+            <span class="status-pill warn" id="candidate-state">none</span>
+          </div>
+          <div class="list-stack" id="experience-list"></div>
+          <div class="panel-heading">
+            <span>知识候选 / 已发布</span>
+            <span class="status-pill warn" id="knowledge-state">none</span>
+          </div>
+          <div class="list-stack" id="knowledge-list"></div>
+          <div class="panel-heading">
+            <span>Skills</span>
+          </div>
+          <div class="list-stack" id="skill-list"></div>
+          <div class="panel-heading">
+            <span>外部工具</span>
+          </div>
+          <div class="list-stack" id="tool-list"></div>
+          <div class="panel-heading">
+            <span>设置摘要</span>
+          </div>
+          <div class="list-stack" id="settings-list"></div>
+        </section>
+
+        <section class="inspector-panel" data-panel="result">
+          <div class="result-output" id="result-output">尚未执行命令。</div>
+        </section>
+
+        <section class="inspector-panel" data-panel="recall">
+          <div class="list-stack" id="recall-list"></div>
+        </section>
+
+        <section class="inspector-panel" data-panel="developer">
+          <div class="operator-trace-output" id="operator-trace-output">暂无 turn trace。</div>
+        </section>
+      </aside>
+    </main>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>

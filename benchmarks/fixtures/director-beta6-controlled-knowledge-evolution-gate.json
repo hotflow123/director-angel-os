@@ -1,0 +1,96 @@
+{
+  "suiteId": "director-beta6-controlled-knowledge-evolution-gate",
+  "cases": [
+    {
+      "id": "director_beta6_controlled_knowledge_evolution_flow",
+      "snapshot": {
+        "apiVersion": "director-host-api.v1",
+        "schemaId": "director.host.snapshot.v1",
+        "snapshotId": "snapshot-beta6-knowledge-1",
+        "createdAt": "2026-04-13T04:00:00.000Z",
+        "host": {
+          "hostId": "director-benchmark",
+          "triggerSource": "cli"
+        },
+        "project": {
+          "projectId": "project-beta6",
+          "title": "Director Beta-6 Controlled Knowledge Evolution Gate",
+          "outline": "Make sure the Director can evolve its own knowledge base in a controlled, rollback-safe way."
+        },
+        "group": {
+          "groupId": "group-beta6",
+          "generationType": "extend",
+          "generationStyle": "immersive",
+          "sceneCount": 2,
+          "anchorIds": ["anchor-beta6-a"]
+        },
+        "runtime": {
+          "runtimeId": "runtime-beta6",
+          "status": "ready",
+          "availableBindings": ["scripted"],
+          "maxPromptChars": 4096,
+          "supportsVideo": true
+        },
+        "intent": {
+          "bindingPolicy": "prefer",
+          "preferredImageBinding": "scripted"
+        }
+      },
+      "expected": {
+        "candidateSyncFirstNeedles": [
+          "Director knowledge candidate sync:",
+          "operation: create",
+          "candidate version: 1"
+        ],
+        "candidateSyncSecondNeedles": [
+          "Director knowledge candidate sync:",
+          "operation: update",
+          "candidate version: 2"
+        ],
+        "candidateListNeedles": ["Director knowledge candidates:", "status=stale", "op=update"],
+        "candidateExplainNeedles": [
+          "Director knowledge candidate:",
+          "operation: update",
+          "diff summary:"
+        ],
+        "candidateDiffNeedles": [
+          "Director knowledge candidate diff:",
+          "operation: update",
+          "changed fields:"
+        ],
+        "candidateReviewNeedles": ["Director knowledge candidate review:", "current status: stale"],
+        "candidateAcceptNeedles": [
+          "Director knowledge candidate decision:",
+          "next status: accepted"
+        ],
+        "candidatePublishFirstNeedles": [
+          "Director knowledge publish:",
+          "previous version: (none)",
+          "published version: 1"
+        ],
+        "candidatePublishSecondNeedles": [
+          "Director knowledge publish:",
+          "previous version: 1",
+          "published version: 2"
+        ],
+        "knowledgeRecallNeedles": [
+          "Director knowledge recall preview:",
+          "status: hit",
+          "version=2",
+          "why recalled:",
+          "provenance:"
+        ],
+        "knowledgeRollbackNeedles": [
+          "Director knowledge rollback:",
+          "restored from version: 1",
+          "current version after: 3"
+        ],
+        "recallQuery": {
+          "projectId": "project-beta6",
+          "groupId": "group-beta6",
+          "anchorId": "anchor-beta6-a"
+        }
+      }
+    }
+  ]
+}

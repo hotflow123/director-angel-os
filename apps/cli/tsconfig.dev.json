@@ -1,0 +1,39 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "../..",
+    "paths": {
+      "@hotflow/agent-os-kernel-contracts": ["packages/agent-os-kernel-contracts/src/index.ts"],
+      "@hotflow/agent-os-runtime-mapping": ["packages/agent-os-runtime-mapping/src/index.ts"],
+      "@hotflow/config": ["packages/config/src/index.ts"],
+      "@hotflow/context": ["packages/context/src/index.ts"],
+      "@hotflow/contracts": ["packages/contracts/src/index.ts"],
+      "@hotflow/control-plane": ["packages/control-plane/src/index.ts"],
+      "@hotflow/doctor": ["packages/doctor/src/index.ts"],
+      "@hotflow/director-host-contracts": ["packages/director-host-contracts/src/index.ts"],
+      "@hotflow/director-knowledge": ["packages/director-knowledge/src/index.ts"],
+      "@hotflow/director-proposals": ["packages/director-proposals/src/index.ts"],
+      "@hotflow/director-runtime": ["packages/director-runtime/src/index.ts"],
+      "@hotflow/director-workspace": ["packages/director-workspace/src/index.ts"],
+      "@hotflow/engine": ["packages/engine/src/index.ts"],
+      "@hotflow/internal-plugin-provider-scripted": [
+        "internal-plugins/providers/scripted/src/index.ts"
+      ],
+      "@hotflow/internal-plugin-tool-filesystem-read": [
+        "internal-plugins/tools/filesystem-read/src/index.ts"
+      ],
+      "@hotflow/memory-core": ["packages/memory-core/src/index.ts"],
+      "@hotflow/mempalace-adapter": ["services/mempalace-adapter/src/index.ts"],
+      "@hotflow/models": ["packages/models/src/index.ts"],
+      "@hotflow/observability": ["packages/observability/src/index.ts"],
+      "@hotflow/plugin-runtime": ["packages/plugin-runtime/src/index.ts"],
+      "@hotflow/policy-runtime": ["packages/policy-runtime/src/index.ts"],
+      "@hotflow/runtime-bootstrap": ["apps/runtime-bootstrap/src/index.ts"],
+      "@hotflow/sessions": ["packages/sessions/src/index.ts"],
+      "@hotflow/skills": ["packages/skills/src/index.ts"],
+      "@hotflow/tasks-core": ["packages/tasks-core/src/index.ts"],
+      "@hotflow/tools": ["packages/tools/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts"]
+}

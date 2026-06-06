@@ -1,0 +1,27 @@
+{
+  "name": "@hotflow/doctor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc --build tsconfig.json",
+    "lint": "biome check src tests",
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "test": "vitest run --config vitest.config.ts",
+    "typecheck": "tsc --build tsconfig.json --pretty false"
+  },
+  "dependencies": {
+    "@hotflow/config": "workspace:*",
+    "@hotflow/control-plane": "workspace:*",
+    "@hotflow/models": "workspace:*",
+    "@hotflow/sessions": "workspace:*"
+  }
+}

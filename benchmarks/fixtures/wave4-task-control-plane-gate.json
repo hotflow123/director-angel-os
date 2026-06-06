@@ -1,0 +1,52 @@
+{
+  "suiteId": "wave4-task-control-plane-gate",
+  "iterations": 1,
+  "cases": [
+    {
+      "id": "wave4_task_control_plane_vertical_slice",
+      "description": "Run -> status -> resume -> run(session) -> status evidence chain",
+      "steps": [
+        {
+          "id": "run_bootstrap",
+          "command": ["run", "Summarize this repo and create a todo list"],
+          "expectStdoutIncludes": ["Session:", "Output:", "Todos:", "Runtime status:"]
+        },
+        {
+          "id": "status_after_run",
+          "command": ["status", "{{sessionId}}"],
+          "expectStdoutIncludes": [
+            "Session: {{sessionId}}",
+            "First step:",
+            "Latest audit:",
+            "Runtime status:"
+          ]
+        },
+        {
+          "id": "resume_after_status",
+          "command": ["resume", "{{sessionId}}"],
+          "expectStdoutIncludes": [
+            "Session: {{sessionId}}",
+            "First step:",
+            "Resume action:",
+            "Runtime status:"
+          ]
+        },
+        {
+          "id": "run_same_session",
+          "command": [
+            "run",
+            "Continue this session and keep a stable todo list",
+            "--session",
+            "{{sessionId}}"
+          ],
+          "expectStdoutIncludes": ["Session: {{sessionId}}", "Output:", "Runtime status:"]
+        },
+        {
+          "id": "status_after_second_run",
+          "command": ["status", "{{sessionId}}"],
+          "expectStdoutIncludes": ["Session: {{sessionId}}", "Latest audit:", "Runtime status:"]
+        }
+      ]
+    }
+  ]
+}

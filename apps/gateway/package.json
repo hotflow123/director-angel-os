@@ -1,0 +1,25 @@
+{
+  "name": "@hotflow/gateway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "scripts": {
+    "build": "tsc --build tsconfig.json",
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "dev": "tsx src/main.ts",
+    "lint": "biome check src tests",
+    "test": "vitest run",
+    "typecheck": "tsc --build tsconfig.json --pretty false"
+  },
+  "dependencies": {
+    "@hotflow/channels-core": "workspace:*",
+    "@hotflow/contracts": "workspace:*",
+    "@hotflow/engine": "workspace:*",
+    "@hotflow/models": "workspace:*",
+    "@hotflow/plugin-runtime": "workspace:*",
+    "@hotflow/runtime-bootstrap": "workspace:*",
+    "@hotflow/skills": "workspace:*"
+  }
+}

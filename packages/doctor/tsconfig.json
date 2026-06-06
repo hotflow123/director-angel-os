@@ -1,0 +1,18 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
+    "baseUrl": ".",
+    "paths": {
+      "@hotflow/config": ["../config/dist/index.d.ts"],
+      "@hotflow/control-plane": ["../control-plane/dist/index.d.ts"],
+      "@hotflow/contracts": ["../contracts/dist/index.d.ts"],
+      "@hotflow/models": ["../models/dist/index.d.ts"],
+      "@hotflow/sessions": ["../sessions/dist/index.d.ts"],
+      "@hotflow/tasks-core": ["../tasks-core/dist/index.d.ts"]
+    }
+  },
+  "include": ["src/**/*.ts"]
+}

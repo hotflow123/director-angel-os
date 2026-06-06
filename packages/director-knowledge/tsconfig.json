@@ -1,0 +1,17 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
+  },
+  "references": [
+    { "path": "../contracts" },
+    { "path": "../director-runtime" },
+    { "path": "../director-workspace" },
+    { "path": "../sessions" },
+    { "path": "../skills" },
+    { "path": "../tasks-core" }
+  ],
+  "include": ["src/**/*.ts"]
+}

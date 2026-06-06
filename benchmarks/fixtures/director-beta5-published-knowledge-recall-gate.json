@@ -1,0 +1,81 @@
+{
+  "suiteId": "director-beta5-published-knowledge-recall-gate",
+  "cases": [
+    {
+      "id": "director_beta5_published_knowledge_recall_flow",
+      "snapshot": {
+        "apiVersion": "director-host-api.v1",
+        "schemaId": "director.host.snapshot.v1",
+        "snapshotId": "snapshot-beta5-knowledge-1",
+        "createdAt": "2026-04-13T03:00:00.000Z",
+        "host": {
+          "hostId": "director-benchmark",
+          "triggerSource": "cli"
+        },
+        "project": {
+          "projectId": "project-beta5",
+          "title": "Director Beta-5 Published Knowledge Recall Gate",
+          "outline": "做一个能复用导演知识卡片的 continuity-safe teaser。"
+        },
+        "group": {
+          "groupId": "group-beta5",
+          "generationType": "new",
+          "generationStyle": "immersive",
+          "sceneCount": 1,
+          "anchorIds": ["anchor-beta5-a"]
+        },
+        "runtime": {
+          "runtimeId": "runtime-beta5",
+          "status": "ready",
+          "availableBindings": ["scripted"],
+          "maxPromptChars": 4096,
+          "supportsVideo": true
+        },
+        "intent": {
+          "bindingPolicy": "prefer",
+          "preferredImageBinding": "scripted"
+        }
+      },
+      "expected": {
+        "recallTag": "director-trace",
+        "statusNeedles": [
+          "Director status:",
+          "published packs: 1",
+          "knowledge recall enabled: yes",
+          "trace proposals: 1"
+        ],
+        "traceProposalAcceptNeedles": [
+          "Director trace proposal decision:",
+          "next status: accepted"
+        ],
+        "knowledgePublishNeedles": ["Director knowledge publish:", "version: 1"],
+        "knowledgeStatusNeedles": [
+          "Director knowledge lane:",
+          "published packs: 1",
+          "recall enabled: yes"
+        ],
+        "knowledgeListNeedles": ["Director knowledge packs:", "total: 1", "stage=published"],
+        "knowledgeExplainNeedles": [
+          "Director knowledge pack:",
+          "source proposal:",
+          "project/group: project-beta5/group-beta5"
+        ],
+        "knowledgeRecallNeedles": [
+          "Director knowledge recall preview:",
+          "status: hit",
+          "why recalled:",
+          "provenance:"
+        ],
+        "doctorCheckIds": [
+          "director.knowledge.switch",
+          "director.knowledge.store",
+          "director.knowledge.recall"
+        ],
+        "evaluateSummaryNeedle": "Published knowledge matched 1 pack(s)",
+        "evaluateRecommendationNeedle": "Review published knowledge pack",
+        "blueprintNoteNeedles": ["published-knowledge=hit", "published-pack="],
+        "reportNeedles": ["Director run report:", "status: completed"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "suiteId": "wave16-skill-reload-gate",
+  "cases": [
+    {
+      "id": "worker_skill_proposal_applies_after_reload_only",
+      "prompt": "Read __README__ and summarize it.",
+      "turnId": "turn_wave16_1",
+      "proposalId": "proposal_wave16_1",
+      "provenance": "bench-wave16",
+      "expect": {
+        "proposalKind": "skills.snapshot_upsert",
+        "proposalStatusAfterApply": "applied",
+        "liveSkillCountBeforeReload": 0,
+        "approvedSkillCountBeforeReload": 1,
+        "liveSkillCountAfterReload": 1,
+        "promptSectionsAfterReload": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@hotflow/internal-plugins",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=22 <25"
+  },
+  "dependencies": {
+    "@hotflow/internal-plugin-provider-scripted": "workspace:*",
+    "@hotflow/internal-plugin-tool-filesystem-read": "workspace:*",
+    "@hotflow/plugin-runtime": "workspace:*"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "biome check index.ts catalog.ts manifests.ts plugin-manifest.ts providers tools",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "clean": "rm -rf dist"
+  }
+}

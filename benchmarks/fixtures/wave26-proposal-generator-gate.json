@@ -1,0 +1,92 @@
+{
+  "suiteId": "wave26-proposal-generator-gate",
+  "cases": [
+    {
+      "id": "rich_payload_generation",
+      "sessionId": "sess_wave26_rich",
+      "turnId": "turn_wave26_rich",
+      "proposalId": "proposal_wave26_rich",
+      "turns": [
+        {
+          "turnId": "turn_wave26_rich",
+          "createdAtMsStart": 100,
+          "userText": "Summarize the repo",
+          "toolName": "filesystem.read_text",
+          "assistantText": "Here is the summary."
+        }
+      ],
+      "expect": {
+        "proposalKind": "skills.snapshot_upsert",
+        "proposalStatus": "pending",
+        "riskLevel": "low",
+        "confidenceBucket": "high",
+        "hasTrigger": true,
+        "hasEvidenceSummary": true,
+        "hasDedupeKey": true,
+        "duplicateRecommendation": null,
+        "proposalQueueSize": 1,
+        "proposalOutboxSize": 1
+      }
+    },
+    {
+      "id": "duplicate_detection_against_approved_skill",
+      "sessionId": "sess_wave26_duplicate",
+      "turnId": "turn_wave26_duplicate",
+      "proposalId": "proposal_wave26_duplicate",
+      "turns": [
+        {
+          "turnId": "turn_wave26_duplicate",
+          "createdAtMsStart": 100,
+          "userText": "Summarize the repo",
+          "toolName": "filesystem.read_text",
+          "assistantText": "Here is the summary."
+        }
+      ],
+      "approvedSkills": [
+        {
+          "id": "skill.approved.summary",
+          "version": "1.0.0",
+          "title": "Repo summary",
+          "content": "Read the README and summarize the repository.",
+          "updatedAtMs": 150,
+          "tags": ["repo", "trajectory-analysis"],
+          "toolNames": ["filesystem.read_text"],
+          "metadata": {
+            "dedupeKey": "summarize-the-repo__filesystem-read-text__repo-trajectory-analysis"
+          }
+        }
+      ],
+      "expect": {
+        "proposalKind": "skills.snapshot_upsert",
+        "proposalStatus": "pending",
+        "riskLevel": "medium",
+        "confidenceBucket": "high",
+        "duplicateRecommendation": "skip",
+        "duplicateSkillId": "skill.approved.summary",
+        "explanationContainsDuplicateSkillId": true,
+        "proposalQueueSize": 1,
+        "proposalOutboxSize": 1
+      }
+    },
+    {
+      "id": "low_evidence_degrades_proposal_signals",
+      "sessionId": "sess_wave26_low_evidence",
+      "turnId": "turn_wave26_low_evidence",
+      "proposalId": "proposal_wave26_low_evidence",
+      "ensureSession": true,
+      "expect": {
+        "proposalKind": "skills.snapshot_upsert",
+        "proposalStatus": "pending",
+        "riskLevel": "high",
+        "confidenceBucket": "low",
+        "hasTrigger": true,
+        "hasEvidenceSummary": true,
+        "hasDedupeKey": true,
+        "duplicateRecommendation": null,
+        "explanationContainsLowEvidence": true,
+        "proposalQueueSize": 1,
+        "proposalOutboxSize": 1
+      }
+    }
+  ]
+}

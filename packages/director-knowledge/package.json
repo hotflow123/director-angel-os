@@ -1,0 +1,31 @@
+{
+  "name": "@hotflow/director-knowledge",
+  "version": "0.1.0",
+  "description": "Type definitions and read-only interfaces for Director Angel knowledge packs.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "lint": "biome check src test",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@hotflow/conversation-runtime": "workspace:*",
+    "@hotflow/contracts": "workspace:*",
+    "@hotflow/director-runtime": "workspace:*",
+    "@hotflow/director-workspace": "workspace:*",
+    "@hotflow/sessions": "workspace:*",
+    "@hotflow/skills": "workspace:*",
+    "@hotflow/tasks-core": "workspace:*"
+  }
+}

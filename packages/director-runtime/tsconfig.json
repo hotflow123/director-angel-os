@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
+    "baseUrl": ".",
+    "paths": {
+      "@hotflow/conversation-runtime": ["../conversation-runtime/dist/index.d.ts"]
+    }
+  },
+  "references": [
+    { "path": "../conversation-runtime" },
+    { "path": "../director-core" },
+    { "path": "../director-host-contracts" },
+    { "path": "../live-runner-core" }
+  ],
+  "include": ["src/**/*.ts"]
+}

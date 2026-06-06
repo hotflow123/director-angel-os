@@ -1,0 +1,26 @@
+{
+  "suiteId": "wave15-skills-plugins-gate",
+  "cases": [
+    {
+      "id": "scaffold_reports_integration_state",
+      "mode": "scaffold",
+      "expect": {
+        "hasBenchScaffold": true
+      }
+    },
+    {
+      "id": "strict_contract_runs_when_integrations_ready",
+      "mode": "strict-when-ready",
+      "requiredIntegrations": ["skills", "plugin-runtime", "internal-plugins"],
+      "expectedSkillsExports": ["SkillRepository", "SkillProposalStore", "SkillReconciler"],
+      "expectedPluginRuntimeExports": ["PluginLoader", "PluginRegistrar"],
+      "expect": {
+        "skillSnapshotInjectable": true,
+        "proposalIsolationBoundaryPresent": true,
+        "internalProviderPluginPresent": true,
+        "internalToolPluginPresent": true,
+        "pluginRuntimeCanLoadAndRegister": true
+      }
+    }
+  ]
+}

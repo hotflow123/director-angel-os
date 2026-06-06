@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist",
+    "tsBuildInfoFile": "dist/.tsbuildinfo",
+    "baseUrl": ".",
+    "paths": {
+      "@hotflow/director-memory": ["../../packages/director-memory/dist/index.d.ts"],
+      "@hotflow/director-proposals": ["../../packages/director-proposals/dist/index.d.ts"],
+      "@hotflow/director-execution": ["../../packages/director-execution/dist/index.d.ts"],
+      "@hotflow/director-execution-contracts": [
+        "../../packages/director-execution-contracts/dist/index.d.ts"
+      ],
+      "@hotflow/director-runtime": ["../../packages/director-runtime/dist/index.d.ts"],
+      "@hotflow/director-workspace": ["../../packages/director-workspace/dist/index.d.ts"],
+      "@hotflow/sessions": ["../../packages/sessions/dist/index.d.ts"],
+      "@hotflow/tasks-core": ["../../packages/tasks-core/dist/index.d.ts"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["dist", "tests"]
+}

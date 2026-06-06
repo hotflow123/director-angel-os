@@ -1,0 +1,74 @@
+{
+  "suiteId": "wave21-streaming-boundary-gate",
+  "cases": [
+    {
+      "id": "tool_boundary_roundtrip_records_stream_semantics",
+      "mode": "tool_boundary_roundtrip",
+      "sessionId": "session-wave21-tool-boundary",
+      "turnId": "turn-wave21-tool-boundary",
+      "userText": "Call one tool and then finish the answer.",
+      "providerId": "mock-provider",
+      "model": "mock-model",
+      "expect": {
+        "assistantOutput": "final answer",
+        "streamKinds": [
+          "stream.started",
+          "stream.chunk",
+          "stream.tool-call",
+          "stream.interrupted",
+          "stream.resumed",
+          "stream.chunk",
+          "stream.completed"
+        ],
+        "streamStartedCount": 1,
+        "latestStreamKind": "stream.completed",
+        "streamChunkIndices": [0, 1]
+      }
+    },
+    {
+      "id": "provider_failure_closes_stream_with_abort",
+      "mode": "provider_failure_stream_closure",
+      "sessionId": "session-wave21-provider-failure",
+      "turnId": "turn-wave21-provider-failure",
+      "userText": "Trigger a provider failure after the stream starts.",
+      "providerId": "openai-live",
+      "model": "gpt-test",
+      "providerCode": "HTTP_429",
+      "message": "rate limited",
+      "statusCode": 429,
+      "retryable": true,
+      "expect": {
+        "errorName": "EngineRunFailure",
+        "isEngineRunFailure": true,
+        "message": "rate limited",
+        "assistantOutput": null,
+        "streamKinds": ["stream.started", "stream.error", "stream.aborted"],
+        "streamStartedCount": 1,
+        "latestStreamKind": "stream.aborted",
+        "checkpointPresent": true
+      }
+    },
+    {
+      "id": "resumed_turn_continues_existing_stream_without_restart",
+      "mode": "resume_stream_continuation",
+      "sessionId": "session-wave21-resume",
+      "turnId": "turn-wave21-resume",
+      "userText": "Resume the interrupted turn and finish it.",
+      "providerId": "mock-provider",
+      "model": "mock-model",
+      "expect": {
+        "assistantOutput": "final after resume",
+        "streamKinds": [
+          "stream.started",
+          "stream.chunk",
+          "stream.interrupted",
+          "stream.resumed",
+          "stream.chunk",
+          "stream.completed"
+        ],
+        "streamStartedCount": 1,
+        "latestStreamKind": "stream.completed"
+      }
+    }
+  ]
+}

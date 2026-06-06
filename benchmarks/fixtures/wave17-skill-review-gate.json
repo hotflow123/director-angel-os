@@ -1,0 +1,34 @@
+{
+  "suiteId": "wave17-skill-review-gate",
+  "cases": [
+    {
+      "id": "valid_skill_proposal_is_accepted_but_still_invisible_before_reconcile",
+      "mode": "accepted",
+      "sessionId": "sess_wave17_accept",
+      "prompt": "Read __README__ and summarize it.",
+      "turnId": "turn_wave17_accept",
+      "proposalId": "proposal_wave17_accept",
+      "provenance": "bench-wave17",
+      "expect": {
+        "proposalKind": "skills.snapshot_upsert",
+        "proposalStatusAfterReview": "accepted",
+        "reviewIssueCount": 0,
+        "approvedSkillCountAfterReload": 0,
+        "promptSectionsAfterReload": 0
+      }
+    },
+    {
+      "id": "risky_skill_proposal_is_rejected_and_never_visible",
+      "mode": "rejected",
+      "sessionId": "sess_wave17_reject",
+      "turnId": "turn_wave17_reject",
+      "proposalId": "proposal_wave17_reject",
+      "expect": {
+        "proposalStatusAfterReview": "rejected",
+        "reviewIssueCount": 2,
+        "approvedSkillCountAfterReload": 0,
+        "promptSectionsAfterReload": 0
+      }
+    }
+  ]
+}

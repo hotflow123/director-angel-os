@@ -1,0 +1,92 @@
+{
+  "suiteId": "wave9-channels-gate",
+  "cases": [
+    {
+      "id": "direct_route_key",
+      "routingHint": {
+        "agentId": "Agent-Main",
+        "channel": "webchat",
+        "routeKind": "direct",
+        "peerId": "User_1"
+      },
+      "expectSessionKey": "agent:agent-main:direct:user_1",
+      "expectTarget": {
+        "ownership": {
+          "routeKind": "direct",
+          "channel": "webchat",
+          "peerId": "user_1"
+        }
+      }
+    },
+    {
+      "id": "thread_route_key",
+      "routingHint": {
+        "agentId": "agent-main",
+        "channel": "webchat",
+        "routeKind": "thread",
+        "peerId": "user_1",
+        "baseSessionId": "sess_base-001",
+        "threadId": "Thread 7"
+      },
+      "expectSessionKey": "agent:agent-main:thread:sess_base-001:thread-7:user_1",
+      "expectTarget": {
+        "ownership": {
+          "routeKind": "thread",
+          "peerId": "user_1",
+          "baseSessionId": "sess_base-001",
+          "threadId": "thread-7"
+        }
+      }
+    },
+    {
+      "id": "invalid_thread_missing_base",
+      "routingHint": {
+        "agentId": "agent-main",
+        "channel": "webchat",
+        "routeKind": "thread",
+        "peerId": "user_1",
+        "threadId": "thread-1"
+      },
+      "expectError": {
+        "name": "InvalidChannelRoutingHintError",
+        "includes": ["baseSessionId"]
+      }
+    },
+    {
+      "id": "delivery_and_envelope_contract",
+      "routingHint": {
+        "agentId": "agent-main",
+        "channel": "webchat",
+        "routeKind": "direct",
+        "peerId": "user_1"
+      },
+      "envelope": {
+        "channel": "webchat",
+        "agentId": "agent-main",
+        "peerId": "user_1",
+        "messageId": "msg_1",
+        "receivedAtMs": 10,
+        "text": "hello"
+      },
+      "delivery": {
+        "channel": "webchat",
+        "status": "accepted",
+        "processedAtMs": 20,
+        "routeKind": "direct",
+        "sessionKey": "agent:agent-main:direct:user_1"
+      },
+      "expectEnvelope": {
+        "schemaVersion": "0.1.0",
+        "routingHint": {
+          "routeKind": "direct"
+        }
+      },
+      "expectDelivery": {
+        "schemaVersion": "0.1.0",
+        "status": "accepted",
+        "routeKind": "direct",
+        "sessionKey": "agent:agent-main:direct:user_1"
+      }
+    }
+  ]
+}

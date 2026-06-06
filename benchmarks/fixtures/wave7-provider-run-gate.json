@@ -1,0 +1,148 @@
+{
+  "suiteId": "wave7-provider-run-gate",
+  "iterations": 1,
+  "cases": [
+    {
+      "id": "openai_tool_roundtrip",
+      "mode": "success_roundtrip",
+      "providerId": "openai-live",
+      "model": "gpt-stub",
+      "expectRequestCount": 2,
+      "steps": [
+        {
+          "id": "run_real_provider",
+          "command": [
+            "run",
+            "Use the real provider path and keep a todo list",
+            "--provider",
+            "openai-live",
+            "--model",
+            "gpt-stub"
+          ],
+          "expectStatus": 0,
+          "captureSessionId": true,
+          "expectOutputIncludes": [
+            "Session:",
+            "Provider: openai-live",
+            "Model: gpt-stub",
+            "Output: Repository summary complete.",
+            "Todos:",
+            "Tool outcomes: executed=2",
+            "Runtime status: healthy"
+          ]
+        },
+        {
+          "id": "status_after_real_provider",
+          "command": ["status", "{{sessionId}}"],
+          "expectStatus": 0,
+          "expectOutputIncludes": [
+            "Session: {{sessionId}}",
+            "Latest audit:",
+            "Runtime status: degraded",
+            "Latest turn prompt degradations: tool replay trim"
+          ]
+        },
+        {
+          "id": "resume_after_real_provider",
+          "command": ["resume", "{{sessionId}}"],
+          "expectStatus": 0,
+          "expectOutputIncludes": [
+            "Session: {{sessionId}}",
+            "Resume action: turn-complete",
+            "Runtime status: degraded"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "provider_config_missing",
+      "mode": "no_upstream",
+      "expectRequestCount": 0,
+      "steps": [
+        {
+          "id": "run_missing_config",
+          "command": [
+            "run",
+            "Attempt real provider without env",
+            "--provider",
+            "openai-compatible"
+          ],
+          "expectStatus": 1,
+          "expectOutputIncludes": [
+            "Provider \"openai-compatible\" is not registered.",
+            "HOTFLOW_OPENAI_BASE_URL",
+            "Available providers: scripted"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "provider_transient_429",
+      "mode": "transient_429",
+      "providerId": "openai-live",
+      "model": "gpt-stub",
+      "expectRequestCount": 1,
+      "steps": [
+        {
+          "id": "run_transient_failure",
+          "command": [
+            "run",
+            "Trigger a transient provider failure",
+            "--provider",
+            "openai-live",
+            "--model",
+            "gpt-stub"
+          ],
+          "expectStatus": 1,
+          "captureSessionId": true,
+          "expectOutputIncludes": [
+            "Session:",
+            "Provider: openai-live",
+            "Failure class: transient",
+            "Failure code: HTTP_429",
+            "Retryable: yes"
+          ]
+        },
+        {
+          "id": "status_after_transient_failure",
+          "command": ["status", "{{sessionId}}"],
+          "expectStatus": 0,
+          "expectOutputIncludes": [
+            "Session: {{sessionId}}",
+            "Latest audit:",
+            "Runtime status: failed"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "provider_fatal_401",
+      "mode": "fatal_401",
+      "providerId": "openai-live",
+      "model": "gpt-stub",
+      "expectRequestCount": 1,
+      "steps": [
+        {
+          "id": "run_fatal_failure",
+          "command": [
+            "run",
+            "Trigger a fatal provider failure",
+            "--provider",
+            "openai-live",
+            "--model",
+            "gpt-stub"
+          ],
+          "expectStatus": 1,
+          "captureSessionId": true,
+          "expectOutputIncludes": [
+            "Session:",
+            "Provider: openai-live",
+            "Failure class: fatal",
+            "Failure code: HTTP_401",
+            "Retryable: no"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,217 @@
+{
+  "suiteId": "director-beta8-single-vertical-gate",
+  "adapterManifest": {
+    "adapterId": "seedance-preview",
+    "adapterKind": "media",
+    "provider": "seedance",
+    "bindingId": "seedance-preview",
+    "healthStatus": "ready",
+    "dryRunSupported": true,
+    "mockOnly": false,
+    "riskLevel": "high",
+    "approvalMode": "operator_approve",
+    "permissionScopes": ["media.route", "media.generate", "media.write"],
+    "dataRetentionPolicy": "benchmark-local-bridge-retains-none",
+    "rateLimitPolicy": "benchmark-local-server-one-request-per-assignment",
+    "budgetPolicy": "benchmark-only-no-external-spend",
+    "supportedActionClasses": ["route", "generate", "write"],
+    "notes": ["Benchmark fixture for Beta-8 single vertical closure."],
+    "mediaCapability": {
+      "adapterId": "seedance-preview",
+      "adapterKind": "media",
+      "provider": "seedance",
+      "supportedModes": ["text_to_video"],
+      "inputModalities": ["text"],
+      "outputArtifactTypes": ["video"],
+      "supportsAsync": false,
+      "healthStatus": "ready"
+    },
+    "bridge": {
+      "kind": "http-json",
+      "baseUrl": "http://127.0.0.1:0",
+      "submitPath": "/v1/jobs",
+      "timeoutMs": 250,
+      "authEnvVar": "SEEDANCE_API_KEY",
+      "headers": {
+        "x-bridge-id": "seedance-preview"
+      }
+    }
+  },
+  "cliNeedles": {
+    "register": ["Director adapter register:", "status: ok", "seedance-preview"],
+    "runCreate": ["Director run:", "status: created"],
+    "runStart": ["Director run:", "status: running"]
+  },
+  "cases": [
+    {
+      "id": "director_beta8_single_vertical_success",
+      "snapshot": {
+        "apiVersion": "director-host-api.v1",
+        "schemaId": "director.host.snapshot.v1",
+        "snapshotId": "snapshot-beta8-success-1",
+        "createdAt": "2026-04-13T17:00:00.000Z",
+        "host": {
+          "hostId": "host-beta8",
+          "triggerSource": "cli"
+        },
+        "project": {
+          "projectId": "project-beta8-success",
+          "title": "Single-shot lighthouse reveal",
+          "outline": "做一个单镜头视频：深海灯塔从黑暗中被探照灯扫亮，镜头缓慢推进，氛围克制而电影感强。",
+          "continuityPriority": "high"
+        },
+        "group": {
+          "groupId": "group-beta8-success",
+          "generationType": "new",
+          "generationStyle": "immersive",
+          "sceneCount": 1,
+          "anchorIds": ["anchor-beta8-success"]
+        },
+        "runtime": {
+          "runtimeId": "runtime-beta8-success",
+          "status": "ready",
+          "availableBindings": ["seedance-preview"],
+          "maxPromptChars": 4096,
+          "supportsVideo": true,
+          "deterministicMode": "balanced"
+        },
+        "intent": {
+          "bindingPolicy": "prefer",
+          "preferredVideoBinding": "seedance-preview",
+          "preferredImageBinding": "seedance-preview",
+          "fallbackBindings": ["seedance-preview"]
+        },
+        "locks": {
+          "lockedFields": [
+            {
+              "field": "project.title",
+              "level": "hard_lock",
+              "reason": "Keep the announced single-shot concept stable during planning."
+            }
+          ]
+        },
+        "knowledgeSignals": [
+          {
+            "id": "signal-beta8-success-1",
+            "description": "Favor cinematic pacing and a single, readable motion path.",
+            "confidence": 0.94,
+            "tags": ["single-shot", "cinematic", "video"]
+          }
+        ]
+      },
+      "bridgeBehavior": {
+        "type": "success",
+        "statusCode": 202,
+        "accepted": true,
+        "requestId": "req-beta8-success-1"
+      },
+      "expected": {
+        "adapterId": "seedance-preview",
+        "reviewDecision": "warn",
+        "runStatus": "completed",
+        "reportFlags": ["external-bridge-attempted", "external-bridge-succeeded"],
+        "bridgeMetrics": {
+          "attempts": 1,
+          "successes": 1,
+          "failures": 0
+        },
+        "runReportNeedles": [
+          "status: completed",
+          "adapter route: seedance-preview",
+          "bridge verdict: accepted",
+          "request accepted: yes",
+          "bridge status: 202",
+          "request id: req-beta8-success-1",
+          "next action: track the remote request by request id and wait for the downstream result.",
+          "bridge attempts: 1 (successes: 1, failures: 0)"
+        ],
+        "memoryStatus": "ok",
+        "observationSources": ["evaluation"]
+      }
+    },
+    {
+      "id": "director_beta8_single_vertical_failure_timeout",
+      "snapshot": {
+        "apiVersion": "director-host-api.v1",
+        "schemaId": "director.host.snapshot.v1",
+        "snapshotId": "snapshot-beta8-failure-1",
+        "createdAt": "2026-04-13T17:10:00.000Z",
+        "host": {
+          "hostId": "host-beta8",
+          "triggerSource": "cli"
+        },
+        "project": {
+          "projectId": "project-beta8-failure",
+          "title": "Single-shot storm corridor",
+          "outline": "做一个单镜头视频：暴风雨走廊里只有一束冷光向前移动，镜头轻微手持感，整体保持压迫感。",
+          "continuityPriority": "high"
+        },
+        "group": {
+          "groupId": "group-beta8-failure",
+          "generationType": "new",
+          "generationStyle": "immersive",
+          "sceneCount": 1,
+          "anchorIds": ["anchor-beta8-failure"]
+        },
+        "runtime": {
+          "runtimeId": "runtime-beta8-failure",
+          "status": "ready",
+          "availableBindings": ["seedance-preview"],
+          "maxPromptChars": 4096,
+          "supportsVideo": true,
+          "deterministicMode": "balanced"
+        },
+        "intent": {
+          "bindingPolicy": "prefer",
+          "preferredVideoBinding": "seedance-preview",
+          "preferredImageBinding": "seedance-preview",
+          "fallbackBindings": ["seedance-preview"]
+        },
+        "locks": {
+          "lockedFields": [
+            {
+              "field": "project.title",
+              "level": "hard_lock",
+              "reason": "Keep the single-shot failure scenario anchored to one concept."
+            }
+          ]
+        },
+        "knowledgeSignals": [
+          {
+            "id": "signal-beta8-failure-1",
+            "description": "Preserve a narrow, single-lane camera move with no montage expansion.",
+            "confidence": 0.91,
+            "tags": ["single-shot", "failure-regression", "video"]
+          }
+        ]
+      },
+      "bridgeBehavior": {
+        "type": "timeout",
+        "delayMs": 750
+      },
+      "expected": {
+        "adapterId": "seedance-preview",
+        "reviewDecision": "warn",
+        "runStatus": "failed",
+        "reportFlags": ["has-failures", "external-bridge-attempted", "external-bridge-failed"],
+        "bridgeMetrics": {
+          "attempts": 1,
+          "successes": 0,
+          "failures": 1
+        },
+        "runReportNeedles": [
+          "status: failed",
+          "adapter route: seedance-preview",
+          "bridge verdict: failed (network_timeout)",
+          "retryable: yes",
+          "bridge status: 504",
+          "next action: review the failure and retry when the side-effect boundary is safe.",
+          "bridge attempts: 1 (successes: 0, failures: 1)"
+        ],
+        "memoryStatus": "degraded",
+        "memoryRecordExpected": false,
+        "observationSources": ["evaluation"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
+    "baseUrl": ".",
+    "paths": {
+      "@hotflow/director-runtime": ["../director-runtime/dist/index.d.ts"]
+    }
+  },
+  "references": [
+    { "path": "../director-core" },
+    { "path": "../director-host-contracts" },
+    { "path": "../director-knowledge" },
+    { "path": "../director-runtime" }
+  ],
+  "include": ["src/**/*.ts"]
+}

@@ -1,0 +1,8 @@
+[
+  {
+    "id": "scripted_repo_summary",
+    "prompt": "Summarize this repository and write a three-step todo list.",
+    "provider": "scripted",
+    "model": "hotflow-phase1"
+  }
+]

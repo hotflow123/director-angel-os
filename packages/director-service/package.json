@@ -1,0 +1,30 @@
+{
+  "name": "@hotflow/director-service",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=22 <25"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --config vitest.config.ts",
+    "lint": "biome check src tests",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@hotflow/director-core": "workspace:*",
+    "@hotflow/director-host-contracts": "workspace:*",
+    "@hotflow/director-knowledge": "workspace:*",
+    "@hotflow/director-runtime": "workspace:*"
+  }
+}

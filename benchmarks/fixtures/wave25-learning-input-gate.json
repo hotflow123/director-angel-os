@@ -1,0 +1,90 @@
+{
+  "suiteId": "wave25-learning-input-gate",
+  "cases": [
+    {
+      "id": "digest_is_deterministic_for_same_committed_turn",
+      "sessionId": "sess_wave25_determinism",
+      "turnId": "turn_wave25_determinism",
+      "turns": [
+        {
+          "turnId": "turn_wave25_determinism",
+          "createdAtMsStart": 100,
+          "userText": "Summarize the repo",
+          "toolName": "filesystem.read_text",
+          "assistantText": "Here is the summary."
+        }
+      ],
+      "expect": {
+        "digestStable": true,
+        "sourceSessionId": "sess_wave25_determinism",
+        "sourceTurnId": "turn_wave25_determinism",
+        "trajectoryRef": "journal://sess_wave25_determinism/turn_wave25_determinism",
+        "latestCommittedSeq": 4,
+        "latestUserText": "Summarize the repo",
+        "toolNames": ["filesystem.read_text"],
+        "counts": {
+          "journalEventsInTurn": 4,
+          "toolCallCount": 1,
+          "toolResultCount": 1,
+          "assistantOutputCount": 1
+        },
+        "evidenceEventTypes": [
+          "user.input",
+          "tool.call_planned",
+          "tool.result",
+          "assistant.output"
+        ],
+        "evidenceSeqs": [1, 2, 3, 4],
+        "proposalQueueSize": 0,
+        "proposalOutboxSize": 0,
+        "taskProposalJournalCount": 0
+      }
+    },
+    {
+      "id": "digest_is_scoped_to_single_committed_turn",
+      "sessionId": "sess_wave25_scope",
+      "turnId": "turn_target",
+      "turns": [
+        {
+          "turnId": "turn_noise",
+          "createdAtMsStart": 10,
+          "userText": "List the shell tasks",
+          "toolName": "shell.exec",
+          "assistantText": "Noise turn output."
+        },
+        {
+          "turnId": "turn_target",
+          "createdAtMsStart": 100,
+          "userText": "Summarize the repo",
+          "toolName": "filesystem.read_text",
+          "assistantText": "Target turn output."
+        }
+      ],
+      "expect": {
+        "digestStable": true,
+        "sourceSessionId": "sess_wave25_scope",
+        "sourceTurnId": "turn_target",
+        "trajectoryRef": "journal://sess_wave25_scope/turn_target",
+        "latestCommittedSeq": 8,
+        "latestUserText": "Summarize the repo",
+        "toolNames": ["filesystem.read_text"],
+        "counts": {
+          "journalEventsInTurn": 4,
+          "toolCallCount": 1,
+          "toolResultCount": 1,
+          "assistantOutputCount": 1
+        },
+        "evidenceEventTypes": [
+          "user.input",
+          "tool.call_planned",
+          "tool.result",
+          "assistant.output"
+        ],
+        "evidenceSeqs": [5, 6, 7, 8],
+        "proposalQueueSize": 0,
+        "proposalOutboxSize": 0,
+        "taskProposalJournalCount": 0
+      }
+    }
+  ]
+}

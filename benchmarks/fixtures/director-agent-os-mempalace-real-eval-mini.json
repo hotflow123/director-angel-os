@@ -1,0 +1,136 @@
+{
+  "schemaVersion": "hotflow.mempalace.recall-benchmark.fixture.v1",
+  "suiteId": "director-agent-os-mempalace-real-eval-fixture-gate",
+  "source": {
+    "name": "local-mini-locomem-style-fixture",
+    "dataset": "local-fixture",
+    "version": "2026-05-08",
+    "localOnly": true
+  },
+  "thresholds": {
+    "recallAtK": 0.8,
+    "recallAnyAtK": 1,
+    "ndcgAtK": 0.75,
+    "requireVerbatimEvidence": true,
+    "requireProvenanceEvidence": true
+  },
+  "cases": [
+    {
+      "queryId": "locomo-character-video-preference",
+      "query": "Which video workflow does Mira prefer for separated scene prompts?",
+      "expectedIds": ["mempalace:drawer_mira_seedance_scene_prompts"],
+      "k": 2,
+      "mempalaceResult": {
+        "ok": true,
+        "results": [
+          {
+            "id": "drawer_mira_seedance_scene_prompts",
+            "text": "Mira prefers Seedance scene-level video prompts.",
+            "verbatim": "Mira prefers Seedance scene-level video prompts and wants every scene kept in its own prompt boundary.",
+            "similarity": 0.97,
+            "matched_via": "drawer+closet",
+            "source_file": "fixtures/locomo/mira-session-001.md",
+            "wing": "director-angel",
+            "room": "long-memory",
+            "drawer_index": 3,
+            "total_drawers": 18
+          },
+          {
+            "id": "drawer_video_generic_distractor",
+            "text": "Generic video generation note.",
+            "verbatim": "Generic video generation note retained as a distractor with provenance.",
+            "similarity": 0.62,
+            "matched_via": "drawer",
+            "source_file": "fixtures/locomo/video-generic.md",
+            "wing": "director-angel",
+            "room": "long-memory"
+          }
+        ]
+      }
+    },
+    {
+      "queryId": "convmem-provider-auth-route",
+      "query": "How should X/Twitter bearer token exec refs be resolved?",
+      "expectedIds": ["mempalace:drawer_x_exec_secretref_runner"],
+      "k": 3,
+      "mempalaceResult": {
+        "ok": true,
+        "results": [
+          {
+            "id": "drawer_x_exec_secretref_runner",
+            "text": "X/Twitter exec SecretRefs use the runner-aware provider auth registry.",
+            "verbatim": "X/Twitter exec SecretRefs must use the injected Agent OS sandbox runner in provider status, model x_search, and shared external tool bus x_search.",
+            "similarity": 0.94,
+            "matched_via": "drawer+closet",
+            "source_file": "fixtures/convmem/provider-auth-002.md",
+            "wing": "director-angel",
+            "room": "sandbox",
+            "drawer_index": 5,
+            "total_drawers": 20
+          },
+          {
+            "id": "drawer_secret_generic",
+            "text": "Generic secret reference note.",
+            "verbatim": "Generic secret reference note retained as a provenance-bearing distractor.",
+            "similarity": 0.6,
+            "matched_via": "drawer",
+            "source_file": "fixtures/convmem/secret-generic.md",
+            "wing": "director-angel",
+            "room": "sandbox"
+          }
+        ]
+      }
+    },
+    {
+      "queryId": "membench-weixin-source-grounding",
+      "query": "Where should WeChat public account article search route first?",
+      "expectedIds": ["mempalace:drawer_sogou_weixin_route"],
+      "k": 2,
+      "mempalaceResult": {
+        "ok": true,
+        "results": [
+          {
+            "id": "drawer_sogou_weixin_route",
+            "text": "WeChat public-account article search should route through Sogou Weixin.",
+            "verbatim": "When the user asks for WeChat public-account articles, route through Sogou Weixin before generic web search.",
+            "similarity": 0.93,
+            "matched_via": "drawer",
+            "source_file": "fixtures/membench/source-grounding-003.md",
+            "wing": "director-angel",
+            "room": "source-grounding",
+            "drawer_index": 1,
+            "total_drawers": 9
+          },
+          {
+            "id": "drawer_generic_web",
+            "text": "Generic web search memory.",
+            "verbatim": "Generic web search memory retained as a provenance-bearing distractor.",
+            "similarity": 0.51,
+            "matched_via": "drawer",
+            "source_file": "fixtures/membench/generic-web.md",
+            "wing": "director-angel",
+            "room": "source-grounding"
+          }
+        ]
+      }
+    }
+  ],
+  "diagnosticCases": [
+    {
+      "queryId": "diagnostic-missing-verbatim-provenance",
+      "query": "This diagnostic case should fail missing evidence checks.",
+      "expectedIds": ["mempalace:drawer_required_missing"],
+      "k": 1,
+      "mempalaceResult": {
+        "ok": true,
+        "results": [
+          {
+            "id": "drawer_wrong_no_evidence",
+            "text": "Nearby but wrong memory without verbatim or provenance.",
+            "similarity": 0.7
+          }
+        ]
+      }
+    }
+  ]
+}

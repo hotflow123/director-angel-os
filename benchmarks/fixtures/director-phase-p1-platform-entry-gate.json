@@ -1,0 +1,20 @@
+{
+  "suiteId": "director-phase-p1-platform-entry-gate",
+  "cases": [
+    {
+      "id": "director_p1_entry_golden_path",
+      "label": "Platform entry golden path",
+      "description": "raw entry message -> blueprint -> run -> start -> status/report"
+    },
+    {
+      "id": "director_p1_entry_clarification_gate",
+      "label": "Platform entry clarification gate",
+      "description": "clarification-required entry session cannot continue into blueprint"
+    },
+    {
+      "id": "director_p1_entry_failure_retry_gate",
+      "label": "Platform entry terminal failure and retry guard",
+      "description": "aborted run is visible through entry status and existing run retry surface rejects invalid recovery"
+    }
+  ]
+}

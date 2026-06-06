@@ -1,0 +1,31 @@
+{
+  "name": "@hotflow/engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc --build tsconfig.json",
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "lint": "biome check src",
+    "test": "vitest run --passWithNoTests",
+    "typecheck": "tsc --build tsconfig.json --pretty false"
+  },
+  "dependencies": {
+    "@hotflow/context": "workspace:*",
+    "@hotflow/contracts": "workspace:*",
+    "@hotflow/memory-core": "workspace:*",
+    "@hotflow/models": "workspace:*",
+    "@hotflow/observability": "workspace:*",
+    "@hotflow/sessions": "workspace:*",
+    "@hotflow/tasks-core": "workspace:*",
+    "@hotflow/tools": "workspace:*"
+  }
+}

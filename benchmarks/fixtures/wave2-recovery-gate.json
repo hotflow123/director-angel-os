@@ -1,0 +1,5 @@
+{
+  "suiteId": "wave2-recovery-gate",
+  "iterations": 1,
+  "caseIds": ["interrupted_turn_recovery"]
+}

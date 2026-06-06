@@ -1,0 +1,149 @@
+{
+  "suiteId": "director-phase-p2-wave3-retryable-bridge-failure-gate",
+  "adapterManifest": {
+    "adapterId": "script-execution-a",
+    "adapterKind": "execution",
+    "provider": "script-executor",
+    "enabled": true,
+    "healthStatus": "ready",
+    "dryRunSupported": true,
+    "mockOnly": false,
+    "riskLevel": "high",
+    "approvalMode": "operator_approve",
+    "permissionScopes": ["execution.generate"],
+    "dataRetentionPolicy": "benchmark-local-bridge-retains-none",
+    "rateLimitPolicy": "benchmark-local-server-one-request-per-assignment",
+    "budgetPolicy": "benchmark-only-no-external-spend",
+    "supportedRoles": ["script-planner", "shot-planner"],
+    "supportedActionClasses": ["generate"],
+    "notes": ["Benchmark fixture for Phase P2 Wave 3 retryable bridge failure."],
+    "bridge": {
+      "kind": "http-json",
+      "baseUrl": "http://127.0.0.1:0",
+      "submitPath": "/v1/script-jobs",
+      "timeoutMs": 500,
+      "authEnvVar": "SCRIPT_EXECUTION_API_KEY",
+      "headers": {
+        "x-bridge-id": "script-execution-a"
+      }
+    }
+  },
+  "cliNeedles": {
+    "register": ["Director adapter register:", "status: ok", "script-execution-a"],
+    "explain": [
+      "Director adapter explain:",
+      "bridge capable: yes",
+      "bridge kind: http-json",
+      "bridge auth: env",
+      "real execution eligible: yes"
+    ]
+  },
+  "cases": [
+    {
+      "id": "phase_p2_wave3_shot_planner_retry_closure",
+      "snapshot": {
+        "apiVersion": "director-host-api.v1",
+        "schemaId": "director.host.snapshot.v1",
+        "snapshotId": "snapshot-p2-wave3-failure-1",
+        "createdAt": "2026-04-14T13:00:00.000Z",
+        "host": {
+          "hostId": "host-p2-wave3",
+          "triggerSource": "cli"
+        },
+        "project": {
+          "projectId": "project-p2-wave3-failure",
+          "title": "Phase P2 Wave 3 retryable bridge failure",
+          "outline": "Create a director-ready script plan and shot plan, then recover cleanly when the shot bridge times out once."
+        },
+        "group": {
+          "groupId": "group-p2-wave3-failure",
+          "generationStyle": "immersive",
+          "generationType": "new",
+          "sceneCount": 1,
+          "anchorIds": ["anchor-p2-wave3-failure"]
+        },
+        "runtime": {
+          "runtimeId": "runtime-p2-wave3-failure",
+          "status": "ready",
+          "availableBindings": ["binding-a"],
+          "maxPromptChars": 4096,
+          "supportsVideo": true
+        },
+        "intent": {
+          "bindingPolicy": "prefer",
+          "preferredImageBinding": "binding-a"
+        }
+      },
+      "bridgeBehavior": {
+        "sequence": [
+          {
+            "type": "success",
+            "statusCode": 202,
+            "accepted": true,
+            "requestId": "req-p2-wave3-script-1"
+          },
+          {
+            "type": "timeout",
+            "delayMs": 650,
+            "requestId": "req-p2-wave3-too-late"
+          },
+          {
+            "type": "success",
+            "statusCode": 202,
+            "accepted": true,
+            "requestId": "req-p2-wave3-shot-retry-1"
+          }
+        ]
+      },
+      "expected": {
+        "adapterId": "script-execution-a",
+        "reviewDecision": "warn",
+        "initialRunStatus": "failed",
+        "finalRunStatus": "completed",
+        "failureReason": "network_timeout",
+        "failureStatusCode": 504,
+        "retryRequestId": "req-p2-wave3-shot-retry-1",
+        "failureReportFlags": [
+          "has-failures",
+          "external-bridge-attempted",
+          "external-bridge-succeeded",
+          "external-bridge-failed"
+        ],
+        "failureBridgeMetrics": {
+          "attempts": 2,
+          "successes": 1,
+          "failures": 1
+        },
+        "failureRunReportNeedles": [
+          "status: failed",
+          "bridge verdict: failed (network_timeout)",
+          "retryable: yes",
+          "bridge status: 504",
+          "next action: review the failure and retry when the side-effect boundary is safe.",
+          "bridge attempts: 2 (successes: 1, failures: 1)"
+        ],
+        "failureExplainNeedles": [
+          "Director run explain:",
+          "run status: failed",
+          "operator verdict: Run failed, but at least one assignment has a safe retry path.",
+          "bridge verdict: failed (network_timeout)",
+          "retry candidates: 1",
+          "next action: review the failure and retry when the side-effect boundary is safe."
+        ],
+        "retryRunNeedles": ["status: running", "ready assignments: 1"],
+        "finalReportFlags": ["external-bridge-attempted", "external-bridge-succeeded"],
+        "forbiddenFinalReportFlags": ["external-bridge-failed", "has-failures"],
+        "finalBridgeMetrics": {
+          "attempts": 2,
+          "successes": 2,
+          "failures": 0
+        },
+        "finalRunReportNeedles": [
+          "status: completed",
+          "bridge attempts: 2 (successes: 2, failures: 0)"
+        ],
+        "memoryStatus": "ok"
+      }
+    }
+  ]
+}

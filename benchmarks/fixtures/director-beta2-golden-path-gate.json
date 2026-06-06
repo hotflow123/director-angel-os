@@ -1,0 +1,126 @@
+{
+  "suiteId": "director-beta2-golden-path-gate",
+  "cases": [
+    {
+      "id": "director_beta2_execution_lane_flow",
+      "reviewedBlueprint": {
+        "apiVersion": "director-host-api.v1",
+        "snapshotId": "snapshot-beta2-blueprint-1",
+        "runtimeId": "runtime-beta2",
+        "blueprintId": "blueprint-beta2",
+        "review": {
+          "overallDecision": "pass",
+          "blockingReasons": [],
+          "requiredFixes": []
+        },
+        "capabilitySnapshot": {
+          "snapshotId": "capability-snapshot-beta2",
+          "runtimeId": "runtime-beta2",
+          "capturedAt": "2026-04-12T09:00:00.000Z",
+          "status": "ready",
+          "adapters": [],
+          "notes": []
+        },
+        "actionGraph": {
+          "graphId": "graph-beta2",
+          "blueprintId": "blueprint-beta2",
+          "goal": "deliver a preview-safe trailer execution lane",
+          "nodes": [
+            {
+              "nodeId": "node-1",
+              "assignmentId": "assignment-1",
+              "role": "researcher",
+              "objective": "Inspect the brief and continuity context.",
+              "inputs": ["snapshot"],
+              "outputs": ["research brief"],
+              "deliverable": "prepare research brief",
+              "acceptanceCriteria": ["Goal is explicit."],
+              "constraints": [],
+              "dependsOn": [],
+              "allowedAdapters": [],
+              "actionClass": "read",
+              "approvalMode": "auto_allow",
+              "escalationToDirector": false,
+              "status": "ready",
+              "selectedAdapter": "mock-execution"
+            },
+            {
+              "nodeId": "node-2",
+              "assignmentId": "assignment-2",
+              "role": "script-planner",
+              "objective": "Draft the deterministic script plan.",
+              "inputs": ["research brief"],
+              "outputs": ["script plan"],
+              "deliverable": "draft script plan",
+              "acceptanceCriteria": ["Plan is deterministic."],
+              "constraints": [],
+              "dependsOn": ["assignment-1"],
+              "allowedAdapters": ["mock-execution"],
+              "actionClass": "generate",
+              "approvalMode": "auto_allow",
+              "escalationToDirector": false,
+              "status": "ready",
+              "selectedAdapter": "mock-execution"
+            },
+            {
+              "nodeId": "node-3",
+              "assignmentId": "assignment-3",
+              "role": "shot-planner",
+              "objective": "Break the script into shot-ready tasks.",
+              "inputs": ["script plan"],
+              "outputs": ["shot plan"],
+              "deliverable": "draft shot plan",
+              "acceptanceCriteria": ["Shots are ordered and bounded."],
+              "constraints": [],
+              "dependsOn": ["assignment-2"],
+              "allowedAdapters": ["mock-execution"],
+              "actionClass": "generate",
+              "approvalMode": "auto_allow",
+              "escalationToDirector": false,
+              "status": "ready",
+              "selectedAdapter": "mock-execution"
+            }
+          ],
+          "edges": [],
+          "stopConditions": []
+        },
+        "preview": {
+          "previewId": "preview-beta2",
+          "summary": "preview",
+          "warnings": [],
+          "blockedReasons": [],
+          "requiredApprovals": []
+        },
+        "handoff": {
+          "handoffId": "handoff-beta2",
+          "blueprintId": "blueprint-beta2",
+          "createdAt": "2026-04-12T09:00:00.000Z",
+          "alignmentLockId": "lock-beta2",
+          "actionGraphId": "graph-beta2",
+          "previewSummary": "preview",
+          "capabilityMatches": [],
+          "mediaRequests": [],
+          "expectedArtifacts": [],
+          "chosenAdapters": ["mock-execution"],
+          "sideEffectsAllowed": false,
+          "notes": ["preview-only", "beta2-golden-path"]
+        }
+      },
+      "expectedRun": {
+        "createdStatus": "created",
+        "runningStatus": "running",
+        "pausedStatus": "paused",
+        "completedStatus": "completed",
+        "minimumAssignmentCount": 3,
+        "requiredFlags": ["preview-only"],
+        "requiredEventTypes": ["run-created", "run-status-changed", "assignment-status-changed"],
+        "minimumEventCount": 8
+      },
+      "expectedPausedWorker": {
+        "status": "paused",
+        "executedAssignments": 0,
+        "requiredFlags": ["preview-only", "run-paused"]
+      }
+    }
+  ]
+}

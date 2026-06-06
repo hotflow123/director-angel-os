@@ -1,0 +1,33 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
+    "baseUrl": ".",
+    "paths": {
+      "@hotflow/channels-core": ["../../packages/channels-core/dist/index.d.ts"],
+      "@hotflow/conversation-runtime": ["../../packages/conversation-runtime/dist/index.d.ts"],
+      "@hotflow/context": ["../../packages/context/dist/index.d.ts"],
+      "@hotflow/contracts": ["../../packages/contracts/dist/index.d.ts"],
+      "@hotflow/director-host-contracts": [
+        "../../packages/director-host-contracts/dist/index.d.ts"
+      ],
+      "@hotflow/director-knowledge": ["../../packages/director-knowledge/dist/index.d.ts"],
+      "@hotflow/director-runtime": ["../../packages/director-runtime/dist/index.d.ts"],
+      "@hotflow/director-worker": ["../../apps/director-worker/dist/main.d.ts"],
+      "@hotflow/runtime-bootstrap": ["../../apps/runtime-bootstrap/dist/index.d.ts"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["dist", "tests", "src/**/*.test.ts"],
+  "references": [
+    { "path": "../../packages/channels-core" },
+    { "path": "../../packages/conversation-runtime" },
+    { "path": "../../packages/contracts" },
+    { "path": "../../packages/director-host-contracts" },
+    { "path": "../../packages/director-runtime" },
+    { "path": "../runtime-bootstrap" },
+    { "path": "../director-worker" }
+  ]
+}

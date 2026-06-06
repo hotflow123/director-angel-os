@@ -1,0 +1,143 @@
+{
+  "suiteId": "wave5-task-contract-gate",
+  "iterations": 1,
+  "cases": [
+    {
+      "id": "legacy_wrapped_todo_readable",
+      "description": "Legacy wrapped tasks.todo_write payload is still readable by task status projection.",
+      "context": {
+        "sessionId": "sess_wave5_legacy_wrapped"
+      },
+      "steps": [
+        {
+          "id": "create_session",
+          "type": "cli",
+          "command": ["task", "status", "{{sessionId}}"],
+          "expectStdoutIncludes": ["Task action: task-status", "Todos: 0"]
+        },
+        {
+          "id": "append_legacy_wrapped_todo",
+          "type": "append-legacy-wrapped-todo",
+          "todoContent": "legacy wrapped todo payload"
+        },
+        {
+          "id": "task_status_reads_legacy_payload",
+          "type": "cli",
+          "command": ["task", "status", "{{sessionId}}"],
+          "expectStdoutIncludes": [
+            "Task action: task-status",
+            "Todos: 1",
+            "[todo] legacy wrapped todo payload"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "writer_emits_flat_todo_payload",
+      "description": "Current writer emits flat TaskState payload for tasks.todo_write.",
+      "steps": [
+        {
+          "id": "run_writer",
+          "type": "cli",
+          "command": ["run", "Summarize this repo and create a todo list"],
+          "captureSessionId": true,
+          "expectStdoutIncludes": ["Session:", "Output:", "Todos:"]
+        },
+        {
+          "id": "assert_latest_todo_payload_is_flat",
+          "type": "assert-flat-todo-payload"
+        }
+      ]
+    },
+    {
+      "id": "status_resume_boundary_after_task_events",
+      "description": "status/resume remain stable after task-plane events, without requiring full task operations in checkpoint state.",
+      "steps": [
+        {
+          "id": "run_seed_session",
+          "type": "cli",
+          "command": ["run", "Summarize this repo and create a todo list"],
+          "captureSessionId": true,
+          "expectStdoutIncludes": ["Session:", "Output:", "Todos:"]
+        },
+        {
+          "id": "delegation_enqueue",
+          "type": "cli",
+          "command": [
+            "task",
+            "delegation-enqueue",
+            "{{sessionId}}",
+            "--id",
+            "d1",
+            "--worker",
+            "worker-a",
+            "--instruction",
+            "Wave 5 checkpoint boundary validation"
+          ],
+          "expectStdoutIncludes": ["Task action: delegation-enqueue", "Delegation: 1"]
+        },
+        {
+          "id": "verification_upsert",
+          "type": "cli",
+          "command": [
+            "task",
+            "verification-upsert",
+            "{{sessionId}}",
+            "--id",
+            "v1",
+            "--verifier",
+            "verifier-a",
+            "--requirement",
+            "checkpoint boundary",
+            "--status",
+            "pending"
+          ],
+          "expectStdoutIncludes": ["Task action: verification-upsert", "Verification: 1"]
+        },
+        {
+          "id": "proposal_enqueue",
+          "type": "cli",
+          "command": [
+            "task",
+            "proposal-enqueue",
+            "{{sessionId}}",
+            "--id",
+            "p1",
+            "--kind",
+            "skill-proposal",
+            "--payload",
+            "{\"title\":\"contract boundary\"}",
+            "--source-session",
+            "{{sessionId}}",
+            "--source-turn",
+            "turn_1",
+            "--provenance",
+            "bench-wave5"
+          ],
+          "expectStdoutIncludes": [
+            "Task action: proposal-enqueue",
+            "Proposal queue: 1",
+            "Proposal outbox: 1"
+          ]
+        },
+        {
+          "id": "status_after_task_events",
+          "type": "cli",
+          "command": ["status", "{{sessionId}}"],
+          "expectStdoutIncludes": ["Session: {{sessionId}}", "First step:", "Runtime status:"]
+        },
+        {
+          "id": "resume_after_task_events",
+          "type": "cli",
+          "command": ["resume", "{{sessionId}}"],
+          "expectStdoutIncludes": [
+            "Session: {{sessionId}}",
+            "First step:",
+            "Resume action:",
+            "Runtime status:"
+          ]
+        }
+      ]
+    }
+  ]
+}

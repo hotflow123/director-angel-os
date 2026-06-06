@@ -1,0 +1,99 @@
+{
+  "schemaVersion": "hotflow.mempalace.recall-dataset-manifest.v1",
+  "suiteId": "director-agent-os-mempalace-real-dataset-loader-anonymization",
+  "source": {
+    "name": "locomo-style-approved-local-manifest",
+    "dataset": "locomo-mini-public",
+    "version": "2026-05-10"
+  },
+  "thresholds": {
+    "recallAtK": 1,
+    "recallAnyAtK": 1,
+    "ndcgAtK": 1,
+    "requireVerbatimEvidence": true,
+    "requireProvenanceEvidence": true
+  },
+  "dataset": {
+    "datasetId": "locomo-mini-public",
+    "sourceKind": "public-benchmark",
+    "localOnly": true,
+    "containsUserContent": true,
+    "estimatedCaseCount": 2
+  },
+  "approval": {
+    "operatorApproved": true,
+    "approvalId": "approval-public-memory-dataset-loader-20260510",
+    "scope": "public-benchmark-eval",
+    "approvedAt": "2026-05-10T02:00:00.000Z"
+  },
+  "anonymization": {
+    "enabled": true,
+    "strategy": "hash+entity-redaction",
+    "irreversible": true,
+    "removesDirectIdentifiers": true
+  },
+  "retention": {
+    "reportTtlDays": 14,
+    "storeRawContent": false,
+    "deleteRawContentAfterEval": true
+  },
+  "execution": {
+    "dryRunOnly": true,
+    "allowNetwork": false,
+    "readOnly": true
+  },
+  "cases": [
+    {
+      "queryId": "mira-private-video-preference",
+      "query": "What video workflow did Mira Zhang prefer? Email mira@example.com and phone +1 415 555 0188.",
+      "expectedIds": ["drawer_mira_seedance"],
+      "k": 2,
+      "results": [
+        {
+          "id": "drawer_mira_seedance",
+          "text": "Mira Zhang prefers Seedance scene prompts. Reach her at mira@example.com or +1 415 555 0188.",
+          "verbatim": "Mira Zhang prefers Seedance scene prompts and wants every shot kept separate.",
+          "sourceFile": "locomo/private/mira-session.md",
+          "wing": "director-angel",
+          "room": "user-memory",
+          "score": 0.96
+        },
+        {
+          "id": "drawer_generic_video_distractor",
+          "text": "Generic video generation notes stay lower ranked.",
+          "verbatim": "Generic video generation notes stay lower ranked as a distractor.",
+          "sourceFile": "locomo/private/video-generic.md",
+          "wing": "director-angel",
+          "room": "user-memory",
+          "score": 0.52
+        }
+      ]
+    },
+    {
+      "queryId": "sam-secretref-route",
+      "query": "How did Sam Lee want SecretRef routing handled? Email sam@example.com.",
+      "expectedIds": ["drawer_sam_secretref"],
+      "k": 2,
+      "results": [
+        {
+          "id": "drawer_sam_secretref",
+          "text": "Sam Lee keeps provider tokens in SecretRef-backed runner auth, never inline.",
+          "verbatim": "Sam Lee asked that provider tokens stay in SecretRef-backed runner auth and never appear inline.",
+          "sourceFile": "convmem/private/sam-secretref.md",
+          "wing": "director-angel",
+          "room": "provider-auth",
+          "score": 0.94
+        },
+        {
+          "id": "drawer_secretref_generic",
+          "text": "Generic SecretRef note stays available as a distractor.",
+          "verbatim": "Generic SecretRef note stays available as a distractor with provenance.",
+          "sourceFile": "convmem/private/secretref-generic.md",
+          "wing": "director-angel",
+          "room": "provider-auth",
+          "score": 0.55
+        }
+      ]
+    }
+  ]
+}

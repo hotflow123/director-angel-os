@@ -1,0 +1,28 @@
+{
+  "suiteId": "wave11-worker-jobs-gate",
+  "cases": [
+    {
+      "id": "trajectory_summary_proposal_from_committed_session",
+      "prompt": "Read __README__ and summarize it.",
+      "sessionId": "sess_wave11_1",
+      "turnId": "turn_wave11_1",
+      "proposalId": "proposal_wave11_1",
+      "provenance": "bench-wave11",
+      "expect": {
+        "sourceTurnId": "turn_wave11_1",
+        "proposalId": "proposal_wave11_1",
+        "proposalKind": "skills.snapshot_upsert",
+        "proposalStatusAfterReconcile": "applied",
+        "proposalQueueSize": 1,
+        "proposalOutboxSize": 3,
+        "provenance": "bench-wave11",
+        "toolCallCount": 2,
+        "toolResultCount": 2,
+        "assistantOutputCount": 1,
+        "approvedSkillsVisibleBeforeReload": 0,
+        "approvedSkillsVisibleAfterReload": 1,
+        "appliedSkillId": "skill_sess_wave11_1_turn_wave11_1"
+      }
+    }
+  ]
+}

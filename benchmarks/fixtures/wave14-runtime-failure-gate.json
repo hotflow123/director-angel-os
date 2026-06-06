@@ -1,0 +1,158 @@
+{
+  "suiteId": "wave14-runtime-failure-gate",
+  "cases": [
+    {
+      "id": "gateway_provider_transient",
+      "type": "gateway",
+      "mode": "transient_429",
+      "expect": {
+        "status": 503,
+        "jsonSubset": {
+          "code": "PROVIDER_TRANSIENT_ERROR",
+          "metadata": {
+            "kind": "provider-transient",
+            "action": "failover",
+            "providerId": "openai-live",
+            "providerStage": "generate",
+            "providerCode": "HTTP_429",
+            "retryable": true,
+            "statusCode": 429,
+            "operatorVisible": false
+          }
+        }
+      }
+    },
+    {
+      "id": "gateway_provider_fatal",
+      "type": "gateway",
+      "mode": "fatal_401",
+      "expect": {
+        "status": 502,
+        "jsonSubset": {
+          "code": "PROVIDER_FATAL_ERROR",
+          "metadata": {
+            "kind": "provider-fatal",
+            "action": "abort",
+            "providerId": "openai-live",
+            "providerStage": "generate",
+            "providerCode": "HTTP_401",
+            "retryable": false,
+            "statusCode": 401,
+            "operatorVisible": true
+          }
+        }
+      }
+    },
+    {
+      "id": "engine_memory_degrade",
+      "type": "engine-memory",
+      "expect": {
+        "output": "Memory degrade completed.",
+        "journalSubset": {
+          "stage": "runtime",
+          "category": "memory",
+          "action": "degrade",
+          "recoverable": true
+        },
+        "evidenceSubset": {
+          "stage": "runtime",
+          "category": "memory",
+          "action": "degrade",
+          "recoverable": true
+        }
+      }
+    },
+    {
+      "id": "engine_provider_transient",
+      "type": "engine-provider",
+      "mode": "transient_429",
+      "turnId": "turn_wave14_provider_transient",
+      "expect": {
+        "errorSubset": {
+          "code": "PROVIDER_TRANSIENT_ERROR",
+          "defaultAction": "failover",
+          "retryable": true,
+          "metadata": {
+            "kind": "provider-transient",
+            "action": "failover",
+            "recoverable": true,
+            "providerId": "openai-live",
+            "providerStage": "generate",
+            "providerCode": "HTTP_429",
+            "retryable": true,
+            "statusCode": 429,
+            "operatorVisible": false
+          }
+        },
+        "journalSubset": {
+          "stage": "model",
+          "kind": "provider-transient",
+          "action": "failover",
+          "recoverable": true,
+          "providerId": "openai-live",
+          "providerStage": "generate",
+          "providerCode": "HTTP_429",
+          "retryable": true,
+          "statusCode": 429
+        },
+        "evidenceSubset": {
+          "stage": "model",
+          "kind": "provider-transient",
+          "action": "failover",
+          "recoverable": true,
+          "providerId": "openai-live",
+          "providerStage": "generate",
+          "providerCode": "HTTP_429",
+          "retryable": true,
+          "statusCode": 429
+        }
+      }
+    },
+    {
+      "id": "engine_provider_fatal",
+      "type": "engine-provider",
+      "mode": "fatal_401",
+      "turnId": "turn_wave14_provider_fatal",
+      "expect": {
+        "errorSubset": {
+          "code": "PROVIDER_FATAL_ERROR",
+          "defaultAction": "abort",
+          "retryable": false,
+          "metadata": {
+            "kind": "provider-fatal",
+            "action": "abort",
+            "recoverable": false,
+            "providerId": "openai-live",
+            "providerStage": "generate",
+            "providerCode": "HTTP_401",
+            "retryable": false,
+            "statusCode": 401,
+            "operatorVisible": true
+          }
+        },
+        "journalSubset": {
+          "stage": "model",
+          "kind": "provider-fatal",
+          "action": "abort",
+          "recoverable": false,
+          "providerId": "openai-live",
+          "providerStage": "generate",
+          "providerCode": "HTTP_401",
+          "retryable": false,
+          "statusCode": 401
+        },
+        "evidenceSubset": {
+          "stage": "model",
+          "kind": "provider-fatal",
+          "action": "abort",
+          "recoverable": false,
+          "providerId": "openai-live",
+          "providerStage": "generate",
+          "providerCode": "HTTP_401",
+          "retryable": false,
+          "statusCode": 401
+        }
+      }
+    }
+  ]
+}

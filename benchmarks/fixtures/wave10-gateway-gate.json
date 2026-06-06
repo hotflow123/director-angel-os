@@ -1,0 +1,125 @@
+{
+  "suiteId": "wave10-gateway-gate",
+  "cases": [
+    {
+      "id": "health_ok",
+      "request": {
+        "method": "GET",
+        "path": "/health"
+      },
+      "expect": {
+        "status": 200,
+        "jsonSubset": {
+          "status": "ok",
+          "app": "@hotflow/gateway",
+          "defaultProvider": "scripted",
+          "defaultProviderAvailable": true
+        }
+      }
+    },
+    {
+      "id": "direct_message_accepted",
+      "request": {
+        "method": "POST",
+        "path": "/v1/channel/message",
+        "body": {
+          "channel": "webchat",
+          "agentId": "agent-main",
+          "peerId": "user_1",
+          "messageId": "msg_1",
+          "receivedAtMs": 1710000000000,
+          "text": "Read __README__ and summarize it.",
+          "routingHint": {
+            "agentId": "agent-main",
+            "channel": "webchat",
+            "routeKind": "direct",
+            "peerId": "user_1"
+          }
+        }
+      },
+      "expect": {
+        "status": 200,
+        "jsonSubset": {
+          "status": "accepted",
+          "routeKind": "direct",
+          "sessionKey": "agent:agent-main:direct:user_1",
+          "toolCallCount": 2
+        },
+        "bodyIncludes": ["Todo list has been persisted"]
+      }
+    },
+    {
+      "id": "thread_message_accepted",
+      "request": {
+        "method": "POST",
+        "path": "/v1/channel/message",
+        "body": {
+          "channel": "webchat",
+          "agentId": "agent-main",
+          "peerId": "user_1",
+          "messageId": "msg_2",
+          "receivedAtMs": 1710000001000,
+          "text": "Read __README__ and summarize it.",
+          "routingHint": {
+            "agentId": "agent-main",
+            "channel": "webchat",
+            "routeKind": "thread",
+            "peerId": "user_1",
+            "threadId": "thread_1",
+            "baseSessionId": "session_base_1"
+          }
+        }
+      },
+      "expect": {
+        "status": 200,
+        "jsonSubset": {
+          "status": "accepted",
+          "routeKind": "thread",
+          "sessionKey": "agent:agent-main:thread:session_base_1:thread_1:user_1"
+        }
+      }
+    },
+    {
+      "id": "invalid_payload_rejected",
+      "request": {
+        "method": "POST",
+        "path": "/v1/channel/message",
+        "body": {
+          "channel": "webchat",
+          "agentId": "agent-main",
+          "peerId": "user_1",
+          "messageId": "msg_3",
+          "receivedAtMs": 1710000002000,
+          "text": "Hello",
+          "routingHint": {
+            "agentId": "agent-main",
+            "channel": "webchat",
+            "routeKind": "direct",
+            "peerId": "user_1",
+            "baseSessionId": "session_base_1"
+          }
+        }
+      },
+      "expect": {
+        "status": 400,
+        "jsonSubset": {
+          "code": "VALIDATION_FAILURE"
+        },
+        "bodyIncludes": ["baseSessionId"]
+      }
+    },
+    {
+      "id": "method_not_allowed",
+      "request": {
+        "method": "GET",
+        "path": "/v1/channel/message"
+      },
+      "expect": {
+        "status": 405,
+        "jsonSubset": {
+          "code": "METHOD_NOT_ALLOWED"
+        }
+      }
+    }
+  ]
+}

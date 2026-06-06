@@ -1,0 +1,9 @@
+{
+  "id": "tool.filesystem-read",
+  "kind": "tool",
+  "version": "0.1.0",
+  "entrypoint": "./dist/index.js",
+  "displayName": "Filesystem Read Tool",
+  "description": "Registers the workspace-scoped filesystem.read_text tool.",
+  "capabilities": ["tool.register", "filesystem.read"]
+}

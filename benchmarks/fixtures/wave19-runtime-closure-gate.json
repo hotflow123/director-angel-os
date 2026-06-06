@@ -1,0 +1,130 @@
+{
+  "suiteId": "wave19-runtime-closure-gate",
+  "cases": [
+    {
+      "id": "gateway_memory_degrade_then_provider_transient",
+      "kind": "gateway-provider-failure",
+      "mode": "transient_429",
+      "sessionId": "agent:agent-main:direct:user_1",
+      "expect": {
+        "response": {
+          "status": 503,
+          "jsonSubset": {
+            "code": "PROVIDER_TRANSIENT_ERROR",
+            "metadata": {
+              "kind": "provider-transient",
+              "action": "failover",
+              "providerId": "openai-live",
+              "providerStage": "generate",
+              "providerCode": "HTTP_429",
+              "retryable": true,
+              "statusCode": 429
+            }
+          }
+        },
+        "evidenceKinds": ["runtime.degraded", "runtime.failed"],
+        "degradedEvidence": {
+          "stage": "runtime",
+          "category": "memory",
+          "action": "degrade"
+        },
+        "failedEvidence": {
+          "stage": "model",
+          "kind": "provider-transient",
+          "action": "failover",
+          "providerId": "openai-live",
+          "providerStage": "generate",
+          "providerCode": "HTTP_429"
+        },
+        "journalMustInclude": ["runtime.degraded", "runtime.failed"],
+        "journalMustNotInclude": ["assistant.output"],
+        "checkpointPresent": true,
+        "cliRuntimeStatus": "failed"
+      }
+    },
+    {
+      "id": "gateway_memory_degrade_then_provider_fatal",
+      "kind": "gateway-provider-failure",
+      "mode": "fatal_401",
+      "sessionId": "agent:agent-main:direct:user_1",
+      "expect": {
+        "response": {
+          "status": 502,
+          "jsonSubset": {
+            "code": "PROVIDER_FATAL_ERROR",
+            "metadata": {
+              "kind": "provider-fatal",
+              "action": "abort",
+              "providerId": "openai-live",
+              "providerStage": "generate",
+              "providerCode": "HTTP_401",
+              "retryable": false,
+              "statusCode": 401
+            }
+          }
+        },
+        "evidenceKinds": ["runtime.degraded", "runtime.failed"],
+        "degradedEvidence": {
+          "stage": "runtime",
+          "category": "memory",
+          "action": "degrade"
+        },
+        "failedEvidence": {
+          "stage": "model",
+          "kind": "provider-fatal",
+          "action": "abort",
+          "providerId": "openai-live",
+          "providerStage": "generate",
+          "providerCode": "HTTP_401"
+        },
+        "journalMustInclude": ["runtime.degraded", "runtime.failed"],
+        "journalMustNotInclude": ["assistant.output"],
+        "checkpointPresent": true,
+        "cliRuntimeStatus": "failed"
+      }
+    },
+    {
+      "id": "engine_tool_degraded_then_complete",
+      "kind": "engine-tool-closure",
+      "mode": "degraded",
+      "sessionId": "session_wave19_tool_degraded",
+      "turnId": "turn_wave19_tool_degraded",
+      "expect": {
+        "output": "final after degrade",
+        "evidenceKinds": ["runtime.degraded"],
+        "degradedEvidence": {
+          "stage": "tool",
+          "category": "tool",
+          "action": "degrade"
+        },
+        "journalMustInclude": ["turn.branch", "runtime.degraded", "assistant.output"],
+        "journalMustNotInclude": ["runtime.failed"],
+        "checkpointPresent": true,
+        "cliRuntimeStatus": "degraded"
+      }
+    },
+    {
+      "id": "engine_tool_throw_then_terminal_failure",
+      "kind": "engine-tool-closure",
+      "mode": "throw",
+      "sessionId": "session_wave19_tool_throw",
+      "turnId": "turn_wave19_tool_throw",
+      "expect": {
+        "outputIncludes": ["Stopped: tool \"bench.tool.throwing\" failed.", "tool exploded"],
+        "evidenceKinds": ["runtime.failed"],
+        "failedEvidence": {
+          "stage": "tool",
+          "kind": "tool",
+          "action": "abort",
+          "error": {
+            "code": "TOOL_FAILURE"
+          }
+        },
+        "journalMustInclude": ["turn.branch", "runtime.failed", "assistant.output"],
+        "journalMustNotInclude": ["runtime.degraded"],
+        "checkpointPresent": true,
+        "cliRuntimeStatus": "failed"
+      }
+    }
+  ]
+}

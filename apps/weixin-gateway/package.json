@@ -1,0 +1,33 @@
+{
+  "name": "@hotflow/weixin-gateway",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "bin": {
+    "director-weixin": "./dist/main.js"
+  },
+  "scripts": {
+    "build": "tsc --build tsconfig.json",
+    "clean": "rm -rf dist *.tsbuildinfo",
+    "dev": "tsx --tsconfig ./tsconfig.dev.json src/main.ts",
+    "lint": "biome check src tests",
+    "test": "vitest run --config vitest.config.ts",
+    "typecheck": "tsc --build tsconfig.json --pretty false"
+  },
+  "dependencies": {
+    "@hotflow/channels-core": "workspace:*",
+    "@hotflow/conversation-runtime": "workspace:*",
+    "@hotflow/context": "workspace:*",
+    "@hotflow/contracts": "workspace:*",
+    "@hotflow/director-host-contracts": "workspace:*",
+    "@hotflow/director-knowledge": "workspace:*",
+    "@hotflow/director-memory": "workspace:*",
+    "@hotflow/director-memory-contracts": "workspace:*",
+    "@hotflow/director-runtime": "workspace:*",
+    "@hotflow/director-worker": "workspace:*",
+    "@hotflow/runtime-bootstrap": "workspace:*",
+    "@hotflow/skills": "workspace:*"
+  }
+}

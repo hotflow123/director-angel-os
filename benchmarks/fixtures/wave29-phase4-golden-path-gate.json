@@ -1,0 +1,34 @@
+{
+  "suiteId": "wave29-phase4-golden-path-gate",
+  "cases": [
+    {
+      "id": "phase4_single_machine_golden_path",
+      "prompt": "Read __README__ and summarize it.",
+      "sessionId": "sess_wave29_golden_path",
+      "turnId": "turn_wave29_golden_path",
+      "proposalId": "proposal_wave29_golden_path",
+      "provenance": "bench-wave29",
+      "requiredActions": [
+        "proposal-list",
+        "proposal-review",
+        "proposal-accept",
+        "proposal-preview",
+        "proposal-apply"
+      ],
+      "expect": {
+        "sourceTurnId": "turn_wave29_golden_path",
+        "proposalId": "proposal_wave29_golden_path",
+        "proposalKind": "skills.snapshot_upsert",
+        "proposalStatusAfterApply": "applied",
+        "operatorListSawProposal": true,
+        "operatorReviewVerdictAccepted": true,
+        "allOperatorStepsPassed": true,
+        "allRequiredActionsAudited": true,
+        "liveSkillCountBeforeReload": 0,
+        "approvedSkillCountBeforeReload": 1,
+        "liveSkillCountAfterReload": 1,
+        "promptSectionsAfterReload": 1
+      }
+    }
+  ]
+}

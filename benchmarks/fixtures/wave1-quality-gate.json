@@ -1,0 +1,5 @@
+{
+  "suiteId": "wave1-quality-gate",
+  "iterations": 1,
+  "caseIds": ["tool_timeout", "memory_degrade", "policy_deny", "stream_audit"]
+}

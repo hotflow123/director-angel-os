@@ -1,0 +1,61 @@
+{
+  "suiteId": "director-beta3-memory-golden-path-gate",
+  "cases": [
+    {
+      "id": "director_beta3_memory_lane_flow",
+      "snapshot": {
+        "apiVersion": "director-host-api.v1",
+        "schemaId": "director.host.snapshot.v1",
+        "snapshotId": "snapshot-beta3-memory-1",
+        "createdAt": "2026-04-12T20:00:00.000Z",
+        "host": {
+          "hostId": "director-benchmark",
+          "triggerSource": "cli"
+        },
+        "project": {
+          "projectId": "project-beta3",
+          "title": "Director Beta-3 Memory Gate",
+          "outline": "做一个 continuity-safe teaser。"
+        },
+        "group": {
+          "groupId": "group-beta3",
+          "generationType": "new",
+          "generationStyle": "immersive",
+          "sceneCount": 1,
+          "anchorIds": ["anchor-continuity-a"]
+        },
+        "runtime": {
+          "runtimeId": "runtime-beta3",
+          "status": "ready",
+          "availableBindings": ["scripted"],
+          "maxPromptChars": 4096,
+          "supportsVideo": true
+        },
+        "intent": {
+          "bindingPolicy": "prefer",
+          "preferredImageBinding": "scripted"
+        }
+      },
+      "expected": {
+        "statusNeedles": ["Director status:", "memory enabled: yes", "memory records: 1"],
+        "memoryStatusNeedles": ["Director memory:", "record count: 1", "latest ingest: ok"],
+        "recallNeedles": [
+          "Director memory recall preview:",
+          "status: ok",
+          "why recalled:",
+          "provenance:"
+        ],
+        "doctorCheckIds": [
+          "director.memory.switch",
+          "director.memory.store",
+          "director.memory.recall",
+          "director.memory.ingest"
+        ],
+        "evaluateRecallNeedle": "Recall matched 1 prior run",
+        "evaluateRecommendationNeedle": "Review recalled run",
+        "disabledNeedles": ["enabled: no", "status: disabled"],
+        "degradedNeedles": ["store status: degraded"]
+      }
+    }
+  ]
+}

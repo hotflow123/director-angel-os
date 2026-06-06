@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "../..",
+    "paths": {
+      "@hotflow/agent-os-kernel-contracts": ["packages/agent-os-kernel-contracts/src/index.ts"],
+      "@hotflow/agent-os-runtime-mapping": ["packages/agent-os-runtime-mapping/src/index.ts"],
+      "@hotflow/director-core": ["packages/director-core/src/index.ts"],
+      "@hotflow/director-entry-contracts": ["packages/director-entry-contracts/src/index.ts"],
+      "@hotflow/director-host-contracts": ["packages/director-host-contracts/src/index.ts"],
+      "@hotflow/director-knowledge": ["packages/director-knowledge/src/index.ts"],
+      "@hotflow/director-runtime": ["packages/director-runtime/src/index.ts"],
+      "@hotflow/director-service": ["packages/director-service/src/index.ts"],
+      "@hotflow/director-workspace": ["packages/director-workspace/src/index.ts"],
+      "@hotflow/memory-core": ["packages/memory-core/src/index.ts"],
+      "@hotflow/sessions": ["packages/sessions/src/index.ts"],
+      "@hotflow/skills": ["packages/skills/src/index.ts"],
+      "@hotflow/tasks-core": ["packages/tasks-core/src/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts"]
+}

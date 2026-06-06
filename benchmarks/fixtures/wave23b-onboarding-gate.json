@@ -1,0 +1,158 @@
+{
+  "suiteId": "wave23b-onboarding-gate",
+  "iterations": 1,
+  "cases": [
+    {
+      "id": "fresh_workspace_onboard_happy_path",
+      "mode": "onboard",
+      "freshWorkspace": true,
+      "command": ["onboard", "--json"],
+      "env": {
+        "HOTFLOW_DEFAULT_PROVIDER": "scripted",
+        "HOTFLOW_DEFAULT_MODEL": "hotflow-phase1"
+      },
+      "expectStatus": 0,
+      "expectStructuredReport": true,
+      "expectJsonSubset": {
+        "status": "warn",
+        "runtime": {
+          "internalPlugins": [
+            {
+              "id": "provider.scripted"
+            }
+          ]
+        },
+        "doctor": {
+          "status": "pass"
+        }
+      },
+      "reportTarget": "doctor",
+      "expectReport": {
+        "status": "pass",
+        "checks": [
+          {
+            "id": "config.load",
+            "status": "pass",
+            "includes": ["workspaceRoot:", "dataDir:", "defaultProvider: scripted"]
+          },
+          {
+            "id": "provider.default",
+            "status": "pass",
+            "includes": ["scripted"]
+          },
+          {
+            "id": "session.db_path",
+            "status": "pass",
+            "includes": ["sessionDbPath:"]
+          },
+          {
+            "id": "memory.mempalace",
+            "status": "pass",
+            "includes": ["disabled by configuration"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "onboard_provider_misconfigured_surfaces_doctor_failure",
+      "mode": "onboard",
+      "command": ["onboard", "--json"],
+      "env": {
+        "HOTFLOW_DEFAULT_PROVIDER": "openai-compatible",
+        "HOTFLOW_DEFAULT_MODEL": "gpt-5-mini"
+      },
+      "expectStatus": 1,
+      "expectStructuredReport": true,
+      "reportTarget": "doctor",
+      "expectReport": {
+        "status": "fail",
+        "checks": [
+          {
+            "id": "provider.default",
+            "status": "fail",
+            "includes": ["openai-compatible", "HOTFLOW_OPENAI_BASE_URL"]
+          }
+        ]
+      }
+    },
+    {
+      "id": "onboard_optional_mempalace_warn_only",
+      "mode": "onboard",
+      "command": ["onboard", "--json"],
+      "env": {
+        "HOTFLOW_DEFAULT_PROVIDER": "scripted",
+        "HOTFLOW_DEFAULT_MODEL": "hotflow-phase1",
+        "HOTFLOW_MEMPALACE_MODE": "optional"
+      },
+      "expectStatus": 0,
+      "expectStructuredReport": true,
+      "reportTarget": "doctor",
+      "expectReport": {
+        "status": "warn",
+        "checks": [
+          {
+            "id": "memory.mempalace",
+            "status": "warn",
+            "includes": [
+              "optional but not fully configured",
+              "Missing HOTFLOW_MEMPALACE_COMMAND in optional mode.",
+              "Missing HOTFLOW_MEMPALACE_PALACE_PATH in optional mode."
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "onboard_director_route_recovery_guidance",
+      "mode": "onboard",
+      "freshWorkspace": true,
+      "seedDirectorExecution": "reroutable_warn",
+      "command": ["onboard", "--json"],
+      "env": {
+        "HOTFLOW_DEFAULT_PROVIDER": "scripted",
+        "HOTFLOW_DEFAULT_MODEL": "hotflow-phase1"
+      },
+      "expectStatus": 0,
+      "expectStructuredReport": true,
+      "expectJsonSubset": {
+        "status": "warn",
+        "directorExecution": {
+          "status": "warn",
+          "runId": "run-warn-1",
+          "reportId": "report-warn-1",
+          "routeCounts": {
+            "degraded": 1,
+            "reroutable": 1,
+            "total": 2
+          },
+          "suggestedCommands": [
+            "hotflow director run reroute --run-id run-warn-1 --assignment-id assignment-failed-1 --adapter-id runway-preview"
+          ]
+        }
+      }
+    },
+    {
+      "id": "onboard_helper_routes_via_control_plane",
+      "mode": "probe",
+      "expectStatus": 0,
+      "expectJsonSubset": {
+        "dispatchCalls": [
+          {
+            "type": "onboarding",
+            "sessionId": "operator_route"
+          }
+        ],
+        "report": {
+          "status": "pass",
+          "sessionId": "operator_route",
+          "doctor": {
+            "status": "pass",
+            "counts": {
+              "total": 0
+            }
+          }
+        }
+      }
+    }
+  ]
+}

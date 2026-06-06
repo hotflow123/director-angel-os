@@ -1,0 +1,109 @@
+{
+  "suiteId": "wave22-mempalace-boundary-gate",
+  "iterations": 1,
+  "cases": [
+    {
+      "id": "doctor_mempalace_disabled_pass",
+      "mode": "doctor",
+      "command": ["doctor", "--json"],
+      "env": {
+        "HOTFLOW_MEMPALACE_MODE": "disabled"
+      },
+      "expectStatus": 0,
+      "expectStructuredReport": true,
+      "expectReport": {
+        "status": "pass",
+        "checks": [
+          {
+            "idsAnyOf": ["mempalace.health", "memory.mempalace"],
+            "status": "pass"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doctor_mempalace_optional_unconfigured_warn",
+      "mode": "doctor",
+      "command": ["doctor", "--json"],
+      "env": {
+        "HOTFLOW_MEMPALACE_MODE": "optional"
+      },
+      "expectStatus": 0,
+      "expectStructuredReport": true,
+      "expectReport": {
+        "status": "warn",
+        "checks": [
+          {
+            "idsAnyOf": ["mempalace.health", "memory.mempalace"],
+            "status": "warn"
+          }
+        ]
+      }
+    },
+    {
+      "id": "doctor_mempalace_optional_unreachable_warn",
+      "mode": "doctor",
+      "command": ["doctor", "--json"],
+      "env": {
+        "HOTFLOW_MEMPALACE_MODE": "optional",
+        "HOTFLOW_MEMPALACE_BASE_URL": "{{unreachableBaseUrl}}",
+        "HOTFLOW_MEMPALACE_HEALTH_URL": "{{unreachableBaseUrl}}/healthz",
+        "HOTFLOW_MEMPALACE_PATH": "{{tempDir}}/missing-palace",
+        "HOTFLOW_MEMPALACE_PALACE_PATH": "{{tempDir}}/missing-palace"
+      },
+      "expectStatus": 0,
+      "expectStructuredReport": true,
+      "expectReport": {
+        "status": "warn",
+        "checks": [
+          {
+            "idsAnyOf": ["mempalace.health", "memory.mempalace"],
+            "status": "warn"
+          }
+        ]
+      }
+    },
+    {
+      "id": "engine_run_mempalace_disabled_never_blocks",
+      "mode": "run",
+      "command": [
+        "run",
+        "wave22 mempalace disabled should not block engine",
+        "--provider",
+        "scripted",
+        "--model",
+        "hotflow-phase1",
+        "--max-steps",
+        "1"
+      ],
+      "env": {
+        "HOTFLOW_MEMPALACE_MODE": "disabled"
+      },
+      "expectStatus": 0,
+      "expectStdoutIncludes": ["Output:", "Runtime status:"]
+    },
+    {
+      "id": "engine_run_mempalace_optional_unreachable_degrades_without_blocking",
+      "mode": "run",
+      "command": [
+        "run",
+        "wave22 mempalace optional unreachable should degrade without blocking",
+        "--provider",
+        "scripted",
+        "--model",
+        "hotflow-phase1",
+        "--max-steps",
+        "1"
+      ],
+      "env": {
+        "HOTFLOW_MEMPALACE_MODE": "optional",
+        "HOTFLOW_MEMPALACE_BASE_URL": "{{unreachableBaseUrl}}",
+        "HOTFLOW_MEMPALACE_HEALTH_URL": "{{unreachableBaseUrl}}/healthz",
+        "HOTFLOW_MEMPALACE_PATH": "{{tempDir}}/missing-palace",
+        "HOTFLOW_MEMPALACE_PALACE_PATH": "{{tempDir}}/missing-palace"
+      },
+      "expectStatus": 0,
+      "expectStdoutIncludes": ["Output:", "Runtime status:"]
+    }
+  ]
+}

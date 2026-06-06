@@ -1,0 +1,143 @@
+{
+  "suiteId": "wave8-doctor-gate",
+  "iterations": 1,
+  "cases": [
+    {
+      "id": "healthy_scripted_default",
+      "command": ["doctor", "--json"],
+      "env": {
+        "HOTFLOW_DEFAULT_PROVIDER": "scripted",
+        "HOTFLOW_DEFAULT_MODEL": "hotflow-phase1"
+      },
+      "expectStatus": 0,
+      "expectStructuredReport": true,
+      "expectSessionDbPathCreated": true,
+      "expectReport": {
+        "status": "pass",
+        "checks": [
+          {
+            "id": "config.load",
+            "status": "pass"
+          },
+          {
+            "id": "session.db_path",
+            "status": "pass",
+            "includes": ["{{sessionDbPath}}"]
+          },
+          {
+            "id": "provider.registry",
+            "status": "pass",
+            "includes": ["scripted"]
+          },
+          {
+            "id": "provider.default",
+            "status": "pass"
+          },
+          {
+            "id": "session.store",
+            "status": "pass"
+          },
+          {
+            "id": "control_plane.bootstrap",
+            "status": "pass"
+          }
+        ]
+      }
+    },
+    {
+      "id": "default_openai_provider_missing_env",
+      "command": ["doctor", "--json"],
+      "env": {
+        "HOTFLOW_DEFAULT_PROVIDER": "openai-compatible",
+        "HOTFLOW_DEFAULT_MODEL": "gpt-5-mini"
+      },
+      "expectStatus": 1,
+      "expectStructuredReport": true,
+      "expectSessionDbPathCreated": true,
+      "expectReport": {
+        "status": "fail",
+        "checks": [
+          {
+            "id": "config.load",
+            "status": "pass"
+          },
+          {
+            "id": "provider.registry",
+            "status": "pass"
+          },
+          {
+            "id": "provider.default",
+            "status": "fail",
+            "includes": ["openai-compatible", "HOTFLOW_OPENAI_BASE_URL"]
+          },
+          {
+            "id": "session.store",
+            "status": "pass"
+          }
+        ]
+      }
+    },
+    {
+      "id": "default_provider_unregistered",
+      "command": ["doctor", "--json"],
+      "env": {
+        "HOTFLOW_DEFAULT_PROVIDER": "missing-provider",
+        "HOTFLOW_DEFAULT_MODEL": "hotflow-phase1"
+      },
+      "expectStatus": 1,
+      "expectStructuredReport": true,
+      "expectSessionDbPathCreated": true,
+      "expectReport": {
+        "status": "fail",
+        "checks": [
+          {
+            "id": "config.load",
+            "status": "pass"
+          },
+          {
+            "id": "provider.registry",
+            "status": "pass"
+          },
+          {
+            "id": "provider.default",
+            "status": "fail",
+            "includes": ["missing-provider"]
+          },
+          {
+            "id": "session.store",
+            "status": "pass"
+          }
+        ]
+      }
+    },
+    {
+      "id": "session_store_directory_path",
+      "command": ["doctor", "--json"],
+      "env": {
+        "HOTFLOW_CLI_SESSION_DB_PATH": "{{tempDir}}"
+      },
+      "expectStatus": 1,
+      "expectStructuredReport": true,
+      "expectSessionDbPathCreated": false,
+      "expectReport": {
+        "status": "fail",
+        "checks": [
+          {
+            "id": "session.db_path",
+            "status": "pass",
+            "includes": ["{{tempDir}}"]
+          },
+          {
+            "id": "session.store",
+            "status": "fail"
+          },
+          {
+            "id": "control_plane.bootstrap",
+            "status": "fail",
+            "includes": ["Dependency check failed: session.store"]
+          }
+        ]
+      }
+    }
+  ]
+}

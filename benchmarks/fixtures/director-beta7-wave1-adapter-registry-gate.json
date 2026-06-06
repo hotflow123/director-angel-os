@@ -1,0 +1,35 @@
+{
+  "adapterManifest": {
+    "adapterId": "seedance-preview",
+    "adapterKind": "media",
+    "provider": "seedance",
+    "bindingId": "seedance-preview",
+    "healthStatus": "ready",
+    "dryRunSupported": true,
+    "mockOnly": true,
+    "supportedActionClasses": ["generate", "write"],
+    "notes": ["Benchmark fixture for Beta-7 Wave 1 adapter registry."],
+    "mediaCapability": {
+      "adapterId": "seedance-preview",
+      "adapterKind": "media",
+      "provider": "seedance",
+      "supportedModes": ["text_to_video"],
+      "inputModalities": ["text"],
+      "outputArtifactTypes": ["video"],
+      "supportsAsync": false,
+      "healthStatus": "ready"
+    }
+  },
+  "expected": {
+    "adapterId": "seedance-preview",
+    "adapterKind": "media",
+    "provider": "seedance",
+    "enabled": false,
+    "healthStatus": "ready"
+  },
+  "cliNeedles": {
+    "register": ["Director adapter register:", "status: ok", "seedance-preview"],
+    "disable": ["Director adapter disable:", "effective enabled: no"],
+    "explain": ["Director adapter explain:", "manifest registered: yes", "effective enabled: no"]
+  }
+}

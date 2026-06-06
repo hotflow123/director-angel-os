@@ -1,0 +1,81 @@
+{
+  "suiteId": "director-beta4-trace-to-proposal-gate",
+  "cases": [
+    {
+      "id": "director_beta4_trace_to_proposal_flow",
+      "snapshot": {
+        "apiVersion": "director-host-api.v1",
+        "schemaId": "director.host.snapshot.v1",
+        "snapshotId": "snapshot-beta4-proposal-1",
+        "createdAt": "2026-04-12T21:00:00.000Z",
+        "host": {
+          "hostId": "director-benchmark",
+          "triggerSource": "cli"
+        },
+        "project": {
+          "projectId": "project-beta4",
+          "title": "Director Beta-4 Trace Proposal Gate",
+          "outline": "做一个能沉淀导演方法卡片的 teaser。"
+        },
+        "group": {
+          "groupId": "group-beta4",
+          "generationType": "new",
+          "generationStyle": "immersive",
+          "sceneCount": 1,
+          "anchorIds": ["anchor-beta4-a"]
+        },
+        "runtime": {
+          "runtimeId": "runtime-beta4",
+          "status": "ready",
+          "availableBindings": ["scripted"],
+          "maxPromptChars": 4096,
+          "supportsVideo": true
+        },
+        "intent": {
+          "bindingPolicy": "prefer",
+          "preferredImageBinding": "scripted"
+        }
+      },
+      "expected": {
+        "statusNeedles": [
+          "Director status:",
+          "memory records: 1",
+          "proposal lane: ok",
+          "trace proposals: 1"
+        ],
+        "traceProposalStatusNeedles": [
+          "Director trace proposals:",
+          "status: ok",
+          "proposal count: 1"
+        ],
+        "traceProposalListNeedles": ["Director trace proposal list:", "total: 1", "status=pending"],
+        "traceProposalExplainNeedles": [
+          "Director trace proposal:",
+          "proposal id:",
+          "provenance: director-worker/proposal-ingest",
+          "evidence:"
+        ],
+        "traceProposalReviewNeedles": [
+          "Director trace proposal review:",
+          "recommendation: caution"
+        ],
+        "traceProposalAcceptNeedles": [
+          "Director trace proposal decision:",
+          "next status: accepted"
+        ],
+        "traceProposalPreviewNeedles": [
+          "Director trace proposal preview:",
+          "mode: mock-only synthetic replay",
+          "assignments:"
+        ],
+        "traceProposalReplayNeedles": [
+          "Director trace proposal replay:",
+          "run status: completed",
+          "flags: preview-only"
+        ],
+        "traceProposalAcceptedExplainNeedles": ["latest decision: accepted"],
+        "reportNeedles": ["Director run report:", "status: completed"]
+      }
+    }
+  ]
+}

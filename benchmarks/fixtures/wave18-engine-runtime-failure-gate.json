@@ -1,0 +1,81 @@
+{
+  "suiteId": "wave18-engine-runtime-failure-gate",
+  "cases": [
+    {
+      "id": "engine_provider_transient_failure_is_wrapped",
+      "userText": "Trigger transient provider failure.",
+      "turnId": "turn_wave18_transient",
+      "providerId": "openai-live",
+      "model": "hotflow-phase1",
+      "providerCode": "HTTP_429",
+      "message": "rate limited",
+      "statusCode": 429,
+      "retryable": true,
+      "expect": {
+        "errorName": "EngineRunFailure",
+        "isEngineRunFailure": true,
+        "message": "rate limited",
+        "failureCode": "PROVIDER_TRANSIENT_ERROR",
+        "failureAction": "failover",
+        "failureKind": "provider-transient",
+        "providerId": "openai-live",
+        "providerStage": "generate",
+        "providerCode": "HTTP_429",
+        "retryable": true,
+        "statusCode": 429,
+        "journal": {
+          "stage": "model",
+          "kind": "provider-transient",
+          "action": "failover",
+          "providerId": "openai-live",
+          "providerStage": "generate",
+          "providerCode": "HTTP_429"
+        },
+        "evidence": {
+          "stage": "model",
+          "kind": "provider-transient",
+          "action": "failover",
+          "providerId": "openai-live"
+        }
+      }
+    },
+    {
+      "id": "engine_provider_fatal_failure_is_wrapped",
+      "userText": "Trigger fatal provider failure.",
+      "turnId": "turn_wave18_fatal",
+      "providerId": "openai-live",
+      "model": "hotflow-phase1",
+      "providerCode": "HTTP_4XX",
+      "message": "unauthorized",
+      "statusCode": 401,
+      "retryable": false,
+      "expect": {
+        "errorName": "EngineRunFailure",
+        "isEngineRunFailure": true,
+        "message": "unauthorized",
+        "failureCode": "PROVIDER_FATAL_ERROR",
+        "failureAction": "abort",
+        "failureKind": "provider-fatal",
+        "providerId": "openai-live",
+        "providerStage": "generate",
+        "providerCode": "HTTP_4XX",
+        "retryable": false,
+        "statusCode": 401,
+        "journal": {
+          "stage": "model",
+          "kind": "provider-fatal",
+          "action": "abort",
+          "providerId": "openai-live",
+          "providerStage": "generate",
+          "providerCode": "HTTP_4XX"
+        },
+        "evidence": {
+          "stage": "model",
+          "kind": "provider-fatal",
+          "action": "abort",
+          "providerId": "openai-live"
+        }
+      }
+    }
+  ]
+}

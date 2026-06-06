@@ -1,0 +1,7 @@
+packages:
+  - apps/*
+  - internal-plugins
+  - internal-plugins/*/*
+  - packages/*
+  - services/*
+  - benchmarks
