@@ -2,6 +2,10 @@
 
 # Director Angel OS
 
+<p align="center">
+  <img src="./apps/director-desktop/assets/director-angel-operator-logo.png" alt="Director Angel OS logo" width="180" />
+</p>
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![CI](https://github.com/hotflow123/director-angel-os/actions/workflows/ci.yml/badge.svg)](https://github.com/hotflow123/director-angel-os/actions/workflows/ci.yml)
 [![Node Version](https://img.shields.io/badge/node-%3E%3D22%20%3C25-blue.svg)](./package.json)
