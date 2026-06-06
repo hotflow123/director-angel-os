@@ -13,6 +13,7 @@ import {
 } from "node:fs";
 import { mkdir, readFile, readdir, writeFile } from "node:fs/promises";
 import { basename, delimiter as pathDelimiter, dirname, join, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { promisify } from "node:util";
 
 import {
@@ -374,6 +375,7 @@ const AGENT_OS_RELEASE_SMOKE_SKIPPED_CHECKS = Object.freeze([
     detail: "Real user memory sweep needs anonymization and operator approval.",
   },
 ]);
+const MEMEFAST_RECOMMENDED_PURCHASE_URL = "https://memefast.top/";
 
 export function createDirectorDesktopSystemHandlers({
   workspaceRoot,
@@ -1152,6 +1154,44 @@ export function createDirectorDesktopSystemHandlers({
             ),
           ],
         };
+      },
+      openRecommendedPurchase: async (action) => {
+        const openedAt = new Date().toISOString();
+        const url = MEMEFAST_RECOMMENDED_PURCHASE_URL;
+        try {
+          await openExternalUrlRunner(url);
+          const result = {
+            ok: true,
+            url,
+            providerId: "memefast-api",
+            openedAt,
+            message: "已打开 memefast.top 推荐开通入口。",
+          };
+          return {
+            snapshot: await snapshot(),
+            recommendedPurchase: result,
+            events: [
+              createEvent(
+                "推荐开通入口已打开",
+                "已打开 https://memefast.top/；Director Angel 不代存支付信息，只管理本机 API Provider 配置。",
+                action.type,
+              ),
+            ],
+          };
+        } catch (error) {
+          const result = {
+            ok: false,
+            url,
+            providerId: "memefast-api",
+            openedAt,
+            message: `memefast.top 打开失败：${toErrorMessage(error)}`,
+          };
+          return {
+            snapshot: await snapshot(),
+            recommendedPurchase: result,
+            events: [createEvent("推荐开通入口打开失败", result.message, action.type)],
+          };
+        }
       },
       costBudgetSet: async (action) => {
         const workspace = resolveDirectorWorkspace({ root: workspaceRoot });
@@ -23987,7 +24027,7 @@ function inspectDeniedDesktopExternalProcessLaunch(executable, argv) {
     .join(" ")
     .normalize("NFC");
   if (
-    /moyin-creatorV0\.2\.3|\/Applications\/魔因漫创\.app|com\.manju2026\.moyin-creator/u.test(
+    /moyin-creator(?:V[0-9.]+)?|\/Applications\/魔因漫创\.app|com\.manju2026\.moyin-creator/u.test(
       commandLine,
     )
   ) {

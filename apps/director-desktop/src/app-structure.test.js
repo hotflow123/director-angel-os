@@ -907,6 +907,10 @@ describe("desktop app surface structure", () => {
     const appSource = await readAppSource();
     const runCenterModule = await readFile(new URL("./ui/run-center.js", import.meta.url), "utf8");
     const handlerSource = await readDesktopSystemHandlersSource();
+    const taskRuntimeProjectionSource = await readFile(
+      new URL("./desktop-task-runtime-projection.js", import.meta.url),
+      "utf8",
+    );
 
     expect(appSource).toContain("createOptimisticComposerTaskId(turnId)");
     expect(appSource).toContain('return `conversation:${turnId}`;');
@@ -939,10 +943,10 @@ describe("desktop app surface structure", () => {
     expect(handlerSource).toContain("failDesktopConversationTask");
     expect(handlerSource).toContain("cancelDesktopConversationTaskByAction");
     expect(handlerSource).toContain("conversationTaskStore");
-    expect(handlerSource).toContain('category: "conversation-runtime"');
+    expect(taskRuntimeProjectionSource).toContain('category: "conversation-runtime"');
     expect(handlerSource).toContain('status === "needs_attention"');
-    expect(handlerSource).toContain("listDesktopConversationTaskRecords");
-    expect(handlerSource).toContain("readDesktopConversationTaskRecord");
+    expect(taskRuntimeProjectionSource).toContain("listDesktopConversationTaskRecords");
+    expect(taskRuntimeProjectionSource).toContain("readDesktopConversationTaskRecord");
     expect(handlerSource).toContain("conversationTaskCancel");
     expect(handlerSource).toContain("taskRuntimeCancel");
   });

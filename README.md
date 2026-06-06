@@ -128,6 +128,16 @@ It is for agents that hold a job, work across sessions, operate real creative to
 
 ## Quick Start
 
+## Mac Desktop Preview
+
+The initial desktop preview is packaged as `Director Angel-0.0.1-arm64-mac.zip` in the `v0.0.1` GitHub Release.
+
+This is a developer preview for macOS arm64. It is intentionally shipped as an unsigned zip for the first public version, so macOS may ask for manual confirmation on first open. The desktop app writes runtime workspace/data into the user's Application Support area by default when packaged.
+
+The desktop API settings include a recommended `memefast.top` opening/purchase entry. That button only opens the fixed external URL `https://memefast.top/`; Director Angel does not process payment information and does not store external platform payment data.
+
+Release notes: [docs/release/v0.0.1-release-notes.md](./docs/release/v0.0.1-release-notes.md).
+
 Prerequisites:
 
 - Node.js `>=22 <25`
@@ -265,6 +275,7 @@ Useful environment overrides:
 - [docs/operator-guide.md](./docs/operator-guide.md)
 - [docs/failure-and-degrade-guide.md](./docs/failure-and-degrade-guide.md)
 - [docs/open-source-boundaries.md](./docs/open-source-boundaries.md)
+- [docs/release/v0.0.1-release-notes.md](./docs/release/v0.0.1-release-notes.md)
 - [docs/release/v0.1.0-publish-checklist.md](./docs/release/v0.1.0-publish-checklist.md)
 - [examples/minimal-director-angel-workspace/README.md](./examples/minimal-director-angel-workspace/README.md)
 

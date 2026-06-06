@@ -109,7 +109,7 @@ function inspectDeniedDesktopProcessLaunch(executable, argv) {
     .join(" ");
   const normalized = commandLine.normalize("NFC");
   if (
-    /moyin-creatorV0\.2\.3|\/Applications\/魔因漫创\.app|com\.manju2026\.moyin-creator/u.test(
+    /moyin-creator(?:V[0-9.]+)?|\/Applications\/魔因漫创\.app|com\.manju2026\.moyin-creator/u.test(
       normalized,
     )
   ) {

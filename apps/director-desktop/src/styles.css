@@ -4439,6 +4439,7 @@ button.asset-row-card.selected {
 
 .settings-form,
 .settings-readonly-table,
+.settings-recommended-purchase-detail,
 .settings-switch-table,
 .settings-readonly-list {
   display: grid;
@@ -4807,6 +4808,22 @@ button.asset-row-card.selected {
 
 .settings-provider-setup-guidance {
   padding: 0;
+}
+
+.settings-recommended-purchase-panel {
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid rgba(26, 129, 139, 0.28);
+  border-radius: 8px;
+  box-shadow: inset 0 0 0 1px rgba(26, 129, 139, 0.06);
+}
+
+.settings-recommended-purchase-panel .settings-tool-panel-header {
+  align-items: center;
+}
+
+.settings-recommended-purchase-detail {
+  background: #fbfcfd;
 }
 
 .settings-provider-setup-guidance-grid {

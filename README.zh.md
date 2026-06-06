@@ -128,6 +128,16 @@ Director Angel OS 面向的是下一阶段 Agent：不是等你一句一句喂�
 
 ## 快速开始
 
+## Mac 桌面端预览版
+
+初始桌面端预览版会作为 `Director Angel-0.0.1-arm64-mac.zip` 放在 `v0.0.1` GitHub Release 中。
+
+这是 macOS arm64 的开发者预览版。首个公开版本先用未签名 zip 发布，所以 macOS 第一次打开时可能需要用户手动确认。打包后的桌面端默认把 runtime workspace / data 写到用户的 Application Support 区域，不写回源码仓库。
+
+桌面端 API 设置里已经加入推荐的 `memefast.top` 开通/购买入口。这个按钮只会打开固定外部链接 `https://memefast.top/`；Director Angel 不处理支付信息，也不保存外部平台支付数据。
+
+Release notes: [docs/release/v0.0.1-release-notes.md](./docs/release/v0.0.1-release-notes.md)。
+
 前置要求：
 
 - Node.js `>=22 <25`
@@ -264,6 +274,7 @@ export HOTFLOW_WORKER_SESSION_DB_PATH="$HOTFLOW_CLI_SESSION_DB_PATH"
 - [docs/operator-guide.md](./docs/operator-guide.md)
 - [docs/failure-and-degrade-guide.md](./docs/failure-and-degrade-guide.md)
 - [docs/open-source-boundaries.md](./docs/open-source-boundaries.md)
+- [docs/release/v0.0.1-release-notes.md](./docs/release/v0.0.1-release-notes.md)
 - [docs/release/v0.1.0-publish-checklist.md](./docs/release/v0.1.0-publish-checklist.md)
 - [examples/minimal-director-angel-workspace/README.md](./examples/minimal-director-angel-workspace/README.md)
 

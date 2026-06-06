@@ -20799,6 +20799,38 @@ await server.connect(new StdioServerTransport());
     });
   });
 
+  it("opens the fixed memefast recommended purchase link through the safe external URL runner", async () => {
+    const workspaceRoot = mkdtempSync(join(tmpdir(), "director-desktop-memefast-link-"));
+    tempRoots.push(workspaceRoot);
+    writeRuntimeSwitchFixture(workspaceRoot);
+    const openedUrls = [];
+    const bridge = createDirectorDesktopBridgeFacade({
+      handlers: createDirectorDesktopSystemHandlers({
+        workspaceRoot,
+        knowledge: directorKnowledge,
+        openExternalUrl: async (url) => {
+          openedUrls.push(url);
+          return { ok: true };
+        },
+      }),
+    });
+
+    const result = await bridge.invoke({
+      type: DESKTOP_ACTIONS.SETTINGS_OPEN_RECOMMENDED_PURCHASE,
+    });
+
+    expect(openedUrls).toEqual(["https://memefast.top/"]);
+    expect(result.recommendedPurchase).toMatchObject({
+      ok: true,
+      url: "https://memefast.top/",
+      providerId: "memefast-api",
+    });
+    expect(result.events.at(-1)).toMatchObject({
+      title: "推荐开通入口已打开",
+      actionType: DESKTOP_ACTIONS.SETTINGS_OPEN_RECOMMENDED_PURCHASE,
+    });
+  });
+
   it("surfaces expired Weixin gateway startup failures to the desktop UI payload", async () => {
     const workspaceRoot = mkdtempSync(join(tmpdir(), "director-desktop-weixin-expired-"));
     tempRoots.push(workspaceRoot);

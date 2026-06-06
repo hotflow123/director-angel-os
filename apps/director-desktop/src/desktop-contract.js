@@ -8,6 +8,7 @@ export const DESKTOP_ACTIONS = Object.freeze({
   COMPOSER_RESET: "composer.reset",
   COMPOSER_SESSION_DELETE: "composer.sessionDelete",
   SETTINGS_SET: "settings.set",
+  SETTINGS_OPEN_RECOMMENDED_PURCHASE: "settings.openRecommendedPurchase",
   COST_BUDGET_SET: "costBudget.set",
   WEIXIN_GATEWAY_CONTROL: "weixinGateway.control",
   WEIXIN_GATEWAY_ACCOUNT_SELECT: "weixinGateway.accountSelect",

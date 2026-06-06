@@ -88,6 +88,7 @@ const TASK_RUNTIME_ACTIVE_STATUSES = new Set(["pending", "queued", "running", "r
 const TASK_RUNTIME_PROBLEM_STATUSES = new Set(["failed", "interrupted", "cancelled", "needs_attention"]);
 const TASK_RUNTIME_HISTORY_LIMIT = 80;
 const UI_STATE_PERSIST_DEBOUNCE_MS = 250;
+const MEMEFAST_RECOMMENDED_PURCHASE_URL = "https://memefast.top/";
 
 const ASSET_WORKFLOW_IDS = new Set(["experience", "skills", "tools", "review"]);
 const SNAPSHOT_QUICK_ACTION_LIMITS = Object.freeze({
@@ -11783,7 +11784,41 @@ function renderSettingsApiTab(container, settings) {
     },
   });
 
-  container.append(form, footer);
+  container.append(createRecommendedPurchasePanel(provider), form, footer);
+}
+
+function createRecommendedPurchasePanel(provider) {
+  const section = document.createElement("section");
+  section.className = "settings-tool-panel settings-recommended-purchase-panel";
+
+  const header = document.createElement("div");
+  header.className = "settings-tool-panel-header";
+  const titleWrap = document.createElement("div");
+  const title = document.createElement("h3");
+  title.textContent = "推荐开通入口";
+  const copy = document.createElement("p");
+  copy.textContent =
+    "需要购买额度或开通 API Key 时，可从 memefast.top 进入；Director Angel 只打开外部页面，支付与账号授权由用户在外部平台完成。";
+  titleWrap.append(title, copy);
+
+  const openButton = document.createElement("button");
+  openButton.type = "button";
+  openButton.className = "primary-button";
+  openButton.textContent = "打开 memefast.top";
+  openButton.addEventListener("click", async () => {
+    await openRecommendedPurchase(provider);
+  });
+  header.append(titleWrap, openButton);
+
+  const detail = document.createElement("div");
+  detail.className = "settings-recommended-purchase-detail";
+  detail.append(
+    createReadonlyRow("推荐链接", MEMEFAST_RECOMMENDED_PURCHASE_URL),
+    createReadonlyRow("本机边界", "只保存 API Provider 配置，不读取、不代存外部平台支付信息。"),
+  );
+
+  section.append(header, detail);
+  return section;
 }
 
 function renderSettingsModelBindingTab(container, settings) {
@@ -14548,6 +14583,31 @@ async function syncApiProviderModels(provider, formValue) {
   if (result.snapshot) {
     renderSnapshot(result.snapshot);
     renderSettingsSurface();
+  }
+}
+
+async function openRecommendedPurchase(provider) {
+  setRunning(true);
+  setSettingsFeedback("正在打开 memefast.top 推荐开通入口...");
+  const result = await invokeBridge({
+    type: DESKTOP_ACTIONS.SETTINGS_OPEN_RECOMMENDED_PURCHASE,
+  });
+  setRunning(false);
+  if (!result) {
+    return;
+  }
+  for (const event of result.events ?? []) {
+    appendTimelineMessage(event);
+  }
+  const purchaseResult = result.recommendedPurchase;
+  const providerName = provider?.name ?? "API Provider";
+  if (purchaseResult?.ok) {
+    setSettingsFeedback(`${providerName} 推荐开通入口已打开：${purchaseResult.url}`);
+    setResultOutput(
+      `${providerName} 推荐开通入口已打开。\n链接：${purchaseResult.url}\n边界：Director Angel 只打开外部页面，不代存支付信息。`,
+    );
+  } else {
+    setSettingsFeedback(purchaseResult?.message ?? "推荐开通入口打开失败。");
   }
 }
 

@@ -127,7 +127,7 @@ describe("composer state Hermes parity", () => {
 
     expect(attachments).toStrictEqual([
       {
-        id: "composer-attachment-43q1us",
+        id: "composer-attachment-g78pub",
         type: "file",
         path: "/Users/example/Desktop/capture.png",
         fileName: "capture.png",
@@ -154,7 +154,7 @@ describe("composer state Hermes parity", () => {
 
     expect(attachments).toStrictEqual([
       {
-        id: "composer-attachment-zujsm9",
+        id: "composer-attachment-lrcr4",
         type: "file",
         path: "/Users/example/Desktop/brief.pdf",
         fileName: "brief.pdf",

@@ -16,4 +16,6 @@ data
 .director-angel
 benchmarks/.tmp
 backups
+/release
+/.tmp
 参考仓库

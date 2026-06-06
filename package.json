@@ -1,7 +1,7 @@
 {
   "name": "director-angel-os",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.0.1",
   "description": "Director Angel OS is a role-driven Agent OS for turning defined positions into governed, session-aware AI operators with bounded tools, memory, evidence, review, and evolution.",
   "license": "MIT",
   "keywords": [
@@ -60,6 +60,8 @@
     "prune:appledouble": "find . -name '._*' -not -path '*/node_modules/*' -delete",
     "verify": "pnpm prune:appledouble && pnpm lint && pnpm build && pnpm test && pnpm typecheck && pnpm bench:all",
     "build": "turbo run build",
+    "desktop:icons": "pnpm --dir apps/director-desktop icons",
+    "desktop:dist:mac": "pnpm desktop:icons && pnpm --filter @hotflow/director-desktop... build && pnpm --dir apps/director-desktop dist:mac",
     "clean": "turbo run clean && rm -rf node_modules .turbo",
     "dev:cli": "pnpm --filter @hotflow/cli dev",
     "weixin:login": "pnpm --filter @hotflow/weixin-gateway dev -- login",

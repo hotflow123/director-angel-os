@@ -5629,6 +5629,8 @@ function actionHandlerTable(handlers) {
     [DESKTOP_ACTIONS.SNAPSHOT]: handlers.snapshot,
     [DESKTOP_ACTIONS.COMPOSER_CANCEL]: handlers.composer?.cancel,
     [DESKTOP_ACTIONS.SETTINGS_SET]: handlers.settings?.set,
+    [DESKTOP_ACTIONS.SETTINGS_OPEN_RECOMMENDED_PURCHASE]:
+      handlers.settings?.openRecommendedPurchase,
     [DESKTOP_ACTIONS.COST_BUDGET_SET]: handlers.settings?.costBudgetSet,
     [DESKTOP_ACTIONS.WEIXIN_GATEWAY_CONTROL]: handlers.settings?.weixinGatewayControl,
     [DESKTOP_ACTIONS.WEIXIN_GATEWAY_ACCOUNT_SELECT]: handlers.settings?.weixinGatewayAccountSelect,

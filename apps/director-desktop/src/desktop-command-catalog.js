@@ -252,6 +252,13 @@ const COMMAND_GROUPS = Object.freeze([
       DESKTOP_ACTIONS.SNAPSHOT,
     ),
     desktopAction(
+      "settings.openRecommendedPurchase",
+      "打开 memefast.top",
+      "settings",
+      "打开推荐的 API 购买/开通入口；只跳转外部页面，不保存支付信息。",
+      DESKTOP_ACTIONS.SETTINGS_OPEN_RECOMMENDED_PURCHASE,
+    ),
+    desktopAction(
       "gateway.weixin.status",
       "微信网关状态",
       "settings",

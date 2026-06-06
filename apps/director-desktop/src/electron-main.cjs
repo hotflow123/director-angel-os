@@ -6,13 +6,24 @@ const { fileURLToPath } = require("node:url");
 const { createDesktopBackgroundRuntime } = require("./desktop-background-runtime.cjs");
 const { createRunCliProcessCommand } = require("./desktop-cli-process-runner.cjs");
 
-const workspaceRoot =
-  process.env.DIRECTOR_ANGEL_WORKSPACE_ROOT ??
-  process.env.HOTFLOW_WORKSPACE_ROOT ??
-  resolve(__dirname, "../../..");
-const hotflowDataDir = process.env.HOTFLOW_DATA_DIR ?? join(workspaceRoot, ".hotflow");
+app.setName("Director Angel");
+
+const runtimeRoot = resolve(__dirname, "../../..");
+const defaultWritableRoot = join(app.getPath("appData"), "Director Angel");
+const workspaceRoot = resolveDirectorDesktopWorkspaceRoot({
+  env: process.env,
+  runtimeRoot,
+  defaultWritableRoot,
+  packaged: app.isPackaged,
+});
+const hotflowDataDir = resolveDirectorDesktopDataDir({
+  env: process.env,
+  workspaceRoot,
+  defaultWritableRoot,
+  packaged: app.isPackaged,
+});
 const hostApiUrl = process.env.DIRECTOR_HOST_API_URL?.trim() || "";
-const cliMainPath = resolve(__dirname, "../../cli/dist/main.js");
+const cliMainPath = resolve(runtimeRoot, "apps/cli/dist/main.js");
 const smokeMode = process.env.DIRECTOR_DESKTOP_SMOKE === "1";
 const smokeWaitMs = Number.parseInt(process.env.DIRECTOR_DESKTOP_SMOKE_WAIT_MS ?? "1500", 10);
 const smokeComposerPrompt = process.env.DIRECTOR_DESKTOP_SMOKE_COMPOSER_PROMPT?.trim() ?? "";
@@ -42,13 +53,19 @@ const DEFAULT_SMOKE_EXTERNAL_NAVIGATION_URLS = Object.freeze([
 ]);
 const desktopUserDataDir = join(hotflowDataDir, "director-desktop-user-data");
 const mainWindowHtmlPath = resolve(__dirname, "index.html");
-const desktopLogPath = join(workspaceRoot, ".director-angel", "runtime", "logs", "director-desktop.log");
+const desktopIconPath =
+  process.platform === "darwin"
+    ? resolve(__dirname, "../assets/DirectorAngel.icns")
+    : resolve(__dirname, "../assets/director-angel-operator-logo.png");
+const desktopLogPath = join(hotflowDataDir, "director-desktop", "logs", "director-desktop.log");
 
 assertDirectorDesktopLaunchContext();
-ensureDesktopUserDataDir(desktopUserDataDir);
-app.setName("Director Angel");
+ensureDesktopRuntimeDirs({ workspaceRoot, hotflowDataDir, desktopUserDataDir });
 app.setPath("userData", desktopUserDataDir);
 app.setAppUserModelId?.("com.hotflow.director-angel");
+process.env.DIRECTOR_ANGEL_WORKSPACE_ROOT = workspaceRoot;
+process.env.HOTFLOW_WORKSPACE_ROOT = workspaceRoot;
+process.env.HOTFLOW_DATA_DIR = hotflowDataDir;
 
 const singleInstanceLock = smokeMode || app.requestSingleInstanceLock();
 if (!singleInstanceLock) {
@@ -121,7 +138,29 @@ function getBridgePromise() {
   return (bridgePromise ??= createBridge());
 }
 
-function ensureDesktopUserDataDir(dir) {
+function resolveDirectorDesktopWorkspaceRoot({ env, runtimeRoot, defaultWritableRoot, packaged }) {
+  const configuredRoot = env.DIRECTOR_ANGEL_WORKSPACE_ROOT ?? env.HOTFLOW_WORKSPACE_ROOT;
+  if (typeof configuredRoot === "string" && configuredRoot.trim().length > 0) {
+    return resolve(configuredRoot);
+  }
+  return packaged ? join(defaultWritableRoot, "workspace") : runtimeRoot;
+}
+
+function resolveDirectorDesktopDataDir({ env, workspaceRoot, defaultWritableRoot, packaged }) {
+  const configuredDataDir = env.HOTFLOW_DATA_DIR;
+  if (typeof configuredDataDir === "string" && configuredDataDir.trim().length > 0) {
+    return resolve(configuredDataDir);
+  }
+  return packaged ? join(defaultWritableRoot, ".hotflow") : join(workspaceRoot, ".hotflow");
+}
+
+function ensureDesktopRuntimeDirs({ workspaceRoot, hotflowDataDir, desktopUserDataDir }) {
+  ensureWritableDir(workspaceRoot);
+  ensureWritableDir(hotflowDataDir);
+  ensureWritableDir(desktopUserDataDir);
+}
+
+function ensureWritableDir(dir) {
   try {
     mkdirSync(dir, { recursive: true });
   } catch (error) {
@@ -365,6 +404,7 @@ function resolveCliRuntime() {
 
 function assertDirectorDesktopLaunchContext() {
   const expectedAppPath = resolve(__dirname, "..");
+  const expectedRepoRootAppPath = runtimeRoot;
   const expectedLaunchAppPath =
     typeof process.env.DIRECTOR_DESKTOP_EXPECT_APP_PATH === "string" &&
     process.env.DIRECTOR_DESKTOP_EXPECT_APP_PATH.trim().length > 0
@@ -379,6 +419,7 @@ function assertDirectorDesktopLaunchContext() {
     !unsafeLaunch &&
     (actualAppPath === expectedLaunchAppPath ||
       actualAppPath === expectedAppPath ||
+      actualAppPath === expectedRepoRootAppPath ||
       actualMain === resolve(__filename))
   ) {
     return;
@@ -418,6 +459,7 @@ async function createWindow() {
     minWidth: 1120,
     minHeight: 760,
     title: "Director Angel",
+    icon: desktopIconPath,
     backgroundColor: "#f4f6f8",
     show: !smokeMode,
     webPreferences: {
