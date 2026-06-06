@@ -11,22 +11,38 @@
 [![Node Version](https://img.shields.io/badge/node-%3E%3D22%20%3C25-blue.svg)](./package.json)
 [![pnpm](https://img.shields.io/badge/pnpm-%3E%3D10-orange.svg)](./package.json)
 
-> 一句话：Director Angel OS 是职位驱动的 Agent OS：先定义职位，再订好职责边界，让会话、工具、记忆、证据、审查和进化都绑定到这个岗位上。
-> Director Angel 不是又一个创作工具。它是创作工具的受控操作者：学习生产经验，把经验沉淀成岗位记忆，再通过受批准的 adapter、浏览器/Host API 工具面和证据链去操作外部软件与网页平台。
+> **职位驱动的 Agent OS，用来打造受治理的数字执行体。** Director Angel OS 把一份岗位说明书变成运行时结构：职责、可用工具、记忆范围、任务队列、证据、复查和受控进化。
+> **当前演示职位：Director。** Director Angel 是创作工具之上的操作大脑，不是又一个生成器。它学习生产经验，选择受批准的 `moyin-creator` / 魔因漫创、ComfyUI、浏览器/Host API 流程或用户授权网页平台，再带着证据和复查执行。
 
-[过去-现在-未来](#过去-现在-未来) · [为什么是 Director Angel OS](#为什么是-director-angel-os) · [职位驱动的-agent-os](#职位驱动的-agent-os) · [当前能力](#当前已经包含) · [集成面](#外部工具适配器和插件) · [快速开始](#快速开始) · [黄金路径](#30-分钟最小黄金路径) · [架构文档](./docs/architecture.md) · [更多文档](#深入阅读)
+[一眼看懂](#一眼看懂) · [当前预览版](#当前预览版) · [过去-现在-未来](#过去-现在-未来) · [为什么是 Director Angel OS](#为什么是-director-angel-os) · [职位驱动的-agent-os](#职位驱动的-agent-os) · [当前能力](#当前已经包含) · [集成面](#外部工具适配器和插件) · [快速开始](#快速开始) · [黄金路径](#30-分钟最小黄金路径) · [架构文档](./docs/architecture.md) · [更多文档](#深入阅读)
 
 ```text
 职位 -> 职责 -> 会话 -> 工具/模型/策略 -> 任务执行 -> 证据 -> 记忆 -> 审查后进化
 ```
 
-Director Angel OS 是一个基于 MIT 协议的 TypeScript Agent OS，用来打造真正能上岗的 AI 数字执行体：知道自己的职位，理解职责边界，通过受控工具执行任务，留下证据，沉淀记忆，并在审查后持续进化。
+**现在就能试：** 从 [`v0.0.1` release](https://github.com/hotflow123/director-angel-os/releases/tag/v0.0.1) 下载 macOS arm64 developer preview，或者用下面的 CLI golden path 和内置 `scripted` provider 先跑通运行闭环。
 
-当前公开内容先用导演职责做一套具体演示：把意图拆成计划、场景、任务、证据和审查循环。导演是演示角色，不是产品上限。真正的方向更大：用户未来可以自定义任何职位，订好职责图谱和硬边界，让 Agent 按这个岗位长期发展。
+## 一眼看懂
 
-最硬的产品定位是这句：Director Angel 不替代豆包、即梦、可灵、ComfyUI、moyin-creator / 魔因漫创这类创作工具。它学习工作怎么完成，判断该用哪个工具，在策略边界内操作这个工具，记录过程和结果，再把结果变成下一轮更强的经验。
+- **岗位说明书变成运行时：** 职位决定职责、可用工具、记忆访问、任务路由、审查规则和升级边界。
+- **它是创作工具的操作者：** Director Angel 可以学习工作怎么完成，选择合适的受批准执行面，操作它，并留下证据。
+- **今天是 Director，设计上可以是任何职位：** 当前公开版本用导演职责展示系统；未来方向是用户自定义职位，并让职责边界和成长路径随着岗位变化。
+- **默认留下证据：** session、journal、checkpoint、任务状态、工具调用、artifact 和 review 结果都是运行时材料，不是事后补文档。
+- **受控学习：** 经验不会直接变成失控动作，而是走 experience -> skill proposal -> review -> safe apply -> reload visibility -> rollback。
+- **开源预览版：** MIT 协议 TypeScript monorepo，包含 macOS arm64 桌面端预览、CLI runtime、Host API、插件契约和 operator 文档。
 
-核心判断很简单：未来的 Agent 不应该只是一个 prompt 加几个工具。它应该有职位，有职责，有边界，有记忆，有审计，有恢复能力，也有一条可见、可回滚、可监督的自我升级通道。
+Director Angel OS 不是给 prompt 加几个插件，而是给 Agent 一份真正的岗位：职位、职责边界、执行面、记忆模型、审计轨迹，以及一条真实工作后可以复查、可回滚的进化通道。
+
+最硬的产品定位是这句：Director Angel 不是生成器，它是操作者。它学习生产模式，判断下一步该由哪个受批准工具完成，在策略边界内操作工具，记录过程和结果，再把结果变成下一轮更强的经验。
+
+## 当前预览版
+
+- **版本：** [`v0.0.1`](https://github.com/hotflow123/director-angel-os/releases/tag/v0.0.1)，也可称为 `v0.01`。
+- **桌面端：** macOS arm64 developer preview zip，目前是未签名 zip 形态。
+- **运行时：** TypeScript Agent OS，包含 sessions、task plane、tool/model/policy 边界、Host API 工具目录与调用面、worker jobs 和 review lane。
+- **当前创作集成面：** `moyin-creator` / 魔因漫创 control-plane 边界、ComfyUI workflow 导入/导出与 media adapter/provider bridge、仓库内插件面，以及浏览器/Host API handoff 路径。
+- **商业入口边界：** 桌面端 API 设置里包含固定的 `memefast.top` 推荐链接；付款、账号创建和 API key 管理都在 Director Angel 外部，由用户自己控制。
+- **首跑路径：** 内置 `scripted` provider 可以先验证运行闭环，再接真实模型 API。
 
 注意：仓库内部目前仍然保留历史包命名 `hotflow` / `@hotflow/*`。
 
