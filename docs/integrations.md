@@ -81,6 +81,10 @@ Current support includes:
 
 - local or cloud mode configuration
 - health, queue, history, model folder, and workflow diagnostics
+- workflow import/export and handoff flows through `moyin-creator` / 魔因漫创 production packages
+- ComfyUI interop draft conversion reports and simple executable API workflow builds
+- visible workflow draft export through the ComfyUI custom-node bridge
+- ComfyUI API workflow import into `moyin-creator` / 魔因漫创 draft workflow packages, followed by approval-gated `workflow.import`
 - workflow inspect, dependency check, workflow run, workflow watch, and artifact fetch
 - lifecycle install and dependency-fix planning/execution boundaries
 - text-to-image, text-to-video, and image-to-video mode declaration
@@ -90,6 +94,8 @@ Current support includes:
 Boundary:
 
 - ComfyUI still depends on a reachable ComfyUI service or valid local setup
+- import/export and interop outputs must be validated before execution or downstream handoff
+- ComfyUI-to-`moyin-creator` / 魔因漫创 imports remain draft-first and approval-gated
 - workflow execution requires valid workflow nodes, output configuration, and resolved dependencies
 - failed external execution should degrade with diagnostics instead of pretending success
 - installation and dependency-fix execution are not silent background mutation; they stay behind explicit lifecycle operations
@@ -161,7 +167,7 @@ Boundary:
 Strong and accurate:
 
 - Director Angel OS already has a governed external tool control plane.
-- Director Angel OS can represent external systems such as `moyin-creator` / 魔因漫创 and ComfyUI as bounded providers/adapters.
+- Director Angel OS can represent external systems such as `moyin-creator` / 魔因漫创 and ComfyUI as bounded providers/adapters, including ComfyUI import/export and workflow interop.
 - Roles can be connected to tools, model adapters, media adapters, and plugins through policy, health, evidence, and approval boundaries.
 - The plugin direction exists, but current public support is controlled contracts and in-repo plugins, not an open marketplace.
 
@@ -169,5 +175,6 @@ Do not overstate:
 
 - Do not say every third-party plugin can be installed and hot-loaded safely today.
 - Do not say ComfyUI always works without local/cloud setup.
+- Do not say ComfyUI import/export makes every workflow lossless or executable without validation.
 - Do not say `moyin-creator` / 魔因漫创 submit or mutation paths run without operator confirmation.
 - Do not describe the plugin contract as a stable public SDK yet.

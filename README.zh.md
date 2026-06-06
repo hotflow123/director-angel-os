@@ -77,7 +77,7 @@ Director Angel OS 的 Agent 从职位开始：
 - Host API 外部工具控制面，包含工具目录、有效工具和工具调用端点
 - 用于 model、media、execution、host 能力路由的 adapter registry
 - 通过本地 `moyin` CLI / control-plane 边界接入的 `moyin-creator` / 魔因漫创
-- ComfyUI media adapter / provider bridge，支持 workflow 检查、执行、watch、artifact 和生命周期诊断
+- ComfyUI media adapter / provider bridge，支持 workflow 导入/导出、互操作 draft、检查、执行、watch、artifact 和生命周期诊断
 - 内置随仓库版本化的插件，以及面向工具、provider、记忆、外部知识连接器的受控插件契约
 - 一条受控的自我进化路径：committed trajectory -> skill proposal -> review -> safe apply -> reload visibility -> snapshot rollback
 - 当前公开版本的导演职责演示内容
@@ -91,12 +91,12 @@ Director Angel OS 的目标不是让 Agent 变成无限制脚本执行器，而�
 当前集成面包括：
 
 - `moyin-creator` / 魔因漫创：通过本地 `moyin` CLI / control-plane 接入的创作与生产工作流 provider，覆盖任务操作、项目/工作流发现、artifact、memory，以及受控 submit/watch/cancel 流程
-- `ComfyUI`：media adapter / provider bridge，支持本地或云端 ComfyUI workflow 的健康检查、依赖诊断、run/watch、artifact fetch 和生命周期操作
+- `ComfyUI`：media adapter / provider bridge，支持本地或云端 ComfyUI workflow 的导入/导出、interop draft/build、健康检查、依赖诊断、run/watch、artifact fetch 和生命周期操作
 - Host API tools：`/v1/tools/catalog`、`/v1/tools/effective`、`/v1/tools/invoke`、`/v1/catalog/model-adapters`
 - 内置插件：内置 scripted provider 和 filesystem read tool，通过仓库内 manifest 和 typed registration 加载
 - 插件契约：面向 tools、providers、memory providers、external knowledge connectors 的受控 contract surface
 
-边界也要说硬：这还不是公开插件市场。外部工具必须经过 manifest、健康检查、策略、审批边界和证据链。ComfyUI 仍需要可访问的 ComfyUI 服务或有效本地配置；`moyin-creator` / 魔因漫创的 mutation / submit 路径必须保留 operator confirmation。部分内部代码和脚本仍会使用 `moyin.provider` 这样的历史工程命名。
+边界也要说硬：这还不是公开插件市场。外部工具必须经过 manifest、健康检查、策略、审批边界和证据链。ComfyUI 导入/导出和互操作流程仍要经过验证与 handoff 检查；ComfyUI 执行仍需要可访问的 ComfyUI 服务或有效本地配置。`moyin-creator` / 魔因漫创的 mutation / submit 路径必须保留 operator confirmation。部分内部代码和脚本仍会使用 `moyin.provider` 这样的历史工程命名。
 
 完整集成说明见：[docs/integrations.md](./docs/integrations.md)。
 

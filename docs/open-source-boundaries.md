@@ -36,7 +36,7 @@ Within that boundary, the current public release can honestly accept work on:
 - approved snapshot `head + history` storage and snapshot-level rollback
 - audit evidence for `control.action` and `skills.*`
 - Host API external tool control-plane docs and tests
-- `moyin-creator` / 魔因漫创 and ComfyUI provider/adapter docs, diagnostics, and guarded regression checks
+- `moyin-creator` / 魔因漫创 and ComfyUI provider/adapter docs, import/export notes, diagnostics, and guarded regression checks
 - in-repo plugin manifests, plugin contract tests, and sandbox boundary hardening
 - golden path, failure/degrade, operator, and regression documentation
 
@@ -56,6 +56,7 @@ The following must not be described as "Director Angel OS already supports this"
 - a stable public `plugin-sdk`
 - a public plugin marketplace or arbitrary runtime plugin download/execution
 - claiming ComfyUI is zero-config or guaranteed to run without a reachable local/cloud service
+- claiming ComfyUI import/export is always lossless, executable, or safe without validation
 - claiming `moyin-creator` / 魔因漫创 mutation or submit operations run without operator confirmation
 - a heavy UI or full web console
 
@@ -80,7 +81,7 @@ The most accurate public wording today is:
 - Director Angel OS positions the role as the runtime unit: responsibilities, tools, memory, task routing, and evolution rules should move with the role.
 - The current public repository demonstrates those ideas with a Director responsibility set; Director is the first demonstration role, not the product ceiling.
 - Director Angel OS has a governed external tool control plane and adapter registry.
-- `moyin-creator` / 魔因漫创 and ComfyUI are represented as bounded external providers/adapters with health, policy, approval, artifact, and degrade boundaries.
+- `moyin-creator` / 魔因漫创 and ComfyUI are represented as bounded external providers/adapters with import/export, health, policy, approval, artifact, and degrade boundaries.
 - Plugin support currently means controlled in-repo plugins and governed plugin contracts, not a stable public marketplace.
 - New skill visibility is still bounded by reload.
 - Rollback v1 restores the whole approved snapshot, not individual skills.
