@@ -2,7 +2,7 @@
   "name": "director-angel-os",
   "private": true,
   "version": "0.1.0",
-  "description": "Director Angel OS turns roles into governed, session-aware, tool-using AI operators that execute, remember, and evolve through a reviewable learning lane.",
+  "description": "Director Angel OS is a role-driven Agent OS for turning defined positions into governed, session-aware AI operators with bounded tools, memory, evidence, review, and evolution.",
   "license": "MIT",
   "keywords": [
     "agent-os",

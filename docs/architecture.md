@@ -2,9 +2,9 @@
 
 ## One Sentence / 一句话
 
-`Director Angel OS` turns a role into a governed AI operator: responsibilities, sessions, tools, policies, task execution, evidence, memory, and reviewed evolution move through one operating model.
+`Director Angel OS` is a role-driven Agent OS for turning a defined position into a governed AI operator: responsibilities, sessions, tools, policies, task execution, evidence, memory, and reviewed evolution move through one operating model.
 
-`Director Angel OS` 把一个职位变成可治理的 AI 数字执行体：职责、会话、工具、策略、任务执行、证据、记忆和审查后进化，都进入同一套操作模型。
+`Director Angel OS` 是职位驱动的 Agent OS，用来把一个已定义的职位变成可治理的 AI 数字执行体：职责、会话、工具、策略、任务执行、证据、记忆和审查后进化，都进入同一套操作模型。
 
 ## Big Picture / 整体结构
 
@@ -41,6 +41,18 @@ A role determines what the agent should try to accomplish, which tools it can us
 
 职位是操作身份。
 职位决定 Agent 应该完成什么、能使用什么工具、记忆如何分层、什么证据重要、哪些进化提案可以被接受。
+
+The current public repository uses the Director role as the first responsibility demonstration.
+Director shows planning, scene/task shaping, evidence capture, review, and controlled learning in one visible workflow.
+
+当前公开仓库用 Director / 导演角色作为第一套职责演示。
+导演职责把规划、场景/任务拆解、证据沉淀、审查和受控学习放在同一条可见工作流里。
+
+In the product direction, users can define their own positions and responsibility graphs.
+Changing the position should change the responsibility boundary, tool permissions, memory access, task routing, verification standards, and evolution rules attached to that role.
+
+在产品方向上，用户可以自定义职位和职责图谱。
+职位改变时，职责边界、工具权限、记忆访问、任务路由、验证标准和进化规则也应该随之改变。
 
 This is the difference between a chatbot and a digital operator: the operator has a job.
 这就是聊天助手和数字执行体的差别：数字执行体有岗位。
@@ -179,6 +191,12 @@ That keeps the learning lane inspectable and reviewable.
 Director Angel OS starts from the job.
 
 Director Angel OS 从岗位开始。
+
+The current release demonstrates that idea through Director responsibilities.
+The long-term operating model is broader: define any position, bind a responsibility graph to it, and let the agent execute and improve inside that boundary.
+
+当前版本通过导演职责演示这个想法。
+长期操作模型更宽：定义任意职位，把职责图谱绑定上去，让 Agent 在这个边界内执行和进化。
 
 It gives a role:
 它给一个职位配上：

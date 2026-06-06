@@ -7,8 +7,8 @@
 [![Node Version](https://img.shields.io/badge/node-%3E%3D22%20%3C25-blue.svg)](./package.json)
 [![pnpm](https://img.shields.io/badge/pnpm-%3E%3D10-orange.svg)](./package.json)
 
-> Director Angel OS turns a role into a governed, evolving AI operator.
-> Change the role, change the responsibility graph: the same runtime can act like a researcher, director, operator, reviewer, worker, or domain specialist while keeping execution, memory, evidence, and self-improvement under control.
+> Director Angel OS is a role-driven Agent OS: define a position, set its responsibility boundaries, and let the runtime bind sessions, tools, memory, evidence, review, and evolution to that job.
+> This repository currently demonstrates the Director role. The larger product direction is user-defined roles: researcher, operator, reviewer, worker, domain expert, or any custom position with explicit responsibility boundaries.
 
 [Past, Present, Future](#past-present-future) · [Why Director Angel OS](#why-director-angel-os) · [Role-Driven OS](#role-driven-agent-os) · [Capabilities](#included-today) · [Quick Start](#quick-start) · [Golden Path](#30-minute-minimal-golden-path) · [Architecture](./docs/architecture.md) · [Docs](#read-more)
 
@@ -18,6 +18,8 @@ role -> responsibility -> session -> tools/models/policy -> task execution -> ev
 
 Director Angel OS is an MIT-licensed TypeScript Agent OS for building digital workers that know their job, keep their memory, execute through governed tools, leave evidence behind, and improve through a reviewable evolution loop.
 
+The current public content uses a Director responsibility set as the first concrete demonstration: turning intent into plans, scenes, tasks, evidence, and review loops. Director is the demonstration role, not the product ceiling. The OS direction is broader: users should be able to define any position, lock its responsibility boundary, and let the agent develop from that job over time.
+
 The big idea is simple: an agent should not be a prompt with a few plugins. It should have a position, a responsibility boundary, a memory model, an execution surface, an audit trail, and a disciplined way to upgrade itself after real work.
 
 Note: the repository still uses the historical package scope `hotflow` / `@hotflow/*` in code and commands today.
@@ -26,9 +28,9 @@ Note: the repository still uses the historical package scope `hotflow` / `@hotfl
 
 Past: most agents were stateless prompt wrappers. They could answer, call a tool, maybe chain a few steps, then forget the operating context that made the work valuable.
 
-Present: Director Angel OS makes the job itself the runtime unit. A role defines what the agent is allowed to do, which tools it can touch, what evidence it must produce, what memory it can reuse, and how its work is reviewed.
+Present: Director Angel OS makes the job itself the runtime unit. The current repository demonstrates that model through Director responsibilities: planning, task shaping, evidence capture, review, and controlled improvement. A role defines what the agent is allowed to do, which tools it can touch, what evidence it must produce, what memory it can reuse, and how its work is reviewed.
 
-Future: every serious role can become a living digital operator. Change the position, and the system can grow new responsibilities, new workflows, new skill proposals, and new operating memory without losing governance.
+Future: every serious role can become a living digital operator. Users should be able to create a custom position, define its responsibility graph and hard boundaries, then let the system grow new workflows, new skill proposals, and new operating memory without losing governance.
 
 ## Why Director Angel OS?
 
@@ -52,7 +54,13 @@ A Director Angel OS agent starts from a position:
 - `Reviewer`: verify outputs, inspect evidence, block unsafe changes
 - `Worker`: consume assignments, report progress, return structured results
 
-The position can change. When it changes, responsibilities, tools, memory access, task routing, verification expectations, and self-evolution rules can change with it. That is the point: the agent grows from its job, not from a vague universal prompt.
+Current demonstration: `Director`.
+
+The Director role shows the system through a concrete responsibility boundary: translate intent into plans, scenes, tasks, evidence, review loops, and controlled learning proposals. That role is the public example because it makes planning, supervision, memory, and review visible in one workflow.
+
+Future customization: users define the position.
+
+The position can change. When it changes, responsibilities, tool permissions, memory access, task routing, verification expectations, escalation rules, and self-evolution rules can change with it. That is the point: the agent grows from a defined job, not from a vague universal prompt.
 
 ## Who It Is For
 
@@ -67,6 +75,7 @@ The position can change. When it changes, responsibilities, tools, memory access
 - Task-plane primitives including todos, delegation, verification, proposal queue, and outbox
 - Clear boundaries around tools, models, policy, engine, CLI, gateway, and worker jobs
 - A bounded self-evolution path: committed trajectory -> skill proposal -> review -> safe apply -> reload visibility -> snapshot rollback
+- Director-role demonstration content for the current public release
 - Role-oriented operating surface for changing duties, routing work, and supervising growth
 - Benchmarks and operator-facing docs for regression checking and boundary review
 

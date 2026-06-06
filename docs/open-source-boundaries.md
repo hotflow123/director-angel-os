@@ -8,11 +8,14 @@ The goal is not to shrink contribution space. The goal is to avoid presenting un
 
 ## Positioning / 对外定位
 
-Director Angel OS is a TypeScript Agent OS for turning roles into governed, session-aware, tool-using AI operators with a bounded, operator-controlled learning lane.
-Director Angel OS 是一个 TypeScript Agent OS，用来把职位变成具备会话、工具、策略治理和受控学习闭环的 AI 数字执行体。
+Director Angel OS is a role-driven TypeScript Agent OS for turning a defined position into a governed, session-aware, tool-using AI operator with a bounded, operator-controlled learning lane.
+Director Angel OS 是一个职位驱动的 TypeScript Agent OS，用来把一个已定义的职位变成具备会话、工具、策略治理和受控学习闭环的 AI 数字执行体。
 
-For the first public release, the right story is role-driven execution with hard governance boundaries.
-首发口径强调的是“职位驱动执行 + 硬治理边界”。
+For the first public release, the concrete demonstration is the Director role. The product direction is broader: users should be able to define custom roles and responsibility boundaries, then let the runtime bind tools, memory, task routing, verification, and evolution to that position.
+首发版本的具体演示是导演职责。更大的产品方向是：用户可以自定义职位和职责边界，再让运行时把工具、记忆、任务路由、验证和进化绑定到这个岗位上。
+
+The right story is role-driven execution with hard governance boundaries.
+对外口径强调的是“职位驱动执行 + 硬治理边界”。
 
 ## In Scope Today / 当前明确在边界内
 
@@ -69,6 +72,7 @@ The most accurate public wording today is:
 
 - Director Angel OS already has a controlled proposal, operator, safe-apply, and reload loop.
 - Director Angel OS positions the role as the runtime unit: responsibilities, tools, memory, task routing, and evolution rules should move with the role.
+- The current public repository demonstrates those ideas with a Director responsibility set; Director is the first demonstration role, not the product ceiling.
 - New skill visibility is still bounded by reload.
 - Rollback v1 restores the whole approved snapshot, not individual skills.
 - Open-source contributions are welcome around docs, tests, benchmarks, and in-boundary implementation work.
