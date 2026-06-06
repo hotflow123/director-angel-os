@@ -10,6 +10,16 @@
 [![CI](https://github.com/hotflow123/director-angel-os/actions/workflows/ci.yml/badge.svg)](https://github.com/hotflow123/director-angel-os/actions/workflows/ci.yml)
 [![Node Version](https://img.shields.io/badge/node-%3E%3D22%20%3C25-blue.svg)](./package.json)
 [![pnpm](https://img.shields.io/badge/pnpm-%3E%3D10-orange.svg)](./package.json)
+[![Release: v0.0.1](https://img.shields.io/badge/release-v0.0.1-1f6feb.svg)](https://github.com/hotflow123/director-angel-os/releases/tag/v0.0.1)
+[![Status: Developer Preview](https://img.shields.io/badge/status-developer_preview-7c3aed.svg)](#当前预览版)
+[![Desktop: macOS arm64](https://img.shields.io/badge/desktop-macOS_arm64-111827.svg)](#mac-桌面端预览版)
+[![Agent OS: Role Driven](https://img.shields.io/badge/agent_os-role_driven-2563eb.svg)](#职位驱动的-agent-os)
+[![Demo Role: Director](https://img.shields.io/badge/demo_role-Director-0f766e.svg)](#职位驱动的-agent-os)
+[![Runtime: TypeScript](https://img.shields.io/badge/runtime-TypeScript-3178c6.svg)](./package.json)
+[![Host API: Tools](https://img.shields.io/badge/Host_API-tools-16a34a.svg)](./docs/integrations.md)
+[![ComfyUI: Import/Export](https://img.shields.io/badge/ComfyUI-import%2Fexport-ec4899.svg)](./docs/integrations.md)
+[![moyin-creator: Control Plane](https://img.shields.io/badge/moyin--creator-control_plane-f59e0b.svg)](./docs/integrations.md)
+[![Plugins: Governed](https://img.shields.io/badge/plugins-governed-64748b.svg)](./docs/integrations.md)
 
 > **职位驱动的 Agent OS，用来打造受治理的数字执行体。** Director Angel OS 把一份岗位说明书变成运行时结构：职责、可用工具、记忆范围、任务队列、证据、复查和受控进化。
 > **当前演示职位：Director。** Director Angel 是创作工具之上的操作大脑，不是又一个生成器。它学习生产经验，选择受批准的 `moyin-creator` / 魔因漫创、ComfyUI、浏览器/Host API 流程或用户授权网页平台，再带着证据和复查执行。
