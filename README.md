@@ -10,6 +10,16 @@
 [![CI](https://github.com/hotflow123/director-angel-os/actions/workflows/ci.yml/badge.svg)](https://github.com/hotflow123/director-angel-os/actions/workflows/ci.yml)
 [![Node Version](https://img.shields.io/badge/node-%3E%3D22%20%3C25-blue.svg)](./package.json)
 [![pnpm](https://img.shields.io/badge/pnpm-%3E%3D10-orange.svg)](./package.json)
+[![Release: v0.0.1](https://img.shields.io/badge/release-v0.0.1-1f6feb.svg)](https://github.com/hotflow123/director-angel-os/releases/tag/v0.0.1)
+[![Status: Developer Preview](https://img.shields.io/badge/status-developer_preview-7c3aed.svg)](#current-preview)
+[![Desktop: macOS arm64](https://img.shields.io/badge/desktop-macOS_arm64-111827.svg)](#mac-desktop-preview)
+[![Agent OS: Role Driven](https://img.shields.io/badge/agent_os-role_driven-2563eb.svg)](#role-driven-agent-os)
+[![Demo Role: Director](https://img.shields.io/badge/demo_role-Director-0f766e.svg)](#role-driven-agent-os)
+[![Runtime: TypeScript](https://img.shields.io/badge/runtime-TypeScript-3178c6.svg)](./package.json)
+[![Host API: Tools](https://img.shields.io/badge/Host_API-tools-16a34a.svg)](./docs/integrations.md)
+[![ComfyUI: Import/Export](https://img.shields.io/badge/ComfyUI-import%2Fexport-ec4899.svg)](./docs/integrations.md)
+[![moyin-creator: Control Plane](https://img.shields.io/badge/moyin--creator-control_plane-f59e0b.svg)](./docs/integrations.md)
+[![Plugins: Governed](https://img.shields.io/badge/plugins-governed-64748b.svg)](./docs/integrations.md)
 
 > **Role-driven Agent OS for governed digital workers.** Director Angel OS turns a job description into runtime structure: responsibilities, allowed tools, memory scope, task queues, evidence, review, and controlled evolution.
 > **Current demo role: Director.** Director Angel is the operating brain above creative tools, not another generator. It learns production experience, chooses approved surfaces such as `moyin-creator` / 魔因漫创, ComfyUI, browser/Host API workflows, and user-authorized web platforms, then executes with evidence and review.
