@@ -8,11 +8,11 @@ The goal is not to shrink contribution space. The goal is to avoid presenting un
 
 ## Positioning / 对外定位
 
-Director Angel OS is a TypeScript Agent OS skeleton for building session-aware, tool-using, policy-governed agents with a bounded, operator-controlled learning lane.
-Director Angel OS 是一个 TypeScript Agent OS 骨架，用来构建具备会话、工具、策略治理和受控学习闭环的 Agent。
+Director Angel OS is a TypeScript Agent OS for turning roles into governed, session-aware, tool-using AI operators with a bounded, operator-controlled learning lane.
+Director Angel OS 是一个 TypeScript Agent OS，用来把职位变成具备会话、工具、策略治理和受控学习闭环的 AI 数字执行体。
 
-For the first public release, the right story is bounded capability, not unlimited platform claims.
-首发口径强调的是“能力有边界且可验证”，不是“什么都支持的平台宣称”。
+For the first public release, the right story is role-driven execution with hard governance boundaries.
+首发口径强调的是“职位驱动执行 + 硬治理边界”。
 
 ## In Scope Today / 当前明确在边界内
 
@@ -34,7 +34,7 @@ Within that boundary, the current public release can honestly accept work on:
 - audit evidence for `control.action` and `skills.*`
 - golden path, failure/degrade, operator, and regression documentation
 
-## Not Promised Yet / 当前明确不承诺
+## Current Hard Boundaries / 当前硬边界
 
 The following must not be described as "Director Angel OS already supports this":
 下面这些都不应被表述为“Director Angel OS 已支持”：
@@ -68,6 +68,7 @@ The most accurate public wording today is:
 当前最准确的对外说法是：
 
 - Director Angel OS already has a controlled proposal, operator, safe-apply, and reload loop.
+- Director Angel OS positions the role as the runtime unit: responsibilities, tools, memory, task routing, and evolution rules should move with the role.
 - New skill visibility is still bounded by reload.
 - Rollback v1 restores the whole approved snapshot, not individual skills.
 - Open-source contributions are welcome around docs, tests, benchmarks, and in-boundary implementation work.

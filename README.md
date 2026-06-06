@@ -7,37 +7,59 @@
 [![Node Version](https://img.shields.io/badge/node-%3E%3D22%20%3C25-blue.svg)](./package.json)
 [![pnpm](https://img.shields.io/badge/pnpm-%3E%3D10-orange.svg)](./package.json)
 
-> Director Angel OS is a TypeScript AI Agent operating system skeleton.
-> If the final agent product is the car, Director Angel OS is the chassis: session runtime, tool execution boundaries, control plane, memory boundaries, and a controlled learning lane.
+> Director Angel OS turns a role into a governed, evolving AI operator.
+> Change the role, change the responsibility graph: the same runtime can act like a researcher, director, operator, reviewer, worker, or domain specialist while keeping execution, memory, evidence, and self-improvement under control.
 
-[Why Director Angel OS](#why-director-angel-os) · [Features](#included-today) · [Quick Start](#quick-start) · [Golden Path](#30-minute-minimal-golden-path) · [Architecture](./docs/architecture.md) · [Docs](#read-more)
+[Past, Present, Future](#past-present-future) · [Why Director Angel OS](#why-director-angel-os) · [Role-Driven OS](#role-driven-agent-os) · [Capabilities](#included-today) · [Quick Start](#quick-start) · [Golden Path](#30-minute-minimal-golden-path) · [Architecture](./docs/architecture.md) · [Docs](#read-more)
 
 ```text
-workspace -> session -> journal/checkpoint -> tools/models/policy -> tasks/delegation/verification -> proposal/review/safe apply
+role -> responsibility -> session -> tools/models/policy -> task execution -> evidence -> memory -> reviewed evolution
 ```
 
-Director Angel OS is an MIT-licensed TypeScript monorepo for building tool-using, session-aware, policy-governed agents without rebuilding the operating layer from scratch every time.
+Director Angel OS is an MIT-licensed TypeScript Agent OS for building digital workers that know their job, keep their memory, execute through governed tools, leave evidence behind, and improve through a reviewable evolution loop.
+
+The big idea is simple: an agent should not be a prompt with a few plugins. It should have a position, a responsibility boundary, a memory model, an execution surface, an audit trail, and a disciplined way to upgrade itself after real work.
 
 Note: the repository still uses the historical package scope `hotflow` / `@hotflow/*` in code and commands today.
 
+## Past, Present, Future
+
+Past: most agents were stateless prompt wrappers. They could answer, call a tool, maybe chain a few steps, then forget the operating context that made the work valuable.
+
+Present: Director Angel OS makes the job itself the runtime unit. A role defines what the agent is allowed to do, which tools it can touch, what evidence it must produce, what memory it can reuse, and how its work is reviewed.
+
+Future: every serious role can become a living digital operator. Change the position, and the system can grow new responsibilities, new workflows, new skill proposals, and new operating memory without losing governance.
+
 ## Why Director Angel OS?
 
-- Chassis, not demo: build your own agent product on top without rebuilding the operating layer first
-- Recoverable by default: sessions, journal events, checkpoints, and resume are already part of the runtime model
-- Controlled learning lane: proposal -> review -> safe apply -> rollback stays inspectable and operator-governed
-- Operational surface included: CLI, gateway, worker jobs, and control-plane boundaries are already part of the repo
-- TypeScript-first monorepo: a practical base for teams that want structure, not a one-file experiment
+The pain is obvious once you run agents in real work:
 
-## What It Is
+- Prompt-only agents do not understand job boundaries. They drift, overreach, or wait for humans to restate the same context.
+- Tool agents often execute without enough evidence. You get output, but not a reliable trail of what happened and why.
+- Memory turns dangerous when it is a dump. Useful experience must be scoped, recalled, reviewed, and cleaned.
+- Self-improvement is usually either fake branding or unsafe auto-mutation. Director Angel OS turns it into proposal -> review -> safe apply -> rollback.
+- Multi-agent work collapses when delegation, verification, queues, and status are not first-class runtime concepts.
 
-Director Angel OS is not a finished agent product.
-It is the lower-level base layer under one: session storage, journal/checkpoint recovery, a task plane, tool/model/policy boundaries, CLI and gateway entrypoints, worker jobs, and a bounded proposal -> review -> safe apply -> rollback lane.
+Director Angel OS attacks those problems as an operating system problem, not a prompt-engineering trick.
+
+## Role-Driven Agent OS
+
+A Director Angel OS agent starts from a position:
+
+- `Researcher`: gather sources, preserve citations, build reusable knowledge
+- `Director`: turn intent into plans, shots, scenes, tasks, and review loops
+- `Operator`: execute workflows, track state, recover from interruptions
+- `Reviewer`: verify outputs, inspect evidence, block unsafe changes
+- `Worker`: consume assignments, report progress, return structured results
+
+The position can change. When it changes, responsibilities, tools, memory access, task routing, verification expectations, and self-evolution rules can change with it. That is the point: the agent grows from its job, not from a vague universal prompt.
 
 ## Who It Is For
 
-- Teams building a serious agent runtime instead of a prompt-only demo
-- Product teams that need sessions, recovery, auditability, task routing, and bounded evolution workflows
-- Engineers and researchers who want a structured TypeScript base to extend
+- Teams that want AI employees with operating discipline, not chatbots with extra buttons
+- Product builders who need sessions, recovery, auditability, task routing, and evidence by default
+- Engineers designing role-specific agents that can learn from work without becoming ungoverned
+- Researchers exploring memory, delegation, verification, and self-evolution in a real TypeScript runtime
 
 ## Included Today
 
@@ -45,13 +67,14 @@ It is the lower-level base layer under one: session storage, journal/checkpoint 
 - Task-plane primitives including todos, delegation, verification, proposal queue, and outbox
 - Clear boundaries around tools, models, policy, engine, CLI, gateway, and worker jobs
 - A bounded self-evolution path: committed trajectory -> skill proposal -> review -> safe apply -> reload visibility -> snapshot rollback
+- Role-oriented operating surface for changing duties, routing work, and supervising growth
 - Benchmarks and operator-facing docs for regression checking and boundary review
 
-## What It Does Not Promise
+## The Positioning
 
-- It is not a ready-made vertical agent product
-- It is not an unbounded autonomous self-modifying system
-- It is not yet a stable external plugin marketplace or public SDK
+Director Angel OS is for the next phase of agents: not assistants that wait, not scripts that break, not demos that impress once and disappear.
+
+It is for agents that hold a job, work across sessions, produce evidence, accept supervision, remember what matters, and evolve only through a visible operating lane.
 
 ## Quick Start
 
@@ -80,7 +103,7 @@ If you want the shortest end-to-end path from clone to a real recoverable sessio
 
 Run the commands sequentially. Wait for each command to finish before starting the next one.
 
-The first-run path uses the built-in `scripted` provider, so you can validate the chassis before wiring a real model API.
+The first-run path uses the built-in `scripted` provider, so you can validate the operating loop before wiring a real model API.
 
 ```sh
 pnpm install

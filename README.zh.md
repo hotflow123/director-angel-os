@@ -7,37 +7,59 @@
 [![Node Version](https://img.shields.io/badge/node-%3E%3D22%20%3C25-blue.svg)](./package.json)
 [![pnpm](https://img.shields.io/badge/pnpm-%3E%3D10-orange.svg)](./package.json)
 
-> 一句话：Director Angel OS 是一个用 TypeScript 写的「AI Agent 操作系统骨架」。
-> 如果最终的 Agent 产品是一辆车，Director Angel OS 更像它的底盘：会话运行时、工具执行边界、控制面、记忆边界，以及一条受控学习闭环。
+> 一句话：Director Angel OS 把一个「职位」变成可治理、可执行、可成长的 AI 数字岗位。
+> 改职位，就改职责图谱；改职责，就改工具、记忆、任务、审查和进化路径。它不是一个泛泛聊天助手，而是一套让 Agent 按岗位长期工作的操作系统。
 
-[为什么是 Director Angel OS](#为什么是-director-angel-os) · [当前能力](#当前已经包含) · [快速开始](#快速开始) · [黄金路径](#30-分钟最小黄金路径) · [架构文档](./docs/architecture.md) · [更多文档](#深入阅读)
+[过去-现在-未来](#过去-现在-未来) · [为什么是 Director Angel OS](#为什么是-director-angel-os) · [职位驱动的-agent-os](#职位驱动的-agent-os) · [当前能力](#当前已经包含) · [快速开始](#快速开始) · [黄金路径](#30-分钟最小黄金路径) · [架构文档](./docs/architecture.md) · [更多文档](#深入阅读)
 
 ```text
-workspace -> session -> journal/checkpoint -> tools/models/policy -> tasks/delegation/verification -> proposal/review/safe apply
+职位 -> 职责 -> 会话 -> 工具/模型/策略 -> 任务执行 -> 证据 -> 记忆 -> 审查后进化
 ```
 
-Director Angel OS 是一个基于 MIT 协议的 TypeScript monorepo，用来搭建真正可运行、可恢复、可治理的 Agent 底层系统，而不是每次都从空白仓库重造一遍运行底座。
+Director Angel OS 是一个基于 MIT 协议的 TypeScript Agent OS，用来打造真正能上岗的 AI 数字执行体：知道自己的职位，理解职责边界，通过受控工具执行任务，留下证据，沉淀记忆，并在审查后持续进化。
+
+核心判断很简单：未来的 Agent 不应该只是一个 prompt 加几个工具。它应该有职位，有职责，有边界，有记忆，有审计，有恢复能力，也有一条可见、可回滚、可监督的自我升级通道。
 
 注意：仓库内部目前仍然保留历史包命名 `hotflow` / `@hotflow/*`。
 
+## 过去-现在-未来
+
+过去：大多数 Agent 只是无状态 prompt wrapper。它能回答、能调用工具、能串几步流程，但真正有价值的工作上下文、职责边界、执行证据和经验沉淀，经常在一次会话结束后就散掉。
+
+现在：Director Angel OS 把「职位」变成 runtime 单位。职位决定它能做什么、不能做什么、能用哪些工具、要交付什么证据、能调用哪些记忆、怎样被审查、怎样在安全边界内升级。
+
+未来：每一个严肃岗位都可以部署成一个长期在线的数字执行体。你可以把它设成研究员、导演、运营、审核员、任务工人、行业专家；当职位改变，职责和能力随之演化，系统仍然保留治理、审计和回滚能力。
+
 ## 为什么是 Director Angel OS
 
-- 它是底盘，不是 demo：你可以直接在上面装自己的 Agent 产品，而不是先重造运行底座
-- 默认就是可恢复的：session、journal、checkpoint、resume 已经是运行时模型的一部分
-- 学习闭环是受控的：proposal -> review -> safe apply -> rollback 这条链路天然可检查、可审查
-- 操作面已经在仓库里：CLI、gateway、worker-jobs、control-plane 这些边界都不是事后补的
-- TypeScript-first monorepo：适合真正想搭系统、而不是只写一个实验脚本的团队
+真实痛点很硬：
 
-## 它是什么
+- 只靠 prompt 的 Agent 没有岗位边界。它会漂移、越权、重复问上下文，最后变成人类不断擦屁股。
+- 只会调工具的 Agent 缺少执行证据。你拿到结果，却很难确认它为什么这么做、做过什么、哪里失败过。
+- 记忆如果只是大杂烩，会从资产变成污染源。经验必须可分层、可检索、可清理、可审查。
+- 自我进化如果不受控，就是风险；如果只是口号，就是玩具。Director Angel OS 把它收进 proposal -> review -> safe apply -> rollback 的硬流程。
+- 多 Agent 协作如果没有任务平面、委派、验证、队列和状态，就会很快变成混乱聊天群。
 
-Director Angel OS 不是一个现成可用的垂直 Agent 产品。
-它更像 Agent 产品下面的底层结构件：会话存储、journal/checkpoint 恢复、任务平面、工具/模型/策略边界、CLI 与 gateway 入口、worker-jobs，以及一条受控的 proposal -> review -> safe apply -> rollback 路径。
+Director Angel OS 解决的是操作系统级问题，不是 prompt 小技巧。
+
+## 职位驱动的 Agent OS
+
+Director Angel OS 的 Agent 从职位开始：
+
+- `Researcher`：搜集资料、保留来源、沉淀可复用知识
+- `Director`：把意图拆成计划、镜头、场景、任务和审查循环
+- `Operator`：执行流程、追踪状态、处理中断和恢复
+- `Reviewer`：检查输出、审查证据、阻断不安全变更
+- `Worker`：消费任务、汇报进度、返回结构化结果
+
+职位可以随时改。职位一改，职责、工具权限、记忆访问、任务路由、验证标准和自我进化规则都可以跟着改。这才是重点：Agent 不是靠一个万能提示词装聪明，而是从岗位职责里长出能力。
 
 ## 适合谁
 
-- 想搭建严肃 Agent runtime，而不是只做 prompt demo 的团队
-- 需要 session、恢复、审计、任务分发和受控演化边界的产品团队
-- 想从一个有结构的 TypeScript 底座起步的工程师和研究者
+- 想要 AI 员工，而不是聊天窗口加按钮的团队
+- 需要 session、恢复、审计、任务分发、证据链和职责边界的产品团队
+- 想做岗位型 Agent、行业型 Agent、长期运行 Agent 的工程师
+- 研究记忆、委派、验证、自我进化和 Agent 组织形态的人
 
 ## 当前已经包含
 
@@ -45,13 +67,14 @@ Director Angel OS 不是一个现成可用的垂直 Agent 产品。
 - 包含 todos、delegation、verification、proposal queue、outbox 的 task-plane 原语
 - 清晰的 tools、models、policy、engine、CLI、gateway、worker-jobs 边界
 - 一条受控的自我进化路径：committed trajectory -> skill proposal -> review -> safe apply -> reload visibility -> snapshot rollback
+- 面向职位变化、职责演化、任务路由和成长监督的操作面
 - 用于回归检查和边界验证的 benchmark 与 operator 文档
 
-## 它不承诺什么
+## 定位
 
-- 它不是一个开箱即用的垂直 Agent 产品
-- 它不是一个无边界自动自我修改系统
-- 它还不是稳定的外部 plugin marketplace 或 public SDK
+Director Angel OS 面向的是下一阶段 Agent：不是等你一句一句喂的助手，不是跑一次就散的脚本，不是演示时惊艳、落地时失控的 demo。
+
+它面向能长期持有岗位、跨会话工作、留下证据、接受监督、沉淀经验，并在可审查通道里持续进化的数字执行体。
 
 ## 快速开始
 
@@ -80,7 +103,7 @@ pnpm verify
 
 请一条一条顺序执行，等上一条命令结束后再跑下一条。
 
-首跑路径默认使用内置的 `scripted` provider，所以你可以先验证底盘跑通，再接真实模型 API。
+首跑路径默认使用内置的 `scripted` provider，所以你可以先验证运行链路，再接真实模型 API。
 
 ```sh
 pnpm install

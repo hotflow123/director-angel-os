@@ -2,14 +2,16 @@
 
 ## One Sentence / 一句话
 
-`Director Angel OS` is the chassis under an agent product: it gives you the runtime, session model, tool boundaries, control plane, and controlled learning lane so you do not have to rebuild them from scratch.
+`Director Angel OS` turns a role into a governed AI operator: responsibilities, sessions, tools, policies, task execution, evidence, memory, and reviewed evolution move through one operating model.
 
-`Director Angel OS` 就像 Agent 产品下面的汽车底盘：它先把运行时、会话模型、工具边界、控制面和受控学习闭环搭好，这样你不用每次都从零重造一遍。
+`Director Angel OS` 把一个职位变成可治理的 AI 数字执行体：职责、会话、工具、策略、任务执行、证据、记忆和审查后进化，都进入同一套操作模型。
 
 ## Big Picture / 整体结构
 
 ```text
-User / External Trigger
+Role / Position
+  -> Responsibility Graph
+  -> User / External Trigger
   -> CLI or Gateway
   -> Session + Journal + Checkpoint
   -> Engine
@@ -32,16 +34,27 @@ They receive input from a person or another system and pass it into the runtime.
 - `apps/cli`: local operator-facing command line
 - `apps/gateway`: minimal HTTP entry for channel-style traffic
 
+### Role and Responsibility / 职位与职责
+
+The role is the operating identity.
+A role determines what the agent should try to accomplish, which tools it can use, how memory should be scoped, what evidence matters, and which evolution proposals are acceptable.
+
+职位是操作身份。
+职位决定 Agent 应该完成什么、能使用什么工具、记忆如何分层、什么证据重要、哪些进化提案可以被接受。
+
+This is the difference between a chatbot and a digital operator: the operator has a job.
+这就是聊天助手和数字执行体的差别：数字执行体有岗位。
+
 ### Session, Journal, Checkpoint / 会话、日志、检查点
 
 This is the persistence spine.
 Instead of treating every prompt as stateless, Director Angel OS stores session state, appends journal events, and uses checkpoints for recovery.
 
-这是持久化主骨架。
+这是持久化主干。
 Director Angel OS 不把每次提示词都当成无状态请求，而是保存 session、追加 journal 事件，并通过 checkpoint 支持恢复。
 
-That is one of the reasons it feels like an operating layer instead of a one-shot demo.
-这也是它更像“操作系统底盘”而不是“一次性 demo”的原因之一。
+That is one of the reasons it behaves like an operating layer instead of a one-shot prompt wrapper.
+这也是它更像“操作系统层”而不是“一次性 prompt wrapper”的原因之一。
 
 ### Engine / Engine
 
@@ -92,8 +105,8 @@ It lets you inspect status, review proposals, and handle operational actions wit
 Control plane 是运维和操作面。
 你可以通过它查看状态、审核 proposal、处理操作动作，而不是把所有东西都塞进一个巨大 `run` 命令里。
 
-This is one of the clearest differences between an agent chassis and a prompt demo.
-这也是 Agent 底盘和 prompt demo 最明显的差别之一。
+This is one of the clearest differences between a governed operator and a one-shot prompt.
+这也是可治理数字执行体和一次性 prompt 最明显的差别之一。
 
 ### Task Plane / 任务平面
 
@@ -161,29 +174,32 @@ Instead, it says:
 That keeps the learning lane inspectable and reviewable.
 这样学习闭环才是可检查、可审查、可回看的。
 
-## Why This Is A Chassis / 为什么说它是“底盘”
+## Why This Is Role-Driven / 为什么它是职位驱动
 
-Director Angel OS is not trying to be your final agent product.
+Director Angel OS starts from the job.
 
-Director Angel OS 不是你的最终 Agent 产品。
+Director Angel OS 从岗位开始。
 
-It gives you:
-它先给你：
+It gives a role:
+它给一个职位配上：
 
-- the runtime floor
-- the persistence spine
-- the tool and policy boundaries
-- the operator surface
-- the controlled learning lane
+- runtime identity
+- responsibility boundaries
+- session persistence
+- tool and policy boundaries
+- task and verification surfaces
+- evidence and memory loops
+- controlled learning lane
 
-Then you build your own upper body on top:
-然后你再往上装自己的业务外壳：
+Then you build the actual job:
+然后你定义具体岗位：
 
 - your own prompts
 - your own workflows
 - your own provider mix
 - your own product UI
 - your own business logic
+- your own responsibility graph
 
 ## Recommended Reading Order / 建议阅读顺序
 
