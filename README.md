@@ -10,7 +10,7 @@
 > Director Angel OS is a role-driven Agent OS: define a position, set its responsibility boundaries, and let the runtime bind sessions, tools, memory, evidence, review, and evolution to that job.
 > This repository currently demonstrates the Director role. The larger product direction is user-defined roles: researcher, operator, reviewer, worker, domain expert, or any custom position with explicit responsibility boundaries.
 
-[Past, Present, Future](#past-present-future) · [Why Director Angel OS](#why-director-angel-os) · [Role-Driven OS](#role-driven-agent-os) · [Capabilities](#included-today) · [Quick Start](#quick-start) · [Golden Path](#30-minute-minimal-golden-path) · [Architecture](./docs/architecture.md) · [Docs](#read-more)
+[Past, Present, Future](#past-present-future) · [Why Director Angel OS](#why-director-angel-os) · [Role-Driven OS](#role-driven-agent-os) · [Capabilities](#included-today) · [Integrations](#external-tools-adapters-and-plugins) · [Quick Start](#quick-start) · [Golden Path](#30-minute-minimal-golden-path) · [Architecture](./docs/architecture.md) · [Docs](#read-more)
 
 ```text
 role -> responsibility -> session -> tools/models/policy -> task execution -> evidence -> memory -> reviewed evolution
@@ -74,10 +74,31 @@ The position can change. When it changes, responsibilities, tool permissions, me
 - Session-aware runtime with journal, checkpoints, resume, and recovery
 - Task-plane primitives including todos, delegation, verification, proposal queue, and outbox
 - Clear boundaries around tools, models, policy, engine, CLI, gateway, and worker jobs
+- Host API external tool control plane with tool catalog, effective tools, and tool invocation endpoints
+- Adapter registry for model, media, execution, and host capability routing
+- `moyin-creator` / 魔因漫创 integration through the local `moyin` CLI/control-plane boundary
+- ComfyUI media adapter/provider bridge for workflow inspection, execution, watching, artifacts, and lifecycle diagnostics
+- Built-in in-repo plugins plus a governed plugin contract for tools, providers, memory, and external knowledge connectors
 - A bounded self-evolution path: committed trajectory -> skill proposal -> review -> safe apply -> reload visibility -> snapshot rollback
 - Director-role demonstration content for the current public release
 - Role-oriented operating surface for changing duties, routing work, and supervising growth
 - Benchmarks and operator-facing docs for regression checking and boundary review
+
+## External Tools, Adapters, and Plugins
+
+Director Angel OS is built to connect a role to real execution surfaces without turning the agent into an unbounded script runner.
+
+Current integration surfaces include:
+
+- `moyin-creator` / 魔因漫创: local `moyin` CLI/control-plane provider for creative production workflows, task operations, project/workflow discovery, artifacts, memory, and governed submit/watch/cancel flows
+- `ComfyUI`: media adapter/provider bridge for local or cloud ComfyUI workflows, with health, dependency diagnostics, run/watch, artifact fetch, and lifecycle operations
+- Host API tools: `/v1/tools/catalog`, `/v1/tools/effective`, `/v1/tools/invoke`, and `/v1/catalog/model-adapters`
+- Internal plugins: built-in scripted provider and filesystem read tool, loaded through in-repo manifests and typed registration
+- Plugin contracts: a governed contract surface for tools, providers, memory providers, and external knowledge connectors
+
+Boundary: this is not a public plugin marketplace yet. External tools run through manifests, health checks, policy, approval boundaries, and evidence. ComfyUI still needs a reachable ComfyUI service or valid local setup; `moyin-creator` / 魔因漫创 mutation and submit paths stay behind operator confirmation. Some internal code and scripts still use historical names such as `moyin.provider`.
+
+Read the full integration map: [docs/integrations.md](./docs/integrations.md).
 
 ## The Positioning
 
@@ -220,6 +241,7 @@ Useful environment overrides:
 ## Read More
 
 - [docs/architecture.md](./docs/architecture.md)
+- [docs/integrations.md](./docs/integrations.md)
 - [docs/operator-guide.md](./docs/operator-guide.md)
 - [docs/failure-and-degrade-guide.md](./docs/failure-and-degrade-guide.md)
 - [docs/open-source-boundaries.md](./docs/open-source-boundaries.md)

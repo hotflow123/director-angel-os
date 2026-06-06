@@ -86,6 +86,12 @@ It is separated from the engine so provider-specific logic does not leak into ev
 这层负责调用大模型 provider。
 它和 engine 分开，是为了避免 provider 逻辑污染整个系统。
 
+Model and media capability routing can be represented through adapter manifests and runtime capability snapshots.
+Adapter health, bridge metadata, approval mode, permission scopes, and supported media modes stay visible to the runtime.
+
+模型和媒体能力路由可以通过 adapter manifest 和 runtime capability snapshot 表达。
+Adapter 健康状态、bridge 元数据、审批模式、权限范围和支持的媒体模式都会暴露给运行时。
+
 ### Tool Runtime / 工具运行时
 
 This is how the agent touches the outside world.
@@ -100,6 +106,15 @@ Why it matters:
 - permission boundaries are clearer
 - audit is easier to keep
 - failures are easier to degrade safely
+
+The current repository also includes a Host API external tool control plane.
+It exposes catalog, effective-tools, and invoke paths so channels can reuse one governed tool surface instead of each building their own execution path.
+
+当前仓库也包含 Host API 外部工具控制面。
+它提供 catalog、effective-tools 和 invoke 路径，让不同通道复用同一个受治理工具面，而不是各自实现执行链路。
+
+See [integrations.md](./integrations.md) for the current `moyin-creator` / 魔因漫创, ComfyUI, adapter, and plugin boundaries.
+当前 `moyin-creator` / 魔因漫创、ComfyUI、adapter 和插件边界见 [integrations.md](./integrations.md)。
 
 ### Policy Runtime / 策略运行时
 

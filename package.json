@@ -10,7 +10,11 @@
     "session-aware-agents",
     "tool-using-agents",
     "policy-governed-agents",
-    "operator-controlled-learning"
+    "operator-controlled-learning",
+    "moyin-creator",
+    "comfyui",
+    "external-tools",
+    "plugin-contracts"
   ],
   "type": "module",
   "packageManager": "pnpm@10.28.0",
